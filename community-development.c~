@@ -830,8 +830,6 @@ float phase_weighted(dynamic_weighted_graph *dwg, float minimum_improvement, int
 				gain = to_neighbor_modularity_delta - removal_loss;
 				if(gain > MINIMUM_TRANSFER_GAIN) {
 					// Put computed potential transfer in its correct position for later community pairing selection
-					
-					// TODO CRITICAL Shouldn't it be cd.cumulative_edge_number + i - 1 ?
 					set_exchange_ranking((cd.exchange_ranking + *(cd.cumulative_edge_number + i) + number_of_neighbor_communities),i,neighbor->community,current_community_k_i_in, neighbor->k_i_in,gain);
 
 					number_of_neighbor_communities += 1;

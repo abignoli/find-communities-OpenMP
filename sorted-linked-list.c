@@ -2,6 +2,10 @@
 #include "sorted-linked-list.h"
 #include <stdio.h>
 
+void sorted_linked_list_init(sorted_linked_list *sll) {
+	sll->head = NULL;
+}
+
 int sorted_linked_list_insert(sorted_linked_list *sll, int community, int k_i_in) {
 	sorted_linked_list_elem *current;
 	sorted_linked_list_elem *previous;
