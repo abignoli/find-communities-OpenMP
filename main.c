@@ -5,6 +5,8 @@
 #include <stdio.h>
 #include <time.h>
 
+#include <omp.h>
+
 #define NUM_THREADS 4
 
 int main(int argc, char * argv[]){
@@ -14,8 +16,9 @@ int main(int argc, char * argv[]){
 	int *community_vector, *sequential_community_vector;
 
 	clock_t begin, end;
+	double begin_wtime, end_wtime;
 	double sequential_time;
-	double parallel_sequential_time;
+	double parallel_sequential_time_clock, parallel_sequential_time_wtime;
 
 	int i;
 	int num_threads = NUM_THREADS;
@@ -74,10 +77,13 @@ int main(int argc, char * argv[]){
 
 		// Parallel version
 		begin = clock();
+		begin_wtime = omp_get_wtime( );
 		if(phase_weighted(&dwg,0.0,&output_dwg,&community_vector) == ILLEGAL_MODULARITY_VALUE)
 				printf("Parallel phase execution terminated with errors!\n");
+		end_wtime = omp_get_wtime( );
 		end = clock();
-		parallel_sequential_time = (double)(end - begin) / CLOCKS_PER_SEC;
+		parallel_sequential_time_clock = (double)(end - begin) / CLOCKS_PER_SEC;
+		parallel_sequential_time_wtime = end_wtime - begin_wtime;
 
 		// Sequential version
 		begin = clock();
@@ -95,7 +101,7 @@ int main(int argc, char * argv[]){
 //		for(i = 0; i < dwg.size; i++)
 //			printf("%d ", *(community_vector + i));
 
-		printf("Execution time for parallel version executed in a sequential way: %f\n", parallel_sequential_time);
+		printf("Execution time for parallel version executed in a sequential way: %f (wtime) - %f (clock)\n",parallel_sequential_time_wtime ,parallel_sequential_time_clock);
 		printf("Re-computed modularity for parallel version (from vector): %f\n\n", compute_modularity_community_vector_weighted(&dwg, community_vector));
 
 //		printf("Sequential version output:\n\n");

@@ -10,7 +10,7 @@
 #define printf(...)
 #endif
 
-#define MINIMUM_PARTITION_SIZE 50000
+#define MINIMUM_PARTITION_SIZE 100
 
 inline void set_exchange_ranking(community_exchange *ce, int node, int dest, int k_i_in_src, int k_i_in_dest, double modularity_delta) {
 	ce->node = node;

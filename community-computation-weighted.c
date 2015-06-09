@@ -438,7 +438,7 @@ double phase_weighted(dynamic_weighted_graph *dwg, double minimum_improvement, d
 
 		// Do the parallel iterations over all nodes
 		// TODO put Parallel for - Everything else is good to go
-//#pragma omp parallel for default(shared) schedule(dynamic,NODE_ITERATION_CHUNK_SIZE) private(i, node_exchanges_base_pointer, number_of_neighbor_communities,neighbors, current_community_k_i_in, removal_loss, neighbor, mcp, to_neighbor_modularity_delta, gain) reduction(||:neighbor_communities_bad_computation)
+#pragma omp parallel for default(shared) schedule(dynamic,NODE_ITERATION_CHUNK_SIZE) private(i, node_exchanges_base_pointer, number_of_neighbor_communities,neighbors, current_community_k_i_in, removal_loss, neighbor, mcp, to_neighbor_modularity_delta, gain) reduction(||:neighbor_communities_bad_computation)
 		for(i = 0; i < dwg->size; i++) {
 
 			printf("NODE ITERATION - Thread #%d on node %d\n", omp_get_thread_num(), i);
@@ -545,7 +545,7 @@ double phase_weighted(dynamic_weighted_graph *dwg, double minimum_improvement, d
 			// Parallel updates for the communities
 
 			// TODO Parallel for
-//#pragma omp parallel for schedule(dynamic,EXCHANGE_CHUNK_SIZE) default(shared) private(i)
+#pragma omp parallel for schedule(dynamic,EXCHANGE_CHUNK_SIZE) default(shared) private(i)
 			for(i = 0; i < total_exchanges; i++)
 				if(*(selected + i))
 					apply_transfer_weighted(dwg,&cd,sorted_output_multi_thread+i);
