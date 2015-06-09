@@ -1,0 +1,362 @@
+
+
+------------ Printing graph ------------
+
+Number of nodes: 26
+Maximum observed vertex: 25
+Edges:
+Node 0: (4 42) (12 3) 
+Node 1: (4 21) (23 32) 
+Node 2: 
+Node 3: 
+Node 4: (0 42) (1 21) 
+Node 5: 
+Node 6: 
+Node 7: 
+Node 8: (20 1) 
+Node 9: (15 -23) (21 23) 
+Node 10: (14 13) 
+Node 11: 
+Node 12: (0 3) (14 21) 
+Node 13: 
+Node 14: (10 13) (25 23) (12 21) 
+Node 15: (9 -23) 
+Node 16: 
+Node 17: 
+Node 18: 
+Node 19: 
+Node 20: (8 1) 
+Node 21: (9 23) 
+Node 22: 
+Node 23: (1 32) 
+Node 24: 
+Node 25: (14 23) 
+
+
+------------ End of printing graph ------------
+
+Executing a phase.
+
+
+
+---------------- PRINTING COMMUNITY DEVELOPER ----------------
+
+Number of nodes: 26
+Total weight in graph: 312
+
+-- Node 0:
+
+Community: 0
+Neighbor communities: -1736796232
+Incoming node weight: 45
+Cumulative edge number: 2
+
+ -- Node 1:
+
+Community: 1
+Neighbor communities: 32631
+Incoming node weight: 53
+Cumulative edge number: 4
+
+ -- Node 2:
+
+Community: 2
+Neighbor communities: -1736796232
+Incoming node weight: 0
+Cumulative edge number: 4
+
+ -- Node 3:
+
+Community: 3
+Neighbor communities: 32631
+Incoming node weight: 0
+Cumulative edge number: 4
+
+ -- Node 4:
+
+Community: 4
+Neighbor communities: 0
+Incoming node weight: 63
+Cumulative edge number: 6
+
+ -- Node 5:
+
+Community: 5
+Neighbor communities: 0
+Incoming node weight: 0
+Cumulative edge number: 6
+
+ -- Node 6:
+
+Community: 6
+Neighbor communities: 0
+Incoming node weight: 0
+Cumulative edge number: 6
+
+ -- Node 7:
+
+Community: 7
+Neighbor communities: 0
+Incoming node weight: 0
+Cumulative edge number: 6
+
+ -- Node 8:
+
+Community: 8
+Neighbor communities: 21192544
+Incoming node weight: 1
+Cumulative edge number: 7
+
+ -- Node 9:
+
+Community: 9
+Neighbor communities: 0
+Incoming node weight: 0
+Cumulative edge number: 9
+
+ -- Node 10:
+
+Community: 10
+Neighbor communities: 0
+Incoming node weight: 13
+Cumulative edge number: 10
+
+ -- Node 11:
+
+Community: 11
+Neighbor communities: 0
+Incoming node weight: 0
+Cumulative edge number: 10
+
+ -- Node 12:
+
+Community: 12
+Neighbor communities: 100
+Incoming node weight: 24
+Cumulative edge number: 12
+
+ -- Node 13:
+
+Community: 13
+Neighbor communities: 0
+Incoming node weight: 0
+Cumulative edge number: 12
+
+ -- Node 14:
+
+Community: 14
+Neighbor communities: 21193360
+Incoming node weight: 57
+Cumulative edge number: 15
+
+ -- Node 15:
+
+Community: 15
+Neighbor communities: 0
+Incoming node weight: -23
+Cumulative edge number: 16
+
+ -- Node 16:
+
+Community: 16
+Neighbor communities: 0
+Incoming node weight: 0
+Cumulative edge number: 16
+
+ -- Node 17:
+
+Community: 17
+Neighbor communities: 0
+Incoming node weight: 0
+Cumulative edge number: 16
+
+ -- Node 18:
+
+Community: 18
+Neighbor communities: 100
+Incoming node weight: 0
+Cumulative edge number: 16
+
+ -- Node 19:
+
+Community: 19
+Neighbor communities: 0
+Incoming node weight: 0
+Cumulative edge number: 16
+
+ -- Node 20:
+
+Community: 20
+Neighbor communities: 21194176
+Incoming node weight: 1
+Cumulative edge number: 17
+
+ -- Node 21:
+
+Community: 21
+Neighbor communities: 0
+Incoming node weight: 23
+Cumulative edge number: 18
+
+ -- Node 22:
+
+Community: 22
+Neighbor communities: 0
+Incoming node weight: 0
+Cumulative edge number: 18
+
+ -- Node 23:
+
+Community: 23
+Neighbor communities: 0
+Incoming node weight: 32
+Cumulative edge number: 19
+
+ -- Node 24:
+
+Community: 24
+Neighbor communities: 100
+Incoming node weight: 0
+Cumulative edge number: 19
+
+ -- Node 25:
+
+Community: 25
+Neighbor communities: 0
+Incoming node weight: 23
+Cumulative edge number: 20
+
+ -- Community 45:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 53:
+
+Incoming weight: 0
+Internal weight: 4
+
+-- Community 0:
+
+Incoming weight: 0
+Internal weight: 8
+
+-- Community 0:
+
+Incoming weight: 0
+Internal weight: 12
+
+-- Community 63:
+
+Incoming weight: 0
+Internal weight: 16
+
+-- Community 0:
+
+Incoming weight: 0
+Internal weight: 20
+
+-- Community 0:
+
+Incoming weight: 0
+Internal weight: 24
+
+-- Community 0:
+
+Incoming weight: 0
+Internal weight: 28
+
+-- Community 1:
+
+Incoming weight: 0
+Internal weight: 32
+
+-- Community 0:
+
+Incoming weight: 0
+Internal weight: 36
+
+-- Community 13:
+
+Incoming weight: 0
+Internal weight: 40
+
+-- Community 0:
+
+Incoming weight: 0
+Internal weight: 44
+
+-- Community 24:
+
+Incoming weight: 0
+Internal weight: 48
+
+-- Community 0:
+
+Incoming weight: 0
+Internal weight: 52
+
+-- Community 57:
+
+Incoming weight: 0
+Internal weight: 56
+
+-- Community -23:
+
+Incoming weight: 0
+Internal weight: 60
+
+-- Community 0:
+
+Incoming weight: 0
+Internal weight: 64
+
+-- Community 0:
+
+Incoming weight: 0
+Internal weight: 68
+
+-- Community 0:
+
+Incoming weight: 0
+Internal weight: 72
+
+-- Community 0:
+
+Incoming weight: 0
+Internal weight: 76
+
+-- Community 1:
+
+Incoming weight: 0
+Internal weight: 80
+
+-- Community 23:
+
+Incoming weight: 0
+Internal weight: 84
+
+-- Community 0:
+
+Incoming weight: 0
+Internal weight: 88
+
+-- Community 32:
+
+Incoming weight: 0
+Internal weight: 92
+
+-- Community 0:
+
+Incoming weight: 0
+Internal weight: 96
+
+-- Community 23:
+
+Incoming weight: 0
+Internal weight: 100
+
+
+
+------------- END OF PRINTING COMMUNITY DEVELOPER -------------
+

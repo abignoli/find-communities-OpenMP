@@ -1,3 +1,6 @@
+#ifndef SORTED_LINKED_LIST_H
+#define SORTED_LINKED_LIST_H
+
 typedef struct sorted_linked_list_elem {
 	int community;
 	int k_i_in;
@@ -12,3 +15,5 @@ typedef struct sorted_linked_list {
 int sorted_linked_list_insert(sorted_linked_list *sll, int community, int k_i_in);
 
 void sorted_linked_list_free(sorted_linked_list *sll);
+
+#endif

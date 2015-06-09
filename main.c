@@ -1,11 +1,31 @@
 #include "dynamic-weighted-graph.h"
+#include "community-computation-weighted.h"
 #include "community-development.h"
+#include "community-computation-weighted-sequential.h"
+#include <stdio.h>
+#include <time.h>
+
+#define NUM_THREADS 4
 
 int main(int argc, char * argv[]){
 	dynamic_weighted_graph dwg;
 
-	dynamic_weighted_graph output_dwg;
-	int *community_vector;
+	dynamic_weighted_graph *output_dwg, *sequential_output_dwg;
+	int *community_vector, *sequential_community_vector;
+
+	clock_t begin, end;
+	double sequential_time;
+	double parallel_sequential_time;
+
+	int i;
+	int num_threads = NUM_THREADS;
+
+	int reference_solution_example[] = { 0, 0, 0, 1, 0, 0, 1, 1, 2, 2, 2, 3, 2, 3, 2, 2};
+
+#ifdef _OPENMP
+	/* Set the number of threads */
+	omp_set_num_threads(num_threads);
+#endif
 
 //	if(argc != 2) {
 //		printf("Wrong number of arguments!\n");
@@ -15,15 +35,80 @@ int main(int argc, char * argv[]){
 //
 //	dynamic_weighted_graph_parse_file(&dwg, argv[1]);
 
-	if(dynamic_weighted_graph_parse_file(&dwg, "test.txt")) {
-		dynamic_weighted_graph_print(dwg);
+//	if(dynamic_weighted_graph_parse_file(&dwg, "example.txt")) {
+//		dynamic_weighted_graph_print(dwg);
+//
+//		printf("Executing a phase.\n\n");
+//
+//		phase_weighted(&dwg,0.0,4,&output_dwg,&community_vector);
+//		phase_weighted_sequential(&dwg,0.0,&sequential_output_dwg,&sequential_community_vector);
+//
+//		printf("\n\n------ CHECK RESULTS -------\n\n");
+//
+//		printf("Parallel version output:\n\n");
+//		dynamic_weighted_graph_print(*output_dwg);
+//
+//		printf("\n\nCommunity vector:\n\n");
+//		for(i = 0; i < dwg.size; i++)
+//			printf("%d ", *(community_vector + i));
+//
+//		printf("\n\nRe-computed modularity for parallel version (from vector): %f\n\n", compute_modularity_community_vector_weighted(&dwg, community_vector));
+//
+//		printf("Sequential version output:\n\n");
+//		dynamic_weighted_graph_print(*sequential_output_dwg);
+//
+//		printf("\n\nCommunity vector:\n\n");
+//		for(i = 0; i < dwg.size; i++)
+//			printf("%d ", *(sequential_community_vector + i));
+//
+//		printf("\n\nRe-computed modularity for sequential version (from vector): %f\n\n", compute_modularity_community_vector_weighted(&dwg, sequential_community_vector));
+//
+//		printf("\n\nReference solution modularity (from vector): %f\n\n", compute_modularity_community_vector_weighted(&dwg, reference_solution_example));
+//	} else
+//		printf("Could not read input graph!");
+
+	if(dynamic_weighted_graph_parse_file(&dwg, "arxiv.txt")) {
+//		dynamic_weighted_graph_print(dwg);
 
 		printf("Executing a phase.\n\n");
 
-		phase_weighted(&dwg,0,4,&output_dwg,&community_vector);
+		// Parallel version
+		begin = clock();
+		if(phase_weighted(&dwg,0.0,&output_dwg,&community_vector) == ILLEGAL_MODULARITY_VALUE)
+				printf("Parallel phase execution terminated with errors!\n");
+		end = clock();
+		parallel_sequential_time = (double)(end - begin) / CLOCKS_PER_SEC;
 
-		printf("End of phase. Output:\n\n");
-		dynamic_weighted_graph_print(output_dwg);
+		// Sequential version
+		begin = clock();
+		if(phase_weighted_sequential(&dwg,0.0,&sequential_output_dwg,&sequential_community_vector) == ILLEGAL_MODULARITY_VALUE)
+			printf("Sequential phase execution terminated with errors!\n");
+		end = clock();
+		sequential_time =  (double)(end - begin) / CLOCKS_PER_SEC;
+
+		printf("\n\n------ CHECK RESULTS -------\n\n");
+
+//		printf("Parallel version output:\n\n");
+//		dynamic_weighted_graph_print(*output_dwg);
+//
+//		printf("\n\nCommunity vector:\n\n");
+//		for(i = 0; i < dwg.size; i++)
+//			printf("%d ", *(community_vector + i));
+
+		printf("Execution time for parallel version executed in a sequential way: %f\n", parallel_sequential_time);
+		printf("Re-computed modularity for parallel version (from vector): %f\n\n", compute_modularity_community_vector_weighted(&dwg, community_vector));
+
+//		printf("Sequential version output:\n\n");
+//		dynamic_weighted_graph_print(*sequential_output_dwg);
+//
+//		printf("\n\nCommunity vector:\n\n");
+//		for(i = 0; i < dwg.size; i++)
+//			printf("%d ", *(sequential_community_vector + i));
+
+		printf("Execution time for sequential version way: %f\n", sequential_time);
+		printf("Re-computed modularity for sequential version (from vector): %f\n\n", compute_modularity_community_vector_weighted(&dwg, sequential_community_vector));
+
+//		printf("\n\nReference solution modularity (from vector): %f\n\n", compute_modularity_community_vector_weighted(&dwg, reference_solution));
 	} else
 		printf("Could not read input graph!");
 

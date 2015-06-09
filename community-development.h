@@ -1,3 +1,18 @@
+#ifndef COMMUNITY_DEVELOPMENT_H
+#define COMMUNITY_DEVELOPMENT_H
+
+typedef struct community_exchange community_exchange;
+typedef struct dynamic_weighted_graph dynamic_weighted_graph;
+typedef struct sorted_linked_list sorted_linked_list;
+typedef struct temporary_community_edge temporary_community_edge;
+
+// Needs to be >= 0 otherwise the algorithm can't converge!
+#define MINIMUM_TRANSFER_GAIN 0
+#define ILLEGAL_MODULARITY_VALUE -2
+
+#define MINIMUM_LEGAL_IMPROVEMENT 0
+#define MAXIMUM_LEGAL_IMPROVEMENT 2
+
 typedef struct modularity_computing_package {
 	// Sum of the weights of the links internal to the community
 	int sum_in;
@@ -10,16 +25,6 @@ typedef struct modularity_computing_package {
 	// Sum of the weights in the graph
 	int double_m;
 } modularity_computing_package;
-
-typedef struct community_exchange {
-	// TODO Decide whether to memoize the delta relative to community parameters
-
-	int node;
-	int dest;
-	int k_i_in_src;
-	int k_i_in_dest;
-	float modularity_delta;
-} community_exchange;
 
 typedef struct community_developer {
 	// n is the number of vertices, which is also the number of communities considered in the phase
@@ -43,3 +48,16 @@ typedef struct community_developer {
 	// To be used to store modularity increments relative to node movement and then rank best pairings
 	community_exchange* exchange_ranking;
 } community_developer;
+
+void community_developer_free(community_developer *cd);
+
+void community_developer_print(community_developer *cd, int total_exchanges);
+
+inline void get_modularity_computing_package(modularity_computing_package *mcp,community_developer *cd, int node_index, int community_index, int k_i_in);
+
+inline double modularity_delta_unpackaged(int sum_in, int double_m, int sum_tot, int k_i, int k_i_in);
+
+inline double modularity_delta(modularity_computing_package *mcp);
+
+
+#endif

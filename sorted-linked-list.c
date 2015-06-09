@@ -60,7 +60,7 @@ void sorted_linked_list_free(sorted_linked_list *sll) {
 			free(current);
 			current = tmp_next;
 		}
-	}
 
-	sll->head = NULL;
+		sll->head = NULL;
+	}
 }

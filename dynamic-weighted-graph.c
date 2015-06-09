@@ -1,6 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "dynamic-weighted-graph.h"
+#include "shared-graph.h"
+#include "silent-switch.h"
+
+#ifdef SILENT_SWITCH_ON
+#define printf(...)
+#endif
 
 int dynamic_weighted_edge_array_init(dynamic_weighted_edge_array *da, int initSize)
 {
@@ -154,7 +160,7 @@ int dynamic_weighted_graph_insert(dynamic_weighted_graph *da, int n1, int n2, in
     if(maxn >= da->size) {
     	new_size = increase_size_policy(da->size, maxn+1);
 
-    	if(!dynamic_weighted_graph_resize(&da, new_size))
+    	if(!dynamic_weighted_graph_resize(da, new_size))
     		return 0;
     }
 
@@ -206,7 +212,13 @@ int dynamic_weighted_graph_reduce (dynamic_weighted_graph *dg) {
 	dynamic_weighted_graph_resize(dg, dg->maxn+1);
 
 	for(i = 0; i <= dg->maxn; i++)
-		dynamic_weighted_edge_array_resize((dg->edges + i), (dg->edges + i)->count);
+		if(!dynamic_weighted_edge_array_resize((dg->edges + i), (dg->edges + i)->count)) {
+			printf("Couldn't reduce dynamic array!\n");
+
+			return 0;
+		}
+
+	return 1;
 }
 
 
@@ -241,17 +253,33 @@ int dynamic_weighted_graph_parse_file(dynamic_weighted_graph *dg, char *filename
 }
 
 // Includes selfloop
-int dynamic_weighted_graph_node_degree(dynamic_weighted_graph *dg, int index) {
+int dynamic_weighted_graph_node_degree(dynamic_weighted_graph *dwg, int index) {
 	int result, i;
 
-	if(index < 0 || index > dg->size)
+	if(index < 0 || index > dwg->size)
 		return -1;
 	else {
-		result = (dg->edges+index)->self_loop;
+		result = (dwg->edges+index)->self_loop;
 
-		for(i = 0; i < (dg->edges+index)->count; i++)
-			result += ((dg->edges+index)->addr+i)->weight;
+		for(i = 0; i < (dwg->edges+index)->count; i++)
+			result += ((dwg->edges+index)->addr+i)->weight;
 	}
+
+	return result;
+}
+
+int dynamic_weighted_graph_double_m(dynamic_weighted_graph *dwg) {
+	int result = 0;
+	int i;
+
+	if(!dwg) {
+		printf("dynamic_weighted_graph_double_m - Input graph is NULL!\n");
+
+		return -1;
+	}
+
+	for(i = 0; i < dwg->size; i++)
+		result += dynamic_weighted_graph_node_degree(dwg, i);
 
 	return result;
 }

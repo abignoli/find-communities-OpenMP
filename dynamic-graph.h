@@ -1,5 +1,5 @@
-#define DEFAULT_INIT_NODES_SIZE 100
-#define DEFAULT_INIT_NEIGHBOURS_SIZE 100
+#ifndef DYNAMIC_GRAPH_H
+#define DYNAMIC_GRAPH_H
 
 //DynamicGraph
 
@@ -49,3 +49,5 @@ int dynamic_graph_reduce (dynamic_graph *dg);
 int dynamic_graph_parse_file(dynamic_graph *dg, char *filename);
 
 int dynamic_graph_node_degree(dynamic_graph *dg, int index);
+
+#endif

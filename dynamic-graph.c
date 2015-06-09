@@ -1,6 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "dynamic-graph.h"
+#include "shared-graph.h"
+#include "silent-switch.h"
+
+#ifdef SILENT_SWITCH_ON
+#define printf(...)
+#endif
 
 int dynamic_edge_array_init(dynamic_edge_array *da, int initSize)
 {
@@ -23,6 +29,7 @@ int dynamic_edge_array_insert(dynamic_edge_array *da, int dest)
 	// If more space is needed
 	if(da->count >= da->size)
 	{
+#define SILENT
 		new_size = increase_size_policy(da->size, da->size+1);
 
 		if(!dynamic_edge_array_resize(da, new_size))
@@ -153,7 +160,7 @@ int dynamic_graph_insert(dynamic_graph *da, int n1, int n2)
     if(maxn >= da->size) {
     	new_size = increase_size_policy(da->size, maxn+1);
 
-    	if(!dynamic_graph_resize(&da, new_size))
+    	if(!dynamic_graph_resize(da, new_size))
     		return 0;
     }
 
@@ -205,7 +212,13 @@ int dynamic_graph_reduce (dynamic_graph *dg) {
 	dynamic_graph_resize(dg, dg->maxn+1);
 
 	for(i = 0; i <= dg->maxn; i++)
-		dynamic_edge_array_resize((dg->edges + i), (dg->edges + i)->count);
+		if(!dynamic_edge_array_resize((dg->edges + i), (dg->edges + i)->count)) {
+			printf("Couldn't reduce dynamic array!\n");
+
+			return 0;
+		}
+
+	return 1;
 }
 
 // Assumption in file parsing: No duplicates, edge weights and numbers positive

@@ -1,5 +1,5 @@
-#define DEFAULT_INIT_NODES_SIZE 100
-#define DEFAULT_INIT_NEIGHBOURS_SIZE 100
+#ifndef DYNAMIC_WEIGHTED_GRAPH_H
+#define DYNAMIC_WEIGHTED_GRAPH_H
 
 //DynamicGraph
 
@@ -50,3 +50,7 @@ int dynamic_weighted_graph_reduce (dynamic_weighted_graph *dg);
 int dynamic_weighted_graph_parse_file(dynamic_weighted_graph *dg, char *filename);
 
 int dynamic_weighted_graph_node_degree(dynamic_weighted_graph *dg, int index);
+
+
+
+#endif
