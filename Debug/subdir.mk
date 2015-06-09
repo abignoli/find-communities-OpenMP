@@ -12,6 +12,7 @@ C_SRCS += \
 ../dynamic-graph.c \
 ../dynamic-weighted-graph.c \
 ../main.c \
+../parse-args.c \
 ../shared-graph.c \
 ../sorted-linked-list.c \
 ../temporary-community-edge.c \
@@ -27,6 +28,7 @@ OBJS += \
 ./dynamic-graph.o \
 ./dynamic-weighted-graph.o \
 ./main.o \
+./parse-args.o \
 ./shared-graph.o \
 ./sorted-linked-list.o \
 ./temporary-community-edge.o \
@@ -42,6 +44,7 @@ C_DEPS += \
 ./dynamic-graph.d \
 ./dynamic-weighted-graph.d \
 ./main.d \
+./parse-args.d \
 ./shared-graph.d \
 ./sorted-linked-list.d \
 ./temporary-community-edge.d \

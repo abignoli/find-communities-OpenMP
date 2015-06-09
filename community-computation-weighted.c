@@ -409,7 +409,8 @@ double phase_weighted(dynamic_weighted_graph *dwg, double minimum_improvement, d
 
 	int neighbor_communities_bad_computation;
 
-	if(!dwg || minimum_improvement < MINIMUM_LEGAL_IMPROVEMENT || minimum_improvement > MAXIMUM_LEGAL_IMPROVEMENT) {
+	// Minimum improvement refers to iteration improvement
+	if(!dwg || !valid_minimum_improvement(minimum_improvement)) {
 		printf("Invalid phase parameters!");
 
 		return ILLEGAL_MODULARITY_VALUE;
@@ -584,3 +585,5 @@ double phase_weighted(dynamic_weighted_graph *dwg, double minimum_improvement, d
 
 	return final_phase_modularity - initial_phase_modularity;
 }
+
+

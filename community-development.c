@@ -14,6 +14,10 @@
 #define printf(...)
 #endif
 
+int valid_minimum_improvement(double mi) {
+	return mi >= MINIMUM_LEGAL_IMPROVEMENT && mi <= MAXIMUM_LEGAL_IMPROVEMENT;
+}
+
 void community_developer_free(community_developer *cd) {
 
 	if(cd->vertex_community)

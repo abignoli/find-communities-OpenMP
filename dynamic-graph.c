@@ -3,6 +3,7 @@
 #include "dynamic-graph.h"
 #include "shared-graph.h"
 #include "silent-switch.h"
+#include "dynamic-weighted-graph.h"
 
 #ifdef SILENT_SWITCH_ON
 #define printf(...)
@@ -262,4 +263,36 @@ int dynamic_graph_node_degree(dynamic_graph *dg, int index) {
 		result = (dg->edges+index)->self_loop + (dg->edges+index)->count;
 
 	return result;
+}
+
+// Given weight will be assigned to each node in the graph
+int convert_to_weighted(dynamic_graph *dg, dynamic_weighted_graph *dwg, int weight){
+	int i,j;
+
+	dynamic_edge_array original_neighbors;
+
+	if(!dg || !dwg) {
+		printf("convert_to_weighted - null dg or dwg!\n");
+
+		return 0;
+	}
+
+	if(!dynamic_weighted_graph_init(dwg,DEFAULT_INIT_NODES_SIZE))
+		return 0;
+
+	for(i = 0; i < dg->size; i++) {
+		original_neighbors = *(dg->edges + i);
+		for(j = 0; j < original_neighbors.count; j++)
+			if(!dynamic_weighted_graph_insert(dwg,i,(original_neighbors.addr + j)->dest, weight)) {
+				printf("Could not insert edge %d - %d!\n", i, (original_neighbors.addr + j)->dest);
+				return 0;
+			}
+	}
+
+		// Reduce to optimal size
+		if(!dynamic_weighted_graph_reduce(dwg)) {
+			printf("Could not reduce graph size!\n");
+
+			return 0;
+		}
 }

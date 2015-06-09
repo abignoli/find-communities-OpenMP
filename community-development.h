@@ -49,6 +49,8 @@ typedef struct community_developer {
 	community_exchange* exchange_ranking;
 } community_developer;
 
+int valid_minimum_improvement(double mi);
+
 void community_developer_free(community_developer *cd);
 
 void community_developer_print(community_developer *cd, int total_exchanges);
