@@ -50,4 +50,8 @@ int dynamic_graph_parse_file(dynamic_graph *dg, char *filename);
 
 int dynamic_graph_node_degree(dynamic_graph *dg, int index);
 
+void dynamic_graph_free(dynamic_graph *dg);
+
+void dynamic_edge_array_free(dynamic_edge_array *dea);
+
 #endif

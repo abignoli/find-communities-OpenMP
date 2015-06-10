@@ -5,6 +5,7 @@
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
 ../binary-search-tree.c \
+../community-computation-commons.c \
 ../community-computation-weighted-sequential.c \
 ../community-computation-weighted.c \
 ../community-development.c \
@@ -21,6 +22,7 @@ C_SRCS += \
 
 OBJS += \
 ./binary-search-tree.o \
+./community-computation-commons.o \
 ./community-computation-weighted-sequential.o \
 ./community-computation-weighted.o \
 ./community-development.o \
@@ -37,6 +39,7 @@ OBJS += \
 
 C_DEPS += \
 ./binary-search-tree.d \
+./community-computation-commons.d \
 ./community-computation-weighted-sequential.d \
 ./community-computation-weighted.d \
 ./community-development.d \

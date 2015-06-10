@@ -8,13 +8,14 @@ void set_default(settings *s) {
 	s->graph_type = NOT_WEIGHTED;
 	s->minimum_phase_improvement = 0;
 	s->minimum_iteration_improvement = 0;
+	s->output_communities_file = NULL;
 	s->output_graphs_file = NULL;
 	s->number_of_threads = 1;
 }
 
 void print_help(char *prog_name) {
 	printf("\n--- Usage:\n\n"
-			"%s input-file [options]\n\n"
+			"%s input-file output-communities-file [options]\n\n"
 			"Available options:\n\n"
 			"\t-h\t:\tShows help (Ignores the rest of the input while doing so)\n"
 			"\t-w\t:\tInput graph is weighted (Only available option as of now). Default is non-weighted\n"
@@ -33,7 +34,7 @@ int parse_args(int argc, char *argv[], settings *s){
 
 	set_default(s);
 
-	if(argc < 2) {
+	if(argc < MINIMUM_ARGUMENTS_NUMBER) {
 		printf("Wrong number of arguments!\n");
 
 		valid = 0;
@@ -41,8 +42,9 @@ int parse_args(int argc, char *argv[], settings *s){
 
 	if(valid) {
 		s->input_file = argv[1];
+		s->output_communities_file = argv[2];
 
-		for(i=2; valid && i < argc; i++) {
+		for(i=MINIMUM_ARGUMENTS_NUMBER; valid && i < argc; i++) {
 			if(argv[i][0] == '-') {
 				switch(argv[i][1]){
 

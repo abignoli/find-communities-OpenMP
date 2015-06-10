@@ -1,362 +1,4966 @@
-
-
------------- Printing graph ------------
-
-Number of nodes: 26
-Maximum observed vertex: 25
-Edges:
-Node 0: (4 42) (12 3) 
-Node 1: (4 21) (23 32) 
-Node 2: 
-Node 3: 
-Node 4: (0 42) (1 21) 
-Node 5: 
-Node 6: 
-Node 7: 
-Node 8: (20 1) 
-Node 9: (15 -23) (21 23) 
-Node 10: (14 13) 
-Node 11: 
-Node 12: (0 3) (14 21) 
-Node 13: 
-Node 14: (10 13) (25 23) (12 21) 
-Node 15: (9 -23) 
-Node 16: 
-Node 17: 
-Node 18: 
-Node 19: 
-Node 20: (8 1) 
-Node 21: (9 23) 
-Node 22: 
-Node 23: (1 32) 
-Node 24: 
-Node 25: (14 23) 
-
-
------------- End of printing graph ------------
-
 Executing a phase.
 
 
 
 ---------------- PRINTING COMMUNITY DEVELOPER ----------------
 
-Number of nodes: 26
-Total weight in graph: 312
+Number of nodes: 16
+Total weight in graph: 56
 
 -- Node 0:
 
 Community: 0
-Neighbor communities: -1736796232
-Incoming node weight: 45
-Cumulative edge number: 2
+Neighbor communities: 1969760184
+Incoming node weight: 4
+Cumulative edge number: 4
 
  -- Node 1:
 
 Community: 1
-Neighbor communities: 32631
-Incoming node weight: 53
-Cumulative edge number: 4
+Neighbor communities: 32561
+Incoming node weight: 3
+Cumulative edge number: 7
 
  -- Node 2:
 
 Community: 2
-Neighbor communities: -1736796232
-Incoming node weight: 0
-Cumulative edge number: 4
+Neighbor communities: 1969760184
+Incoming node weight: 5
+Cumulative edge number: 12
 
  -- Node 3:
 
 Community: 3
-Neighbor communities: 32631
-Incoming node weight: 0
-Cumulative edge number: 4
+Neighbor communities: 32561
+Incoming node weight: 2
+Cumulative edge number: 14
 
  -- Node 4:
 
 Community: 4
 Neighbor communities: 0
-Incoming node weight: 63
-Cumulative edge number: 6
+Incoming node weight: 4
+Cumulative edge number: 18
 
  -- Node 5:
 
 Community: 5
 Neighbor communities: 0
-Incoming node weight: 0
-Cumulative edge number: 6
+Incoming node weight: 4
+Cumulative edge number: 22
 
  -- Node 6:
 
 Community: 6
 Neighbor communities: 0
-Incoming node weight: 0
-Cumulative edge number: 6
+Incoming node weight: 3
+Cumulative edge number: 25
 
  -- Node 7:
 
 Community: 7
 Neighbor communities: 0
-Incoming node weight: 0
-Cumulative edge number: 6
+Incoming node weight: 4
+Cumulative edge number: 29
 
  -- Node 8:
 
 Community: 8
-Neighbor communities: 21192544
-Incoming node weight: 1
-Cumulative edge number: 7
+Neighbor communities: 0
+Incoming node weight: 5
+Cumulative edge number: 34
 
  -- Node 9:
 
 Community: 9
 Neighbor communities: 0
-Incoming node weight: 0
-Cumulative edge number: 9
+Incoming node weight: 3
+Cumulative edge number: 37
 
  -- Node 10:
 
 Community: 10
-Neighbor communities: 0
-Incoming node weight: 13
-Cumulative edge number: 10
+Neighbor communities: 100
+Incoming node weight: 6
+Cumulative edge number: 43
 
  -- Node 11:
 
 Community: 11
 Neighbor communities: 0
-Incoming node weight: 0
-Cumulative edge number: 10
+Incoming node weight: 5
+Cumulative edge number: 48
 
  -- Node 12:
 
 Community: 12
-Neighbor communities: 100
-Incoming node weight: 24
-Cumulative edge number: 12
+Neighbor communities: 32504976
+Incoming node weight: 2
+Cumulative edge number: 50
 
  -- Node 13:
 
 Community: 13
 Neighbor communities: 0
-Incoming node weight: 0
-Cumulative edge number: 12
+Incoming node weight: 2
+Cumulative edge number: 52
 
  -- Node 14:
 
 Community: 14
-Neighbor communities: 21193360
-Incoming node weight: 57
-Cumulative edge number: 15
+Neighbor communities: 0
+Incoming node weight: 3
+Cumulative edge number: 55
 
  -- Node 15:
 
 Community: 15
 Neighbor communities: 0
-Incoming node weight: -23
-Cumulative edge number: 16
-
- -- Node 16:
-
-Community: 16
-Neighbor communities: 0
-Incoming node weight: 0
-Cumulative edge number: 16
-
- -- Node 17:
-
-Community: 17
-Neighbor communities: 0
-Incoming node weight: 0
-Cumulative edge number: 16
-
- -- Node 18:
-
-Community: 18
-Neighbor communities: 100
-Incoming node weight: 0
-Cumulative edge number: 16
-
- -- Node 19:
-
-Community: 19
-Neighbor communities: 0
-Incoming node weight: 0
-Cumulative edge number: 16
-
- -- Node 20:
-
-Community: 20
-Neighbor communities: 21194176
 Incoming node weight: 1
-Cumulative edge number: 17
+Cumulative edge number: 56
 
- -- Node 21:
+ -- Community 0:
 
-Community: 21
-Neighbor communities: 0
-Incoming node weight: 23
-Cumulative edge number: 18
-
- -- Node 22:
-
-Community: 22
-Neighbor communities: 0
-Incoming node weight: 0
-Cumulative edge number: 18
-
- -- Node 23:
-
-Community: 23
-Neighbor communities: 0
-Incoming node weight: 32
-Cumulative edge number: 19
-
- -- Node 24:
-
-Community: 24
-Neighbor communities: 100
-Incoming node weight: 0
-Cumulative edge number: 19
-
- -- Node 25:
-
-Community: 25
-Neighbor communities: 0
-Incoming node weight: 23
-Cumulative edge number: 20
-
- -- Community 45:
-
-Incoming weight: 0
+Incoming weight: 4
 Internal weight: 0
-
--- Community 53:
-
-Incoming weight: 0
-Internal weight: 4
-
--- Community 0:
-
-Incoming weight: 0
-Internal weight: 8
-
--- Community 0:
-
-Incoming weight: 0
-Internal weight: 12
-
--- Community 63:
-
-Incoming weight: 0
-Internal weight: 16
-
--- Community 0:
-
-Incoming weight: 0
-Internal weight: 20
-
--- Community 0:
-
-Incoming weight: 0
-Internal weight: 24
-
--- Community 0:
-
-Incoming weight: 0
-Internal weight: 28
 
 -- Community 1:
 
-Incoming weight: 0
-Internal weight: 32
+Incoming weight: 3
+Internal weight: 0
 
--- Community 0:
+-- Community 2:
 
-Incoming weight: 0
-Internal weight: 36
+Incoming weight: 5
+Internal weight: 0
+
+-- Community 3:
+
+Incoming weight: 2
+Internal weight: 0
+
+-- Community 4:
+
+Incoming weight: 4
+Internal weight: 0
+
+-- Community 5:
+
+Incoming weight: 4
+Internal weight: 0
+
+-- Community 6:
+
+Incoming weight: 3
+Internal weight: 0
+
+-- Community 7:
+
+Incoming weight: 4
+Internal weight: 0
+
+-- Community 8:
+
+Incoming weight: 5
+Internal weight: 0
+
+-- Community 9:
+
+Incoming weight: 3
+Internal weight: 0
+
+-- Community 10:
+
+Incoming weight: 6
+Internal weight: 0
+
+-- Community 11:
+
+Incoming weight: 5
+Internal weight: 0
+
+-- Community 12:
+
+Incoming weight: 2
+Internal weight: 0
 
 -- Community 13:
 
-Incoming weight: 0
-Internal weight: 40
+Incoming weight: 2
+Internal weight: 0
 
--- Community 0:
+-- Community 14:
 
-Incoming weight: 0
-Internal weight: 44
+Incoming weight: 3
+Internal weight: 0
 
--- Community 24:
+-- Community 15:
 
-Incoming weight: 0
-Internal weight: 48
-
--- Community 0:
-
-Incoming weight: 0
-Internal weight: 52
-
--- Community 57:
-
-Incoming weight: 0
-Internal weight: 56
-
--- Community -23:
-
-Incoming weight: 0
-Internal weight: 60
-
--- Community 0:
-
-Incoming weight: 0
-Internal weight: 64
-
--- Community 0:
-
-Incoming weight: 0
-Internal weight: 68
-
--- Community 0:
-
-Incoming weight: 0
-Internal weight: 72
-
--- Community 0:
-
-Incoming weight: 0
-Internal weight: 76
-
--- Community 1:
-
-Incoming weight: 0
-Internal weight: 80
-
--- Community 23:
-
-Incoming weight: 0
-Internal weight: 84
-
--- Community 0:
-
-Incoming weight: 0
-Internal weight: 88
-
--- Community 32:
-
-Incoming weight: 0
-Internal weight: 92
-
--- Community 0:
-
-Incoming weight: 0
-Internal weight: 96
-
--- Community 23:
-
-Incoming weight: 0
-Internal weight: 100
+Incoming weight: 1
+Internal weight: 0
 
 
 
 ------------- END OF PRINTING COMMUNITY DEVELOPER -------------
+
+
+
+---------------- Phase start -----------------
+
+Initial phase modularity: -0.071429 (Reference method: -0.071429)
+
+
+---------------- Iteration #0 -----------------
+
+Initial iteration modularity: -0.071429 (Reference -0.071429)
+
+
+
+End of Iteration #0 - Result:
+
+
+
+---------------- PRINTING COMMUNITY DEVELOPER ----------------
+
+Number of nodes: 16
+Total weight in graph: 56
+
+-- Node 0:
+
+Community: 3
+Neighbor communities: 4
+Incoming node weight: 4
+Cumulative edge number: 4
+
+ -- Node 1:
+
+Community: 4
+Neighbor communities: 3
+Incoming node weight: 3
+Cumulative edge number: 7
+
+ -- Node 2:
+
+Community: 5
+Neighbor communities: 5
+Incoming node weight: 5
+Cumulative edge number: 12
+
+ -- Node 3:
+
+Community: 3
+Neighbor communities: 2
+Incoming node weight: 2
+Cumulative edge number: 14
+
+ -- Node 4:
+
+Community: 4
+Neighbor communities: 4
+Incoming node weight: 4
+Cumulative edge number: 18
+
+ -- Node 5:
+
+Community: 5
+Neighbor communities: 4
+Incoming node weight: 4
+Cumulative edge number: 22
+
+ -- Node 6:
+
+Community: 7
+Neighbor communities: 3
+Incoming node weight: 3
+Cumulative edge number: 25
+
+ -- Node 7:
+
+Community: 7
+Neighbor communities: 4
+Incoming node weight: 4
+Cumulative edge number: 29
+
+ -- Node 8:
+
+Community: 10
+Neighbor communities: 5
+Incoming node weight: 5
+Cumulative edge number: 34
+
+ -- Node 9:
+
+Community: 12
+Neighbor communities: 3
+Incoming node weight: 3
+Cumulative edge number: 37
+
+ -- Node 10:
+
+Community: 11
+Neighbor communities: 6
+Incoming node weight: 6
+Cumulative edge number: 43
+
+ -- Node 11:
+
+Community: 13
+Neighbor communities: 5
+Incoming node weight: 5
+Cumulative edge number: 48
+
+ -- Node 12:
+
+Community: 12
+Neighbor communities: 2
+Incoming node weight: 2
+Cumulative edge number: 50
+
+ -- Node 13:
+
+Community: 13
+Neighbor communities: 2
+Incoming node weight: 2
+Cumulative edge number: 52
+
+ -- Node 14:
+
+Community: 14
+Neighbor communities: 3
+Incoming node weight: 3
+Cumulative edge number: 55
+
+ -- Node 15:
+
+Community: 15
+Neighbor communities: 1
+Incoming node weight: 1
+Cumulative edge number: 56
+
+ -- Community 0:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 1:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 2:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 3:
+
+Incoming weight: 6
+Internal weight: 2
+
+-- Community 4:
+
+Incoming weight: 7
+Internal weight: 2
+
+-- Community 5:
+
+Incoming weight: 9
+Internal weight: 2
+
+-- Community 6:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 7:
+
+Incoming weight: 7
+Internal weight: 2
+
+-- Community 8:
+
+Incoming weight: 0
+Internal weight: 2
+
+-- Community 9:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 10:
+
+Incoming weight: 5
+Internal weight: 2
+
+-- Community 11:
+
+Incoming weight: 6
+Internal weight: 2
+
+-- Community 12:
+
+Incoming weight: 5
+Internal weight: 2
+
+-- Community 13:
+
+Incoming weight: 7
+Internal weight: 2
+
+-- Community 14:
+
+Incoming weight: 3
+Internal weight: 2
+
+-- Community 15:
+
+Incoming weight: 1
+Internal weight: 2
+
+
+
+------------- END OF PRINTING COMMUNITY DEVELOPER -------------
+
+Final iteration modularity: 0.099490 (Reference: 0.278061). Modularity gain: 0.170918
+
+
+---------------- Iteration #1 -----------------
+
+Initial iteration modularity: 0.099490 (Reference 0.278061)
+
+
+
+End of Iteration #1 - Result:
+
+
+
+---------------- PRINTING COMMUNITY DEVELOPER ----------------
+
+Number of nodes: 16
+Total weight in graph: 56
+
+-- Node 0:
+
+Community: 3
+Neighbor communities: 1
+Incoming node weight: 4
+Cumulative edge number: 4
+
+ -- Node 1:
+
+Community: 4
+Neighbor communities: 0
+Incoming node weight: 3
+Cumulative edge number: 7
+
+ -- Node 2:
+
+Community: 4
+Neighbor communities: 1
+Incoming node weight: 5
+Cumulative edge number: 12
+
+ -- Node 3:
+
+Community: 3
+Neighbor communities: 0
+Incoming node weight: 2
+Cumulative edge number: 14
+
+ -- Node 4:
+
+Community: 4
+Neighbor communities: 0
+Incoming node weight: 4
+Cumulative edge number: 18
+
+ -- Node 5:
+
+Community: 5
+Neighbor communities: 0
+Incoming node weight: 4
+Cumulative edge number: 22
+
+ -- Node 6:
+
+Community: 7
+Neighbor communities: 0
+Incoming node weight: 3
+Cumulative edge number: 25
+
+ -- Node 7:
+
+Community: 7
+Neighbor communities: 0
+Incoming node weight: 4
+Cumulative edge number: 29
+
+ -- Node 8:
+
+Community: 15
+Neighbor communities: 5
+Incoming node weight: 5
+Cumulative edge number: 34
+
+ -- Node 9:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 3
+Cumulative edge number: 37
+
+ -- Node 10:
+
+Community: 13
+Neighbor communities: 5
+Incoming node weight: 6
+Cumulative edge number: 43
+
+ -- Node 11:
+
+Community: 13
+Neighbor communities: 0
+Incoming node weight: 5
+Cumulative edge number: 48
+
+ -- Node 12:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 2
+Cumulative edge number: 50
+
+ -- Node 13:
+
+Community: 13
+Neighbor communities: 0
+Incoming node weight: 2
+Cumulative edge number: 52
+
+ -- Node 14:
+
+Community: 12
+Neighbor communities: 3
+Incoming node weight: 3
+Cumulative edge number: 55
+
+ -- Node 15:
+
+Community: 15
+Neighbor communities: 1
+Incoming node weight: 1
+Cumulative edge number: 56
+
+ -- Community 0:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 1:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 2:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 3:
+
+Incoming weight: 6
+Internal weight: 2
+
+-- Community 4:
+
+Incoming weight: 12
+Internal weight: 6
+
+-- Community 5:
+
+Incoming weight: 4
+Internal weight: 0
+
+-- Community 6:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 7:
+
+Incoming weight: 7
+Internal weight: 2
+
+-- Community 8:
+
+Incoming weight: 0
+Internal weight: 2
+
+-- Community 9:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 10:
+
+Incoming weight: 0
+Internal weight: 2
+
+-- Community 11:
+
+Incoming weight: 0
+Internal weight: 2
+
+-- Community 12:
+
+Incoming weight: 8
+Internal weight: 4
+
+-- Community 13:
+
+Incoming weight: 13
+Internal weight: 6
+
+-- Community 14:
+
+Incoming weight: 0
+Internal weight: 2
+
+-- Community 15:
+
+Incoming weight: 6
+Internal weight: 4
+
+
+
+------------- END OF PRINTING COMMUNITY DEVELOPER -------------
+
+Final iteration modularity: 0.232781 (Reference: 0.407526). Modularity gain: 0.133291
+
+
+---------------- Iteration #2 -----------------
+
+Initial iteration modularity: 0.232781 (Reference 0.407526)
+
+
+
+End of Iteration #2 - Result:
+
+
+
+---------------- PRINTING COMMUNITY DEVELOPER ----------------
+
+Number of nodes: 16
+Total weight in graph: 56
+
+-- Node 0:
+
+Community: 3
+Neighbor communities: 1
+Incoming node weight: 4
+Cumulative edge number: 4
+
+ -- Node 1:
+
+Community: 4
+Neighbor communities: 0
+Incoming node weight: 3
+Cumulative edge number: 7
+
+ -- Node 2:
+
+Community: 4
+Neighbor communities: 0
+Incoming node weight: 5
+Cumulative edge number: 12
+
+ -- Node 3:
+
+Community: 3
+Neighbor communities: 0
+Incoming node weight: 2
+Cumulative edge number: 14
+
+ -- Node 4:
+
+Community: 4
+Neighbor communities: 0
+Incoming node weight: 4
+Cumulative edge number: 18
+
+ -- Node 5:
+
+Community: 3
+Neighbor communities: 4
+Incoming node weight: 4
+Cumulative edge number: 22
+
+ -- Node 6:
+
+Community: 7
+Neighbor communities: 0
+Incoming node weight: 3
+Cumulative edge number: 25
+
+ -- Node 7:
+
+Community: 7
+Neighbor communities: 0
+Incoming node weight: 4
+Cumulative edge number: 29
+
+ -- Node 8:
+
+Community: 12
+Neighbor communities: 1
+Incoming node weight: 5
+Cumulative edge number: 34
+
+ -- Node 9:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 3
+Cumulative edge number: 37
+
+ -- Node 10:
+
+Community: 13
+Neighbor communities: 0
+Incoming node weight: 6
+Cumulative edge number: 43
+
+ -- Node 11:
+
+Community: 13
+Neighbor communities: 0
+Incoming node weight: 5
+Cumulative edge number: 48
+
+ -- Node 12:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 2
+Cumulative edge number: 50
+
+ -- Node 13:
+
+Community: 13
+Neighbor communities: 0
+Incoming node weight: 2
+Cumulative edge number: 52
+
+ -- Node 14:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 3
+Cumulative edge number: 55
+
+ -- Node 15:
+
+Community: 15
+Neighbor communities: 0
+Incoming node weight: 1
+Cumulative edge number: 56
+
+ -- Community 0:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 1:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 2:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 3:
+
+Incoming weight: 10
+Internal weight: 4
+
+-- Community 4:
+
+Incoming weight: 12
+Internal weight: 6
+
+-- Community 5:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 6:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 7:
+
+Incoming weight: 7
+Internal weight: 2
+
+-- Community 8:
+
+Incoming weight: 0
+Internal weight: 2
+
+-- Community 9:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 10:
+
+Incoming weight: 0
+Internal weight: 2
+
+-- Community 11:
+
+Incoming weight: 0
+Internal weight: 2
+
+-- Community 12:
+
+Incoming weight: 13
+Internal weight: 8
+
+-- Community 13:
+
+Incoming weight: 13
+Internal weight: 6
+
+-- Community 14:
+
+Incoming weight: 0
+Internal weight: 2
+
+-- Community 15:
+
+Incoming weight: 1
+Internal weight: 2
+
+
+
+------------- END OF PRINTING COMMUNITY DEVELOPER -------------
+
+Final iteration modularity: 0.278061 (Reference: 0.441327). Modularity gain: 0.045281
+
+
+---------------- Iteration #3 -----------------
+
+Initial iteration modularity: 0.278061 (Reference 0.441327)
+
+
+
+End of Iteration #3 - Result:
+
+
+
+---------------- PRINTING COMMUNITY DEVELOPER ----------------
+
+Number of nodes: 16
+Total weight in graph: 56
+
+-- Node 0:
+
+Community: 3
+Neighbor communities: 0
+Incoming node weight: 4
+Cumulative edge number: 4
+
+ -- Node 1:
+
+Community: 4
+Neighbor communities: 0
+Incoming node weight: 3
+Cumulative edge number: 7
+
+ -- Node 2:
+
+Community: 4
+Neighbor communities: 0
+Incoming node weight: 5
+Cumulative edge number: 12
+
+ -- Node 3:
+
+Community: 3
+Neighbor communities: 1
+Incoming node weight: 2
+Cumulative edge number: 14
+
+ -- Node 4:
+
+Community: 4
+Neighbor communities: 0
+Incoming node weight: 4
+Cumulative edge number: 18
+
+ -- Node 5:
+
+Community: 3
+Neighbor communities: 0
+Incoming node weight: 4
+Cumulative edge number: 22
+
+ -- Node 6:
+
+Community: 7
+Neighbor communities: 0
+Incoming node weight: 3
+Cumulative edge number: 25
+
+ -- Node 7:
+
+Community: 3
+Neighbor communities: 1
+Incoming node weight: 4
+Cumulative edge number: 29
+
+ -- Node 8:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 5
+Cumulative edge number: 34
+
+ -- Node 9:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 3
+Cumulative edge number: 37
+
+ -- Node 10:
+
+Community: 13
+Neighbor communities: 1
+Incoming node weight: 6
+Cumulative edge number: 43
+
+ -- Node 11:
+
+Community: 13
+Neighbor communities: 0
+Incoming node weight: 5
+Cumulative edge number: 48
+
+ -- Node 12:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 2
+Cumulative edge number: 50
+
+ -- Node 13:
+
+Community: 13
+Neighbor communities: 0
+Incoming node weight: 2
+Cumulative edge number: 52
+
+ -- Node 14:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 3
+Cumulative edge number: 55
+
+ -- Node 15:
+
+Community: 12
+Neighbor communities: 1
+Incoming node weight: 1
+Cumulative edge number: 56
+
+ -- Community 0:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 1:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 2:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 3:
+
+Incoming weight: 14
+Internal weight: 8
+
+-- Community 4:
+
+Incoming weight: 12
+Internal weight: 6
+
+-- Community 5:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 6:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 7:
+
+Incoming weight: 3
+Internal weight: 0
+
+-- Community 8:
+
+Incoming weight: 0
+Internal weight: 2
+
+-- Community 9:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 10:
+
+Incoming weight: 0
+Internal weight: 2
+
+-- Community 11:
+
+Incoming weight: 0
+Internal weight: 2
+
+-- Community 12:
+
+Incoming weight: 14
+Internal weight: 10
+
+-- Community 13:
+
+Incoming weight: 13
+Internal weight: 6
+
+-- Community 14:
+
+Incoming weight: 0
+Internal weight: 2
+
+-- Community 15:
+
+Incoming weight: 0
+Internal weight: 2
+
+
+
+------------- END OF PRINTING COMMUNITY DEVELOPER -------------
+
+Final iteration modularity: 0.338648 (Reference: 0.486607). Modularity gain: 0.060587
+
+
+---------------- Iteration #4 -----------------
+
+Initial iteration modularity: 0.338648 (Reference 0.486607)
+
+
+
+End of Iteration #4 - Result:
+
+
+
+---------------- PRINTING COMMUNITY DEVELOPER ----------------
+
+Number of nodes: 16
+Total weight in graph: 56
+
+-- Node 0:
+
+Community: 3
+Neighbor communities: 0
+Incoming node weight: 4
+Cumulative edge number: 4
+
+ -- Node 1:
+
+Community: 4
+Neighbor communities: 0
+Incoming node weight: 3
+Cumulative edge number: 7
+
+ -- Node 2:
+
+Community: 4
+Neighbor communities: 0
+Incoming node weight: 5
+Cumulative edge number: 12
+
+ -- Node 3:
+
+Community: 3
+Neighbor communities: 0
+Incoming node weight: 2
+Cumulative edge number: 14
+
+ -- Node 4:
+
+Community: 4
+Neighbor communities: 0
+Incoming node weight: 4
+Cumulative edge number: 18
+
+ -- Node 5:
+
+Community: 3
+Neighbor communities: 0
+Incoming node weight: 4
+Cumulative edge number: 22
+
+ -- Node 6:
+
+Community: 4
+Neighbor communities: 3
+Incoming node weight: 3
+Cumulative edge number: 25
+
+ -- Node 7:
+
+Community: 3
+Neighbor communities: 0
+Incoming node weight: 4
+Cumulative edge number: 29
+
+ -- Node 8:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 5
+Cumulative edge number: 34
+
+ -- Node 9:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 3
+Cumulative edge number: 37
+
+ -- Node 10:
+
+Community: 12
+Neighbor communities: 1
+Incoming node weight: 6
+Cumulative edge number: 43
+
+ -- Node 11:
+
+Community: 13
+Neighbor communities: 0
+Incoming node weight: 5
+Cumulative edge number: 48
+
+ -- Node 12:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 2
+Cumulative edge number: 50
+
+ -- Node 13:
+
+Community: 13
+Neighbor communities: 0
+Incoming node weight: 2
+Cumulative edge number: 52
+
+ -- Node 14:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 3
+Cumulative edge number: 55
+
+ -- Node 15:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 1
+Cumulative edge number: 56
+
+ -- Community 0:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 1:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 2:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 3:
+
+Incoming weight: 14
+Internal weight: 8
+
+-- Community 4:
+
+Incoming weight: 15
+Internal weight: 8
+
+-- Community 5:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 6:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 7:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 8:
+
+Incoming weight: 0
+Internal weight: 2
+
+-- Community 9:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 10:
+
+Incoming weight: 0
+Internal weight: 2
+
+-- Community 11:
+
+Incoming weight: 0
+Internal weight: 2
+
+-- Community 12:
+
+Incoming weight: 20
+Internal weight: 16
+
+-- Community 13:
+
+Incoming weight: 7
+Internal weight: 2
+
+-- Community 14:
+
+Incoming weight: 0
+Internal weight: 2
+
+-- Community 15:
+
+Incoming weight: 0
+Internal weight: 2
+
+
+
+------------- END OF PRINTING COMMUNITY DEVELOPER -------------
+
+Final iteration modularity: 0.389031 (Reference: 0.508291). Modularity gain: 0.050383
+
+
+---------------- Iteration #5 -----------------
+
+Initial iteration modularity: 0.389031 (Reference 0.508291)
+
+
+
+End of Iteration #5 - Result:
+
+
+
+---------------- PRINTING COMMUNITY DEVELOPER ----------------
+
+Number of nodes: 16
+Total weight in graph: 56
+
+-- Node 0:
+
+Community: 3
+Neighbor communities: 0
+Incoming node weight: 4
+Cumulative edge number: 4
+
+ -- Node 1:
+
+Community: 4
+Neighbor communities: 0
+Incoming node weight: 3
+Cumulative edge number: 7
+
+ -- Node 2:
+
+Community: 4
+Neighbor communities: 0
+Incoming node weight: 5
+Cumulative edge number: 12
+
+ -- Node 3:
+
+Community: 3
+Neighbor communities: 0
+Incoming node weight: 2
+Cumulative edge number: 14
+
+ -- Node 4:
+
+Community: 4
+Neighbor communities: 0
+Incoming node weight: 4
+Cumulative edge number: 18
+
+ -- Node 5:
+
+Community: 3
+Neighbor communities: 0
+Incoming node weight: 4
+Cumulative edge number: 22
+
+ -- Node 6:
+
+Community: 13
+Neighbor communities: 1
+Incoming node weight: 3
+Cumulative edge number: 25
+
+ -- Node 7:
+
+Community: 3
+Neighbor communities: 0
+Incoming node weight: 4
+Cumulative edge number: 29
+
+ -- Node 8:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 5
+Cumulative edge number: 34
+
+ -- Node 9:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 3
+Cumulative edge number: 37
+
+ -- Node 10:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 6
+Cumulative edge number: 43
+
+ -- Node 11:
+
+Community: 13
+Neighbor communities: 0
+Incoming node weight: 5
+Cumulative edge number: 48
+
+ -- Node 12:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 2
+Cumulative edge number: 50
+
+ -- Node 13:
+
+Community: 13
+Neighbor communities: 0
+Incoming node weight: 2
+Cumulative edge number: 52
+
+ -- Node 14:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 3
+Cumulative edge number: 55
+
+ -- Node 15:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 1
+Cumulative edge number: 56
+
+ -- Community 0:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 1:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 2:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 3:
+
+Incoming weight: 14
+Internal weight: 8
+
+-- Community 4:
+
+Incoming weight: 12
+Internal weight: 6
+
+-- Community 5:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 6:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 7:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 8:
+
+Incoming weight: 0
+Internal weight: 2
+
+-- Community 9:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 10:
+
+Incoming weight: 0
+Internal weight: 2
+
+-- Community 11:
+
+Incoming weight: 0
+Internal weight: 2
+
+-- Community 12:
+
+Incoming weight: 20
+Internal weight: 16
+
+-- Community 13:
+
+Incoming weight: 10
+Internal weight: 4
+
+-- Community 14:
+
+Incoming weight: 0
+Internal weight: 2
+
+-- Community 15:
+
+Incoming weight: 0
+Internal weight: 2
+
+
+
+------------- END OF PRINTING COMMUNITY DEVELOPER -------------
+
+Final iteration modularity: 0.389031 (Reference: 0.517857). Modularity gain: 0.000000
+
+
+---------------- Iteration #6 -----------------
+
+Initial iteration modularity: 0.389031 (Reference 0.517857)
+
+
+
+End of Iteration #6 - Result:
+
+
+
+---------------- PRINTING COMMUNITY DEVELOPER ----------------
+
+Number of nodes: 16
+Total weight in graph: 56
+
+-- Node 0:
+
+Community: 3
+Neighbor communities: 0
+Incoming node weight: 4
+Cumulative edge number: 4
+
+ -- Node 1:
+
+Community: 4
+Neighbor communities: 0
+Incoming node weight: 3
+Cumulative edge number: 7
+
+ -- Node 2:
+
+Community: 4
+Neighbor communities: 0
+Incoming node weight: 5
+Cumulative edge number: 12
+
+ -- Node 3:
+
+Community: 3
+Neighbor communities: 0
+Incoming node weight: 2
+Cumulative edge number: 14
+
+ -- Node 4:
+
+Community: 4
+Neighbor communities: 0
+Incoming node weight: 4
+Cumulative edge number: 18
+
+ -- Node 5:
+
+Community: 3
+Neighbor communities: 0
+Incoming node weight: 4
+Cumulative edge number: 22
+
+ -- Node 6:
+
+Community: 13
+Neighbor communities: 0
+Incoming node weight: 3
+Cumulative edge number: 25
+
+ -- Node 7:
+
+Community: 3
+Neighbor communities: 0
+Incoming node weight: 4
+Cumulative edge number: 29
+
+ -- Node 8:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 5
+Cumulative edge number: 34
+
+ -- Node 9:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 3
+Cumulative edge number: 37
+
+ -- Node 10:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 6
+Cumulative edge number: 43
+
+ -- Node 11:
+
+Community: 13
+Neighbor communities: 0
+Incoming node weight: 5
+Cumulative edge number: 48
+
+ -- Node 12:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 2
+Cumulative edge number: 50
+
+ -- Node 13:
+
+Community: 13
+Neighbor communities: 0
+Incoming node weight: 2
+Cumulative edge number: 52
+
+ -- Node 14:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 3
+Cumulative edge number: 55
+
+ -- Node 15:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 1
+Cumulative edge number: 56
+
+ -- Community 0:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 1:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 2:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 3:
+
+Incoming weight: 14
+Internal weight: 8
+
+-- Community 4:
+
+Incoming weight: 12
+Internal weight: 6
+
+-- Community 5:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 6:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 7:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 8:
+
+Incoming weight: 0
+Internal weight: 2
+
+-- Community 9:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 10:
+
+Incoming weight: 0
+Internal weight: 2
+
+-- Community 11:
+
+Incoming weight: 0
+Internal weight: 2
+
+-- Community 12:
+
+Incoming weight: 20
+Internal weight: 16
+
+-- Community 13:
+
+Incoming weight: 10
+Internal weight: 4
+
+-- Community 14:
+
+Incoming weight: 0
+Internal weight: 2
+
+-- Community 15:
+
+Incoming weight: 0
+Internal weight: 2
+
+
+
+------------- END OF PRINTING COMMUNITY DEVELOPER -------------
+
+Final iteration modularity: 0.389031 (Reference: 0.517857). Modularity gain: 0.000000
+
+
+------------- OUTPUT TRANSLATION ------------
+
+Input graph:
+
+
+
+Input CD:
+
+
+
+---------------- PRINTING COMMUNITY DEVELOPER ----------------
+
+Number of nodes: 16
+Total weight in graph: 56
+
+-- Node 0:
+
+Community: 3
+Neighbor communities: 0
+Incoming node weight: 4
+Cumulative edge number: 4
+
+ -- Node 1:
+
+Community: 4
+Neighbor communities: 0
+Incoming node weight: 3
+Cumulative edge number: 7
+
+ -- Node 2:
+
+Community: 4
+Neighbor communities: 0
+Incoming node weight: 5
+Cumulative edge number: 12
+
+ -- Node 3:
+
+Community: 3
+Neighbor communities: 0
+Incoming node weight: 2
+Cumulative edge number: 14
+
+ -- Node 4:
+
+Community: 4
+Neighbor communities: 0
+Incoming node weight: 4
+Cumulative edge number: 18
+
+ -- Node 5:
+
+Community: 3
+Neighbor communities: 0
+Incoming node weight: 4
+Cumulative edge number: 22
+
+ -- Node 6:
+
+Community: 13
+Neighbor communities: 0
+Incoming node weight: 3
+Cumulative edge number: 25
+
+ -- Node 7:
+
+Community: 3
+Neighbor communities: 0
+Incoming node weight: 4
+Cumulative edge number: 29
+
+ -- Node 8:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 5
+Cumulative edge number: 34
+
+ -- Node 9:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 3
+Cumulative edge number: 37
+
+ -- Node 10:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 6
+Cumulative edge number: 43
+
+ -- Node 11:
+
+Community: 13
+Neighbor communities: 0
+Incoming node weight: 5
+Cumulative edge number: 48
+
+ -- Node 12:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 2
+Cumulative edge number: 50
+
+ -- Node 13:
+
+Community: 13
+Neighbor communities: 0
+Incoming node weight: 2
+Cumulative edge number: 52
+
+ -- Node 14:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 3
+Cumulative edge number: 55
+
+ -- Node 15:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 1
+Cumulative edge number: 56
+
+ -- Community 0:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 1:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 2:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 3:
+
+Incoming weight: 14
+Internal weight: 8
+
+-- Community 4:
+
+Incoming weight: 12
+Internal weight: 6
+
+-- Community 5:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 6:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 7:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 8:
+
+Incoming weight: 0
+Internal weight: 2
+
+-- Community 9:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 10:
+
+Incoming weight: 0
+Internal weight: 2
+
+-- Community 11:
+
+Incoming weight: 0
+Internal weight: 2
+
+-- Community 12:
+
+Incoming weight: 20
+Internal weight: 16
+
+-- Community 13:
+
+Incoming weight: 10
+Internal weight: 4
+
+-- Community 14:
+
+Incoming weight: 0
+Internal weight: 2
+
+-- Community 15:
+
+Incoming weight: 0
+Internal weight: 2
+
+
+
+------------- END OF PRINTING COMMUNITY DEVELOPER -------------
+
+Output translation - Final modularity of input (reference formula): 0.517857
+
+Final phase modularity: 0.389031. Modularity gain: 0.460459
+Printing input graph:
+Community graph after parallel phase 0:
+
+
+---------------- PRINTING COMMUNITY DEVELOPER ----------------
+
+Number of nodes: 16
+Total weight in graph: 56
+
+-- Node 0:
+
+Community: 0
+Neighbor communities: 32470560
+Incoming node weight: 4
+Cumulative edge number: 4
+
+ -- Node 1:
+
+Community: 1
+Neighbor communities: 0
+Incoming node weight: 3
+Cumulative edge number: 7
+
+ -- Node 2:
+
+Community: 2
+Neighbor communities: 4
+Incoming node weight: 5
+Cumulative edge number: 12
+
+ -- Node 3:
+
+Community: 3
+Neighbor communities: 3
+Incoming node weight: 2
+Cumulative edge number: 14
+
+ -- Node 4:
+
+Community: 4
+Neighbor communities: 4
+Incoming node weight: 4
+Cumulative edge number: 18
+
+ -- Node 5:
+
+Community: 5
+Neighbor communities: 3
+Incoming node weight: 4
+Cumulative edge number: 22
+
+ -- Node 6:
+
+Community: 6
+Neighbor communities: 13
+Incoming node weight: 3
+Cumulative edge number: 25
+
+ -- Node 7:
+
+Community: 7
+Neighbor communities: 3
+Incoming node weight: 4
+Cumulative edge number: 29
+
+ -- Node 8:
+
+Community: 8
+Neighbor communities: 12
+Incoming node weight: 5
+Cumulative edge number: 34
+
+ -- Node 9:
+
+Community: 9
+Neighbor communities: 12
+Incoming node weight: 3
+Cumulative edge number: 37
+
+ -- Node 10:
+
+Community: 10
+Neighbor communities: 12
+Incoming node weight: 6
+Cumulative edge number: 43
+
+ -- Node 11:
+
+Community: 11
+Neighbor communities: 13
+Incoming node weight: 5
+Cumulative edge number: 48
+
+ -- Node 12:
+
+Community: 12
+Neighbor communities: 12
+Incoming node weight: 2
+Cumulative edge number: 50
+
+ -- Node 13:
+
+Community: 13
+Neighbor communities: 13
+Incoming node weight: 2
+Cumulative edge number: 52
+
+ -- Node 14:
+
+Community: 14
+Neighbor communities: 12
+Incoming node weight: 3
+Cumulative edge number: 55
+
+ -- Node 15:
+
+Community: 15
+Neighbor communities: 12
+Incoming node weight: 1
+Cumulative edge number: 56
+
+ -- Community 0:
+
+Incoming weight: 4
+Internal weight: 0
+
+-- Community 1:
+
+Incoming weight: 3
+Internal weight: 0
+
+-- Community 2:
+
+Incoming weight: 5
+Internal weight: 0
+
+-- Community 3:
+
+Incoming weight: 2
+Internal weight: 0
+
+-- Community 4:
+
+Incoming weight: 4
+Internal weight: 0
+
+-- Community 5:
+
+Incoming weight: 4
+Internal weight: 0
+
+-- Community 6:
+
+Incoming weight: 3
+Internal weight: 0
+
+-- Community 7:
+
+Incoming weight: 4
+Internal weight: 0
+
+-- Community 8:
+
+Incoming weight: 5
+Internal weight: 0
+
+-- Community 9:
+
+Incoming weight: 3
+Internal weight: 0
+
+-- Community 10:
+
+Incoming weight: 6
+Internal weight: 0
+
+-- Community 11:
+
+Incoming weight: 5
+Internal weight: 0
+
+-- Community 12:
+
+Incoming weight: 2
+Internal weight: 0
+
+-- Community 13:
+
+Incoming weight: 2
+Internal weight: 0
+
+-- Community 14:
+
+Incoming weight: 3
+Internal weight: 0
+
+-- Community 15:
+
+Incoming weight: 1
+Internal weight: 0
+
+
+
+------------- END OF PRINTING COMMUNITY DEVELOPER -------------
+
+
+
+---------------- PRINTING COMMUNITY DEVELOPER ----------------
+
+Number of nodes: 16
+Total weight in graph: 56
+
+-- Node 0:
+
+Community: 3
+Neighbor communities: 32470560
+Incoming node weight: 4
+Cumulative edge number: 4
+
+ -- Node 1:
+
+Community: 4
+Neighbor communities: 0
+Incoming node weight: 3
+Cumulative edge number: 7
+
+ -- Node 2:
+
+Community: 4
+Neighbor communities: 4
+Incoming node weight: 5
+Cumulative edge number: 12
+
+ -- Node 3:
+
+Community: 3
+Neighbor communities: 3
+Incoming node weight: 2
+Cumulative edge number: 14
+
+ -- Node 4:
+
+Community: 4
+Neighbor communities: 4
+Incoming node weight: 4
+Cumulative edge number: 18
+
+ -- Node 5:
+
+Community: 7
+Neighbor communities: 3
+Incoming node weight: 4
+Cumulative edge number: 22
+
+ -- Node 6:
+
+Community: 11
+Neighbor communities: 13
+Incoming node weight: 3
+Cumulative edge number: 25
+
+ -- Node 7:
+
+Community: 7
+Neighbor communities: 3
+Incoming node weight: 4
+Cumulative edge number: 29
+
+ -- Node 8:
+
+Community: 15
+Neighbor communities: 12
+Incoming node weight: 5
+Cumulative edge number: 34
+
+ -- Node 9:
+
+Community: 12
+Neighbor communities: 12
+Incoming node weight: 3
+Cumulative edge number: 37
+
+ -- Node 10:
+
+Community: 13
+Neighbor communities: 12
+Incoming node weight: 6
+Cumulative edge number: 43
+
+ -- Node 11:
+
+Community: 13
+Neighbor communities: 13
+Incoming node weight: 5
+Cumulative edge number: 48
+
+ -- Node 12:
+
+Community: 12
+Neighbor communities: 12
+Incoming node weight: 2
+Cumulative edge number: 50
+
+ -- Node 13:
+
+Community: 13
+Neighbor communities: 13
+Incoming node weight: 2
+Cumulative edge number: 52
+
+ -- Node 14:
+
+Community: 12
+Neighbor communities: 12
+Incoming node weight: 3
+Cumulative edge number: 55
+
+ -- Node 15:
+
+Community: 15
+Neighbor communities: 12
+Incoming node weight: 1
+Cumulative edge number: 56
+
+ -- Community 0:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 1:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 2:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 3:
+
+Incoming weight: 6
+Internal weight: 2
+
+-- Community 4:
+
+Incoming weight: 12
+Internal weight: 6
+
+-- Community 5:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 6:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 7:
+
+Incoming weight: 8
+Internal weight: 2
+
+-- Community 8:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 9:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 10:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 11:
+
+Incoming weight: 3
+Internal weight: 0
+
+-- Community 12:
+
+Incoming weight: 8
+Internal weight: 4
+
+-- Community 13:
+
+Incoming weight: 13
+Internal weight: 6
+
+-- Community 14:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 15:
+
+Incoming weight: 6
+Internal weight: 2
+
+
+
+------------- END OF PRINTING COMMUNITY DEVELOPER -------------
+
+
+
+---------------- PRINTING COMMUNITY DEVELOPER ----------------
+
+Number of nodes: 16
+Total weight in graph: 56
+
+-- Node 0:
+
+Community: 4
+Neighbor communities: 32470560
+Incoming node weight: 4
+Cumulative edge number: 4
+
+ -- Node 1:
+
+Community: 4
+Neighbor communities: 0
+Incoming node weight: 3
+Cumulative edge number: 7
+
+ -- Node 2:
+
+Community: 4
+Neighbor communities: 4
+Incoming node weight: 5
+Cumulative edge number: 12
+
+ -- Node 3:
+
+Community: 7
+Neighbor communities: 3
+Incoming node weight: 2
+Cumulative edge number: 14
+
+ -- Node 4:
+
+Community: 4
+Neighbor communities: 4
+Incoming node weight: 4
+Cumulative edge number: 18
+
+ -- Node 5:
+
+Community: 4
+Neighbor communities: 3
+Incoming node weight: 4
+Cumulative edge number: 22
+
+ -- Node 6:
+
+Community: 7
+Neighbor communities: 13
+Incoming node weight: 3
+Cumulative edge number: 25
+
+ -- Node 7:
+
+Community: 7
+Neighbor communities: 3
+Incoming node weight: 4
+Cumulative edge number: 29
+
+ -- Node 8:
+
+Community: 12
+Neighbor communities: 12
+Incoming node weight: 5
+Cumulative edge number: 34
+
+ -- Node 9:
+
+Community: 12
+Neighbor communities: 12
+Incoming node weight: 3
+Cumulative edge number: 37
+
+ -- Node 10:
+
+Community: 12
+Neighbor communities: 12
+Incoming node weight: 6
+Cumulative edge number: 43
+
+ -- Node 11:
+
+Community: 13
+Neighbor communities: 13
+Incoming node weight: 5
+Cumulative edge number: 48
+
+ -- Node 12:
+
+Community: 12
+Neighbor communities: 12
+Incoming node weight: 2
+Cumulative edge number: 50
+
+ -- Node 13:
+
+Community: 13
+Neighbor communities: 13
+Incoming node weight: 2
+Cumulative edge number: 52
+
+ -- Node 14:
+
+Community: 12
+Neighbor communities: 12
+Incoming node weight: 3
+Cumulative edge number: 55
+
+ -- Node 15:
+
+Community: 12
+Neighbor communities: 12
+Incoming node weight: 1
+Cumulative edge number: 56
+
+ -- Community 0:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 1:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 2:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 3:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 4:
+
+Incoming weight: 20
+Internal weight: 14
+
+-- Community 5:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 6:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 7:
+
+Incoming weight: 9
+Internal weight: 4
+
+-- Community 8:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 9:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 10:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 11:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 12:
+
+Incoming weight: 20
+Internal weight: 16
+
+-- Community 13:
+
+Incoming weight: 7
+Internal weight: 2
+
+-- Community 14:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 15:
+
+Incoming weight: 0
+Internal weight: 0
+
+
+
+------------- END OF PRINTING COMMUNITY DEVELOPER -------------
+
+
+
+---------------- PRINTING COMMUNITY DEVELOPER ----------------
+
+Number of nodes: 16
+Total weight in graph: 56
+
+-- Node 0:
+
+Community: 4
+Neighbor communities: 32470560
+Incoming node weight: 4
+Cumulative edge number: 4
+
+ -- Node 1:
+
+Community: 4
+Neighbor communities: 0
+Incoming node weight: 3
+Cumulative edge number: 7
+
+ -- Node 2:
+
+Community: 4
+Neighbor communities: 4
+Incoming node weight: 5
+Cumulative edge number: 12
+
+ -- Node 3:
+
+Community: 7
+Neighbor communities: 3
+Incoming node weight: 2
+Cumulative edge number: 14
+
+ -- Node 4:
+
+Community: 4
+Neighbor communities: 4
+Incoming node weight: 4
+Cumulative edge number: 18
+
+ -- Node 5:
+
+Community: 4
+Neighbor communities: 3
+Incoming node weight: 4
+Cumulative edge number: 22
+
+ -- Node 6:
+
+Community: 7
+Neighbor communities: 13
+Incoming node weight: 3
+Cumulative edge number: 25
+
+ -- Node 7:
+
+Community: 7
+Neighbor communities: 3
+Incoming node weight: 4
+Cumulative edge number: 29
+
+ -- Node 8:
+
+Community: 12
+Neighbor communities: 12
+Incoming node weight: 5
+Cumulative edge number: 34
+
+ -- Node 9:
+
+Community: 12
+Neighbor communities: 12
+Incoming node weight: 3
+Cumulative edge number: 37
+
+ -- Node 10:
+
+Community: 12
+Neighbor communities: 12
+Incoming node weight: 6
+Cumulative edge number: 43
+
+ -- Node 11:
+
+Community: 13
+Neighbor communities: 13
+Incoming node weight: 5
+Cumulative edge number: 48
+
+ -- Node 12:
+
+Community: 12
+Neighbor communities: 12
+Incoming node weight: 2
+Cumulative edge number: 50
+
+ -- Node 13:
+
+Community: 13
+Neighbor communities: 13
+Incoming node weight: 2
+Cumulative edge number: 52
+
+ -- Node 14:
+
+Community: 12
+Neighbor communities: 12
+Incoming node weight: 3
+Cumulative edge number: 55
+
+ -- Node 15:
+
+Community: 12
+Neighbor communities: 12
+Incoming node weight: 1
+Cumulative edge number: 56
+
+ -- Community 0:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 1:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 2:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 3:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 4:
+
+Incoming weight: 20
+Internal weight: 14
+
+-- Community 5:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 6:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 7:
+
+Incoming weight: 9
+Internal weight: 4
+
+-- Community 8:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 9:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 10:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 11:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 12:
+
+Incoming weight: 20
+Internal weight: 16
+
+-- Community 13:
+
+Incoming weight: 7
+Internal weight: 2
+
+-- Community 14:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 15:
+
+Incoming weight: 0
+Internal weight: 0
+
+
+
+------------- END OF PRINTING COMMUNITY DEVELOPER -------------
+
+
+
+------------- OUTPUT TRANSLATION ------------
+
+Input graph:
+
+
+
+Input CD:
+
+
+
+---------------- PRINTING COMMUNITY DEVELOPER ----------------
+
+Number of nodes: 16
+Total weight in graph: 56
+
+-- Node 0:
+
+Community: 4
+Neighbor communities: 32470560
+Incoming node weight: 4
+Cumulative edge number: 4
+
+ -- Node 1:
+
+Community: 4
+Neighbor communities: 0
+Incoming node weight: 3
+Cumulative edge number: 7
+
+ -- Node 2:
+
+Community: 4
+Neighbor communities: 4
+Incoming node weight: 5
+Cumulative edge number: 12
+
+ -- Node 3:
+
+Community: 7
+Neighbor communities: 3
+Incoming node weight: 2
+Cumulative edge number: 14
+
+ -- Node 4:
+
+Community: 4
+Neighbor communities: 4
+Incoming node weight: 4
+Cumulative edge number: 18
+
+ -- Node 5:
+
+Community: 4
+Neighbor communities: 3
+Incoming node weight: 4
+Cumulative edge number: 22
+
+ -- Node 6:
+
+Community: 7
+Neighbor communities: 13
+Incoming node weight: 3
+Cumulative edge number: 25
+
+ -- Node 7:
+
+Community: 7
+Neighbor communities: 3
+Incoming node weight: 4
+Cumulative edge number: 29
+
+ -- Node 8:
+
+Community: 12
+Neighbor communities: 12
+Incoming node weight: 5
+Cumulative edge number: 34
+
+ -- Node 9:
+
+Community: 12
+Neighbor communities: 12
+Incoming node weight: 3
+Cumulative edge number: 37
+
+ -- Node 10:
+
+Community: 12
+Neighbor communities: 12
+Incoming node weight: 6
+Cumulative edge number: 43
+
+ -- Node 11:
+
+Community: 13
+Neighbor communities: 13
+Incoming node weight: 5
+Cumulative edge number: 48
+
+ -- Node 12:
+
+Community: 12
+Neighbor communities: 12
+Incoming node weight: 2
+Cumulative edge number: 50
+
+ -- Node 13:
+
+Community: 13
+Neighbor communities: 13
+Incoming node weight: 2
+Cumulative edge number: 52
+
+ -- Node 14:
+
+Community: 12
+Neighbor communities: 12
+Incoming node weight: 3
+Cumulative edge number: 55
+
+ -- Node 15:
+
+Community: 12
+Neighbor communities: 12
+Incoming node weight: 1
+Cumulative edge number: 56
+
+ -- Community 0:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 1:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 2:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 3:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 4:
+
+Incoming weight: 20
+Internal weight: 14
+
+-- Community 5:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 6:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 7:
+
+Incoming weight: 9
+Internal weight: 4
+
+-- Community 8:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 9:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 10:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 11:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 12:
+
+Incoming weight: 20
+Internal weight: 16
+
+-- Community 13:
+
+Incoming weight: 7
+Internal weight: 2
+
+-- Community 14:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 15:
+
+Incoming weight: 0
+Internal weight: 0
+
+
+
+------------- END OF PRINTING COMMUNITY DEVELOPER -------------
+
+Output translation - Final modularity of input (reference formula): 0.346301
+
+
+
+------ CHECK RESULTS -------
+
+Execution time for parallel version executed by 4 threads: 0.003462 (wtime) - 0.007802 (clock)
+Re-computed modularity for parallel version (from vector): 0.389031
+
+Execution time for sequential version way: 0.000592
+Re-computed modularity for sequential version (from vector): 0.406250
+
+Executing the whole algorithm.
+
+
+
+PHASE #0:
+
+Graph size: 16
+Initial phase modularity: -0.071429 (Re-computed: -0.071429)
+
+
+---------------- PRINTING COMMUNITY DEVELOPER ----------------
+
+Number of nodes: 16
+Total weight in graph: 56
+
+-- Node 0:
+
+Community: 0
+Neighbor communities: 32470992
+Incoming node weight: 4
+Cumulative edge number: 4
+
+ -- Node 1:
+
+Community: 1
+Neighbor communities: 0
+Incoming node weight: 3
+Cumulative edge number: 7
+
+ -- Node 2:
+
+Community: 2
+Neighbor communities: 4
+Incoming node weight: 5
+Cumulative edge number: 12
+
+ -- Node 3:
+
+Community: 3
+Neighbor communities: 7
+Incoming node weight: 2
+Cumulative edge number: 14
+
+ -- Node 4:
+
+Community: 4
+Neighbor communities: 4
+Incoming node weight: 4
+Cumulative edge number: 18
+
+ -- Node 5:
+
+Community: 5
+Neighbor communities: 4
+Incoming node weight: 4
+Cumulative edge number: 22
+
+ -- Node 6:
+
+Community: 6
+Neighbor communities: 7
+Incoming node weight: 3
+Cumulative edge number: 25
+
+ -- Node 7:
+
+Community: 7
+Neighbor communities: 7
+Incoming node weight: 4
+Cumulative edge number: 29
+
+ -- Node 8:
+
+Community: 8
+Neighbor communities: 12
+Incoming node weight: 5
+Cumulative edge number: 34
+
+ -- Node 9:
+
+Community: 9
+Neighbor communities: 12
+Incoming node weight: 3
+Cumulative edge number: 37
+
+ -- Node 10:
+
+Community: 10
+Neighbor communities: 12
+Incoming node weight: 6
+Cumulative edge number: 43
+
+ -- Node 11:
+
+Community: 11
+Neighbor communities: 13
+Incoming node weight: 5
+Cumulative edge number: 48
+
+ -- Node 12:
+
+Community: 12
+Neighbor communities: 12
+Incoming node weight: 2
+Cumulative edge number: 50
+
+ -- Node 13:
+
+Community: 13
+Neighbor communities: 13
+Incoming node weight: 2
+Cumulative edge number: 52
+
+ -- Node 14:
+
+Community: 14
+Neighbor communities: 12
+Incoming node weight: 3
+Cumulative edge number: 55
+
+ -- Node 15:
+
+Community: 15
+Neighbor communities: 12
+Incoming node weight: 1
+Cumulative edge number: 56
+
+ -- Community 0:
+
+Incoming weight: 4
+Internal weight: 0
+
+-- Community 1:
+
+Incoming weight: 3
+Internal weight: 0
+
+-- Community 2:
+
+Incoming weight: 5
+Internal weight: 0
+
+-- Community 3:
+
+Incoming weight: 2
+Internal weight: 0
+
+-- Community 4:
+
+Incoming weight: 4
+Internal weight: 0
+
+-- Community 5:
+
+Incoming weight: 4
+Internal weight: 0
+
+-- Community 6:
+
+Incoming weight: 3
+Internal weight: 0
+
+-- Community 7:
+
+Incoming weight: 4
+Internal weight: 0
+
+-- Community 8:
+
+Incoming weight: 5
+Internal weight: 0
+
+-- Community 9:
+
+Incoming weight: 3
+Internal weight: 0
+
+-- Community 10:
+
+Incoming weight: 6
+Internal weight: 0
+
+-- Community 11:
+
+Incoming weight: 5
+Internal weight: 0
+
+-- Community 12:
+
+Incoming weight: 2
+Internal weight: 0
+
+-- Community 13:
+
+Incoming weight: 2
+Internal weight: 0
+
+-- Community 14:
+
+Incoming weight: 3
+Internal weight: 0
+
+-- Community 15:
+
+Incoming weight: 1
+Internal weight: 0
+
+
+
+------------- END OF PRINTING COMMUNITY DEVELOPER -------------
+
+
+
+---------------- Phase start -----------------
+
+Initial phase modularity: -0.071429 (Reference method: -0.071429)
+
+
+---------------- Iteration #0 -----------------
+
+Initial iteration modularity: -0.071429 (Reference -0.071429)
+
+
+
+End of Iteration #0 - Result:
+
+
+
+---------------- PRINTING COMMUNITY DEVELOPER ----------------
+
+Number of nodes: 16
+Total weight in graph: 56
+
+-- Node 0:
+
+Community: 3
+Neighbor communities: 4
+Incoming node weight: 4
+Cumulative edge number: 4
+
+ -- Node 1:
+
+Community: 4
+Neighbor communities: 3
+Incoming node weight: 3
+Cumulative edge number: 7
+
+ -- Node 2:
+
+Community: 5
+Neighbor communities: 5
+Incoming node weight: 5
+Cumulative edge number: 12
+
+ -- Node 3:
+
+Community: 3
+Neighbor communities: 2
+Incoming node weight: 2
+Cumulative edge number: 14
+
+ -- Node 4:
+
+Community: 10
+Neighbor communities: 4
+Incoming node weight: 4
+Cumulative edge number: 18
+
+ -- Node 5:
+
+Community: 5
+Neighbor communities: 4
+Incoming node weight: 4
+Cumulative edge number: 22
+
+ -- Node 6:
+
+Community: 7
+Neighbor communities: 3
+Incoming node weight: 3
+Cumulative edge number: 25
+
+ -- Node 7:
+
+Community: 7
+Neighbor communities: 4
+Incoming node weight: 4
+Cumulative edge number: 29
+
+ -- Node 8:
+
+Community: 10
+Neighbor communities: 5
+Incoming node weight: 5
+Cumulative edge number: 34
+
+ -- Node 9:
+
+Community: 12
+Neighbor communities: 3
+Incoming node weight: 3
+Cumulative edge number: 37
+
+ -- Node 10:
+
+Community: 11
+Neighbor communities: 6
+Incoming node weight: 6
+Cumulative edge number: 43
+
+ -- Node 11:
+
+Community: 13
+Neighbor communities: 5
+Incoming node weight: 5
+Cumulative edge number: 48
+
+ -- Node 12:
+
+Community: 12
+Neighbor communities: 2
+Incoming node weight: 2
+Cumulative edge number: 50
+
+ -- Node 13:
+
+Community: 13
+Neighbor communities: 2
+Incoming node weight: 2
+Cumulative edge number: 52
+
+ -- Node 14:
+
+Community: 14
+Neighbor communities: 3
+Incoming node weight: 3
+Cumulative edge number: 55
+
+ -- Node 15:
+
+Community: 15
+Neighbor communities: 1
+Incoming node weight: 1
+Cumulative edge number: 56
+
+ -- Community 0:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 1:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 2:
+
+Incoming weight: 0
+Internal weight: 2
+
+-- Community 3:
+
+Incoming weight: 6
+Internal weight: 2
+
+-- Community 4:
+
+Incoming weight: 3
+Internal weight: 4
+
+-- Community 5:
+
+Incoming weight: 9
+Internal weight: 2
+
+-- Community 6:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 7:
+
+Incoming weight: 7
+Internal weight: 2
+
+-- Community 8:
+
+Incoming weight: 0
+Internal weight: 2
+
+-- Community 9:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 10:
+
+Incoming weight: 9
+Internal weight: 4
+
+-- Community 11:
+
+Incoming weight: 6
+Internal weight: 2
+
+-- Community 12:
+
+Incoming weight: 5
+Internal weight: 2
+
+-- Community 13:
+
+Incoming weight: 7
+Internal weight: 2
+
+-- Community 14:
+
+Incoming weight: 3
+Internal weight: 2
+
+-- Community 15:
+
+Incoming weight: 1
+Internal weight: 2
+
+
+
+------------- END OF PRINTING COMMUNITY DEVELOPER -------------
+
+Final iteration modularity: 0.071429 (Reference: 0.380102). Modularity gain: 0.142857
+
+
+---------------- Iteration #1 -----------------
+
+Initial iteration modularity: 0.071429 (Reference 0.380102)
+
+
+
+End of Iteration #1 - Result:
+
+
+
+---------------- PRINTING COMMUNITY DEVELOPER ----------------
+
+Number of nodes: 16
+Total weight in graph: 56
+
+-- Node 0:
+
+Community: 5
+Neighbor communities: 1
+Incoming node weight: 4
+Cumulative edge number: 4
+
+ -- Node 1:
+
+Community: 7
+Neighbor communities: 3
+Incoming node weight: 3
+Cumulative edge number: 7
+
+ -- Node 2:
+
+Community: 5
+Neighbor communities: 1
+Incoming node weight: 5
+Cumulative edge number: 12
+
+ -- Node 3:
+
+Community: 3
+Neighbor communities: 0
+Incoming node weight: 2
+Cumulative edge number: 14
+
+ -- Node 4:
+
+Community: 10
+Neighbor communities: 4
+Incoming node weight: 4
+Cumulative edge number: 18
+
+ -- Node 5:
+
+Community: 5
+Neighbor communities: 0
+Incoming node weight: 4
+Cumulative edge number: 22
+
+ -- Node 6:
+
+Community: 7
+Neighbor communities: 0
+Incoming node weight: 3
+Cumulative edge number: 25
+
+ -- Node 7:
+
+Community: 7
+Neighbor communities: 0
+Incoming node weight: 4
+Cumulative edge number: 29
+
+ -- Node 8:
+
+Community: 15
+Neighbor communities: 5
+Incoming node weight: 5
+Cumulative edge number: 34
+
+ -- Node 9:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 3
+Cumulative edge number: 37
+
+ -- Node 10:
+
+Community: 13
+Neighbor communities: 4
+Incoming node weight: 6
+Cumulative edge number: 43
+
+ -- Node 11:
+
+Community: 13
+Neighbor communities: 0
+Incoming node weight: 5
+Cumulative edge number: 48
+
+ -- Node 12:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 2
+Cumulative edge number: 50
+
+ -- Node 13:
+
+Community: 13
+Neighbor communities: 0
+Incoming node weight: 2
+Cumulative edge number: 52
+
+ -- Node 14:
+
+Community: 12
+Neighbor communities: 3
+Incoming node weight: 3
+Cumulative edge number: 55
+
+ -- Node 15:
+
+Community: 15
+Neighbor communities: 1
+Incoming node weight: 1
+Cumulative edge number: 56
+
+ -- Community 0:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 1:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 2:
+
+Incoming weight: 0
+Internal weight: 2
+
+-- Community 3:
+
+Incoming weight: 2
+Internal weight: 0
+
+-- Community 4:
+
+Incoming weight: 0
+Internal weight: 4
+
+-- Community 5:
+
+Incoming weight: 13
+Internal weight: 6
+
+-- Community 6:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 7:
+
+Incoming weight: 10
+Internal weight: 4
+
+-- Community 8:
+
+Incoming weight: 0
+Internal weight: 2
+
+-- Community 9:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 10:
+
+Incoming weight: 4
+Internal weight: 4
+
+-- Community 11:
+
+Incoming weight: 0
+Internal weight: 2
+
+-- Community 12:
+
+Incoming weight: 8
+Internal weight: 4
+
+-- Community 13:
+
+Incoming weight: 13
+Internal weight: 6
+
+-- Community 14:
+
+Incoming weight: 0
+Internal weight: 2
+
+-- Community 15:
+
+Incoming weight: 6
+Internal weight: 4
+
+
+
+------------- END OF PRINTING COMMUNITY DEVELOPER -------------
+
+Final iteration modularity: 0.224490 (Reference: 0.536352). Modularity gain: 0.153061
+
+
+---------------- Iteration #2 -----------------
+
+Initial iteration modularity: 0.224490 (Reference 0.536352)
+
+
+
+End of Iteration #2 - Result:
+
+
+
+---------------- PRINTING COMMUNITY DEVELOPER ----------------
+
+Number of nodes: 16
+Total weight in graph: 56
+
+-- Node 0:
+
+Community: 5
+Neighbor communities: 0
+Incoming node weight: 4
+Cumulative edge number: 4
+
+ -- Node 1:
+
+Community: 7
+Neighbor communities: 1
+Incoming node weight: 3
+Cumulative edge number: 7
+
+ -- Node 2:
+
+Community: 5
+Neighbor communities: 0
+Incoming node weight: 5
+Cumulative edge number: 12
+
+ -- Node 3:
+
+Community: 7
+Neighbor communities: 2
+Incoming node weight: 2
+Cumulative edge number: 14
+
+ -- Node 4:
+
+Community: 5
+Neighbor communities: 3
+Incoming node weight: 4
+Cumulative edge number: 18
+
+ -- Node 5:
+
+Community: 5
+Neighbor communities: 0
+Incoming node weight: 4
+Cumulative edge number: 22
+
+ -- Node 6:
+
+Community: 7
+Neighbor communities: 0
+Incoming node weight: 3
+Cumulative edge number: 25
+
+ -- Node 7:
+
+Community: 7
+Neighbor communities: 0
+Incoming node weight: 4
+Cumulative edge number: 29
+
+ -- Node 8:
+
+Community: 12
+Neighbor communities: 1
+Incoming node weight: 5
+Cumulative edge number: 34
+
+ -- Node 9:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 3
+Cumulative edge number: 37
+
+ -- Node 10:
+
+Community: 13
+Neighbor communities: 0
+Incoming node weight: 6
+Cumulative edge number: 43
+
+ -- Node 11:
+
+Community: 13
+Neighbor communities: 0
+Incoming node weight: 5
+Cumulative edge number: 48
+
+ -- Node 12:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 2
+Cumulative edge number: 50
+
+ -- Node 13:
+
+Community: 13
+Neighbor communities: 0
+Incoming node weight: 2
+Cumulative edge number: 52
+
+ -- Node 14:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 3
+Cumulative edge number: 55
+
+ -- Node 15:
+
+Community: 15
+Neighbor communities: 0
+Incoming node weight: 1
+Cumulative edge number: 56
+
+ -- Community 0:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 1:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 2:
+
+Incoming weight: 0
+Internal weight: 2
+
+-- Community 3:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 4:
+
+Incoming weight: 0
+Internal weight: 4
+
+-- Community 5:
+
+Incoming weight: 17
+Internal weight: 10
+
+-- Community 6:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 7:
+
+Incoming weight: 12
+Internal weight: 6
+
+-- Community 8:
+
+Incoming weight: 0
+Internal weight: 2
+
+-- Community 9:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 10:
+
+Incoming weight: 0
+Internal weight: 4
+
+-- Community 11:
+
+Incoming weight: 0
+Internal weight: 2
+
+-- Community 12:
+
+Incoming weight: 13
+Internal weight: 8
+
+-- Community 13:
+
+Incoming weight: 13
+Internal weight: 6
+
+-- Community 14:
+
+Incoming weight: 0
+Internal weight: 2
+
+-- Community 15:
+
+Incoming weight: 1
+Internal weight: 2
+
+
+
+------------- END OF PRINTING COMMUNITY DEVELOPER -------------
+
+Final iteration modularity: 0.323342 (Reference: 0.610969). Modularity gain: 0.098852
+
+
+---------------- Iteration #3 -----------------
+
+Initial iteration modularity: 0.323342 (Reference 0.610969)
+
+
+
+End of Iteration #3 - Result:
+
+
+
+---------------- PRINTING COMMUNITY DEVELOPER ----------------
+
+Number of nodes: 16
+Total weight in graph: 56
+
+-- Node 0:
+
+Community: 5
+Neighbor communities: 0
+Incoming node weight: 4
+Cumulative edge number: 4
+
+ -- Node 1:
+
+Community: 5
+Neighbor communities: 1
+Incoming node weight: 3
+Cumulative edge number: 7
+
+ -- Node 2:
+
+Community: 5
+Neighbor communities: 0
+Incoming node weight: 5
+Cumulative edge number: 12
+
+ -- Node 3:
+
+Community: 7
+Neighbor communities: 0
+Incoming node weight: 2
+Cumulative edge number: 14
+
+ -- Node 4:
+
+Community: 5
+Neighbor communities: 0
+Incoming node weight: 4
+Cumulative edge number: 18
+
+ -- Node 5:
+
+Community: 5
+Neighbor communities: 0
+Incoming node weight: 4
+Cumulative edge number: 22
+
+ -- Node 6:
+
+Community: 7
+Neighbor communities: 0
+Incoming node weight: 3
+Cumulative edge number: 25
+
+ -- Node 7:
+
+Community: 7
+Neighbor communities: 0
+Incoming node weight: 4
+Cumulative edge number: 29
+
+ -- Node 8:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 5
+Cumulative edge number: 34
+
+ -- Node 9:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 3
+Cumulative edge number: 37
+
+ -- Node 10:
+
+Community: 13
+Neighbor communities: 1
+Incoming node weight: 6
+Cumulative edge number: 43
+
+ -- Node 11:
+
+Community: 13
+Neighbor communities: 0
+Incoming node weight: 5
+Cumulative edge number: 48
+
+ -- Node 12:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 2
+Cumulative edge number: 50
+
+ -- Node 13:
+
+Community: 13
+Neighbor communities: 0
+Incoming node weight: 2
+Cumulative edge number: 52
+
+ -- Node 14:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 3
+Cumulative edge number: 55
+
+ -- Node 15:
+
+Community: 12
+Neighbor communities: 1
+Incoming node weight: 1
+Cumulative edge number: 56
+
+ -- Community 0:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 1:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 2:
+
+Incoming weight: 0
+Internal weight: 2
+
+-- Community 3:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 4:
+
+Incoming weight: 0
+Internal weight: 4
+
+-- Community 5:
+
+Incoming weight: 20
+Internal weight: 14
+
+-- Community 6:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 7:
+
+Incoming weight: 9
+Internal weight: 4
+
+-- Community 8:
+
+Incoming weight: 0
+Internal weight: 2
+
+-- Community 9:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 10:
+
+Incoming weight: 0
+Internal weight: 4
+
+-- Community 11:
+
+Incoming weight: 0
+Internal weight: 2
+
+-- Community 12:
+
+Incoming weight: 14
+Internal weight: 10
+
+-- Community 13:
+
+Incoming weight: 13
+Internal weight: 6
+
+-- Community 14:
+
+Incoming weight: 0
+Internal weight: 2
+
+-- Community 15:
+
+Incoming weight: 0
+Internal weight: 2
+
+
+
+------------- END OF PRINTING COMMUNITY DEVELOPER -------------
+
+Final iteration modularity: 0.382015 (Reference: 0.658801). Modularity gain: 0.058673
+
+
+---------------- Iteration #4 -----------------
+
+Initial iteration modularity: 0.382015 (Reference 0.658801)
+
+
+
+End of Iteration #4 - Result:
+
+
+
+---------------- PRINTING COMMUNITY DEVELOPER ----------------
+
+Number of nodes: 16
+Total weight in graph: 56
+
+-- Node 0:
+
+Community: 5
+Neighbor communities: 0
+Incoming node weight: 4
+Cumulative edge number: 4
+
+ -- Node 1:
+
+Community: 5
+Neighbor communities: 0
+Incoming node weight: 3
+Cumulative edge number: 7
+
+ -- Node 2:
+
+Community: 5
+Neighbor communities: 0
+Incoming node weight: 5
+Cumulative edge number: 12
+
+ -- Node 3:
+
+Community: 7
+Neighbor communities: 0
+Incoming node weight: 2
+Cumulative edge number: 14
+
+ -- Node 4:
+
+Community: 5
+Neighbor communities: 0
+Incoming node weight: 4
+Cumulative edge number: 18
+
+ -- Node 5:
+
+Community: 5
+Neighbor communities: 0
+Incoming node weight: 4
+Cumulative edge number: 22
+
+ -- Node 6:
+
+Community: 7
+Neighbor communities: 0
+Incoming node weight: 3
+Cumulative edge number: 25
+
+ -- Node 7:
+
+Community: 7
+Neighbor communities: 0
+Incoming node weight: 4
+Cumulative edge number: 29
+
+ -- Node 8:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 5
+Cumulative edge number: 34
+
+ -- Node 9:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 3
+Cumulative edge number: 37
+
+ -- Node 10:
+
+Community: 12
+Neighbor communities: 1
+Incoming node weight: 6
+Cumulative edge number: 43
+
+ -- Node 11:
+
+Community: 13
+Neighbor communities: 0
+Incoming node weight: 5
+Cumulative edge number: 48
+
+ -- Node 12:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 2
+Cumulative edge number: 50
+
+ -- Node 13:
+
+Community: 13
+Neighbor communities: 0
+Incoming node weight: 2
+Cumulative edge number: 52
+
+ -- Node 14:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 3
+Cumulative edge number: 55
+
+ -- Node 15:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 1
+Cumulative edge number: 56
+
+ -- Community 0:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 1:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 2:
+
+Incoming weight: 0
+Internal weight: 2
+
+-- Community 3:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 4:
+
+Incoming weight: 0
+Internal weight: 4
+
+-- Community 5:
+
+Incoming weight: 20
+Internal weight: 14
+
+-- Community 6:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 7:
+
+Incoming weight: 9
+Internal weight: 4
+
+-- Community 8:
+
+Incoming weight: 0
+Internal weight: 2
+
+-- Community 9:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 10:
+
+Incoming weight: 0
+Internal weight: 4
+
+-- Community 11:
+
+Incoming weight: 0
+Internal weight: 2
+
+-- Community 12:
+
+Incoming weight: 20
+Internal weight: 16
+
+-- Community 13:
+
+Incoming weight: 7
+Internal weight: 2
+
+-- Community 14:
+
+Incoming weight: 0
+Internal weight: 2
+
+-- Community 15:
+
+Incoming weight: 0
+Internal weight: 2
+
+
+
+------------- END OF PRINTING COMMUNITY DEVELOPER -------------
+
+Final iteration modularity: 0.406250 (Reference: 0.667730). Modularity gain: 0.024235
+
+
+---------------- Iteration #5 -----------------
+
+Initial iteration modularity: 0.406250 (Reference 0.667730)
+
+
+
+End of Iteration #5 - Result:
+
+
+
+---------------- PRINTING COMMUNITY DEVELOPER ----------------
+
+Number of nodes: 16
+Total weight in graph: 56
+
+-- Node 0:
+
+Community: 5
+Neighbor communities: 0
+Incoming node weight: 4
+Cumulative edge number: 4
+
+ -- Node 1:
+
+Community: 5
+Neighbor communities: 0
+Incoming node weight: 3
+Cumulative edge number: 7
+
+ -- Node 2:
+
+Community: 5
+Neighbor communities: 0
+Incoming node weight: 5
+Cumulative edge number: 12
+
+ -- Node 3:
+
+Community: 7
+Neighbor communities: 0
+Incoming node weight: 2
+Cumulative edge number: 14
+
+ -- Node 4:
+
+Community: 5
+Neighbor communities: 0
+Incoming node weight: 4
+Cumulative edge number: 18
+
+ -- Node 5:
+
+Community: 5
+Neighbor communities: 0
+Incoming node weight: 4
+Cumulative edge number: 22
+
+ -- Node 6:
+
+Community: 7
+Neighbor communities: 0
+Incoming node weight: 3
+Cumulative edge number: 25
+
+ -- Node 7:
+
+Community: 7
+Neighbor communities: 0
+Incoming node weight: 4
+Cumulative edge number: 29
+
+ -- Node 8:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 5
+Cumulative edge number: 34
+
+ -- Node 9:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 3
+Cumulative edge number: 37
+
+ -- Node 10:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 6
+Cumulative edge number: 43
+
+ -- Node 11:
+
+Community: 13
+Neighbor communities: 0
+Incoming node weight: 5
+Cumulative edge number: 48
+
+ -- Node 12:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 2
+Cumulative edge number: 50
+
+ -- Node 13:
+
+Community: 13
+Neighbor communities: 0
+Incoming node weight: 2
+Cumulative edge number: 52
+
+ -- Node 14:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 3
+Cumulative edge number: 55
+
+ -- Node 15:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 1
+Cumulative edge number: 56
+
+ -- Community 0:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 1:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 2:
+
+Incoming weight: 0
+Internal weight: 2
+
+-- Community 3:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 4:
+
+Incoming weight: 0
+Internal weight: 4
+
+-- Community 5:
+
+Incoming weight: 20
+Internal weight: 14
+
+-- Community 6:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 7:
+
+Incoming weight: 9
+Internal weight: 4
+
+-- Community 8:
+
+Incoming weight: 0
+Internal weight: 2
+
+-- Community 9:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 10:
+
+Incoming weight: 0
+Internal weight: 4
+
+-- Community 11:
+
+Incoming weight: 0
+Internal weight: 2
+
+-- Community 12:
+
+Incoming weight: 20
+Internal weight: 16
+
+-- Community 13:
+
+Incoming weight: 7
+Internal weight: 2
+
+-- Community 14:
+
+Incoming weight: 0
+Internal weight: 2
+
+-- Community 15:
+
+Incoming weight: 0
+Internal weight: 2
+
+
+
+------------- END OF PRINTING COMMUNITY DEVELOPER -------------
+
+Final iteration modularity: 0.406250 (Reference: 0.667730). Modularity gain: 0.000000
+
+
+------------- OUTPUT TRANSLATION ------------
+
+Input graph:
+
+
+
+Input CD:
+
+
+
+---------------- PRINTING COMMUNITY DEVELOPER ----------------
+
+Number of nodes: 16
+Total weight in graph: 56
+
+-- Node 0:
+
+Community: 5
+Neighbor communities: 0
+Incoming node weight: 4
+Cumulative edge number: 4
+
+ -- Node 1:
+
+Community: 5
+Neighbor communities: 0
+Incoming node weight: 3
+Cumulative edge number: 7
+
+ -- Node 2:
+
+Community: 5
+Neighbor communities: 0
+Incoming node weight: 5
+Cumulative edge number: 12
+
+ -- Node 3:
+
+Community: 7
+Neighbor communities: 0
+Incoming node weight: 2
+Cumulative edge number: 14
+
+ -- Node 4:
+
+Community: 5
+Neighbor communities: 0
+Incoming node weight: 4
+Cumulative edge number: 18
+
+ -- Node 5:
+
+Community: 5
+Neighbor communities: 0
+Incoming node weight: 4
+Cumulative edge number: 22
+
+ -- Node 6:
+
+Community: 7
+Neighbor communities: 0
+Incoming node weight: 3
+Cumulative edge number: 25
+
+ -- Node 7:
+
+Community: 7
+Neighbor communities: 0
+Incoming node weight: 4
+Cumulative edge number: 29
+
+ -- Node 8:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 5
+Cumulative edge number: 34
+
+ -- Node 9:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 3
+Cumulative edge number: 37
+
+ -- Node 10:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 6
+Cumulative edge number: 43
+
+ -- Node 11:
+
+Community: 13
+Neighbor communities: 0
+Incoming node weight: 5
+Cumulative edge number: 48
+
+ -- Node 12:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 2
+Cumulative edge number: 50
+
+ -- Node 13:
+
+Community: 13
+Neighbor communities: 0
+Incoming node weight: 2
+Cumulative edge number: 52
+
+ -- Node 14:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 3
+Cumulative edge number: 55
+
+ -- Node 15:
+
+Community: 12
+Neighbor communities: 0
+Incoming node weight: 1
+Cumulative edge number: 56
+
+ -- Community 0:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 1:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 2:
+
+Incoming weight: 0
+Internal weight: 2
+
+-- Community 3:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 4:
+
+Incoming weight: 0
+Internal weight: 4
+
+-- Community 5:
+
+Incoming weight: 20
+Internal weight: 14
+
+-- Community 6:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 7:
+
+Incoming weight: 9
+Internal weight: 4
+
+-- Community 8:
+
+Incoming weight: 0
+Internal weight: 2
+
+-- Community 9:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 10:
+
+Incoming weight: 0
+Internal weight: 4
+
+-- Community 11:
+
+Incoming weight: 0
+Internal weight: 2
+
+-- Community 12:
+
+Incoming weight: 20
+Internal weight: 16
+
+-- Community 13:
+
+Incoming weight: 7
+Internal weight: 2
+
+-- Community 14:
+
+Incoming weight: 0
+Internal weight: 2
+
+-- Community 15:
+
+Incoming weight: 0
+Internal weight: 2
+
+
+
+------------- END OF PRINTING COMMUNITY DEVELOPER -------------
+
+Output translation - Final modularity of input (reference formula): 0.667730
+
+Final phase modularity: 0.406250. Modularity gain: 0.477679
+-- End of Phase #0 - Initial modularity: -0.071429 - Final modularity: 0.406250 - Gain: 0.477679
+
+
+PHASE #1:
+
+Graph size: 4
+Initial phase modularity: 0.406250 (Re-computed: 0.346301)
+
+
+---------------- PRINTING COMMUNITY DEVELOPER ----------------
+
+Number of nodes: 4
+Total weight in graph: 56
+
+-- Node 0:
+
+Community: 0
+Neighbor communities: 1969760184
+Incoming node weight: 20
+Cumulative edge number: 3
+
+ -- Node 1:
+
+Community: 1
+Neighbor communities: 32561
+Incoming node weight: 9
+Cumulative edge number: 5
+
+ -- Node 2:
+
+Community: 2
+Neighbor communities: 1969760184
+Incoming node weight: 20
+Cumulative edge number: 7
+
+ -- Node 3:
+
+Community: 3
+Neighbor communities: 32561
+Incoming node weight: 7
+Cumulative edge number: 10
+
+ -- Community 0:
+
+Incoming weight: 20
+Internal weight: 14
+
+-- Community 1:
+
+Incoming weight: 9
+Internal weight: 4
+
+-- Community 2:
+
+Incoming weight: 20
+Internal weight: 16
+
+-- Community 3:
+
+Incoming weight: 7
+Internal weight: 2
+
+
+
+------------- END OF PRINTING COMMUNITY DEVELOPER -------------
+
+
+
+---------------- Phase start -----------------
+
+Initial phase modularity: 0.346301 (Reference method: 0.346301)
+
+
+---------------- Iteration #0 -----------------
+
+Initial iteration modularity: 0.346301 (Reference 0.346301)
+
+
+
+End of Iteration #0 - Result:
+
+
+
+---------------- PRINTING COMMUNITY DEVELOPER ----------------
+
+Number of nodes: 4
+Total weight in graph: 56
+
+-- Node 0:
+
+Community: 1
+Neighbor communities: 1
+Incoming node weight: 20
+Cumulative edge number: 3
+
+ -- Node 1:
+
+Community: 1
+Neighbor communities: 1
+Incoming node weight: 9
+Cumulative edge number: 5
+
+ -- Node 2:
+
+Community: 3
+Neighbor communities: 1
+Incoming node weight: 20
+Cumulative edge number: 7
+
+ -- Node 3:
+
+Community: 3
+Neighbor communities: 1
+Incoming node weight: 7
+Cumulative edge number: 10
+
+ -- Community 0:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 1:
+
+Incoming weight: 29
+Internal weight: 26
+
+-- Community 2:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 3:
+
+Incoming weight: 27
+Internal weight: 24
+
+
+
+------------- END OF PRINTING COMMUNITY DEVELOPER -------------
+
+Final iteration modularity: 0.392219 (Reference: 0.392219). Modularity gain: 0.045918
+
+
+---------------- Iteration #1 -----------------
+
+Initial iteration modularity: 0.392219 (Reference 0.392219)
+
+
+
+End of Iteration #1 - Result:
+
+
+
+---------------- PRINTING COMMUNITY DEVELOPER ----------------
+
+Number of nodes: 4
+Total weight in graph: 56
+
+-- Node 0:
+
+Community: 1
+Neighbor communities: 0
+Incoming node weight: 20
+Cumulative edge number: 3
+
+ -- Node 1:
+
+Community: 1
+Neighbor communities: 0
+Incoming node weight: 9
+Cumulative edge number: 5
+
+ -- Node 2:
+
+Community: 3
+Neighbor communities: 0
+Incoming node weight: 20
+Cumulative edge number: 7
+
+ -- Node 3:
+
+Community: 3
+Neighbor communities: 0
+Incoming node weight: 7
+Cumulative edge number: 10
+
+ -- Community 0:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 1:
+
+Incoming weight: 29
+Internal weight: 26
+
+-- Community 2:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 3:
+
+Incoming weight: 27
+Internal weight: 24
+
+
+
+------------- END OF PRINTING COMMUNITY DEVELOPER -------------
+
+Final iteration modularity: 0.392219 (Reference: 0.392219). Modularity gain: 0.000000
+
+
+------------- OUTPUT TRANSLATION ------------
+
+Input graph:
+
+
+
+Input CD:
+
+
+
+---------------- PRINTING COMMUNITY DEVELOPER ----------------
+
+Number of nodes: 4
+Total weight in graph: 56
+
+-- Node 0:
+
+Community: 1
+Neighbor communities: 0
+Incoming node weight: 20
+Cumulative edge number: 3
+
+ -- Node 1:
+
+Community: 1
+Neighbor communities: 0
+Incoming node weight: 9
+Cumulative edge number: 5
+
+ -- Node 2:
+
+Community: 3
+Neighbor communities: 0
+Incoming node weight: 20
+Cumulative edge number: 7
+
+ -- Node 3:
+
+Community: 3
+Neighbor communities: 0
+Incoming node weight: 7
+Cumulative edge number: 10
+
+ -- Community 0:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 1:
+
+Incoming weight: 29
+Internal weight: 26
+
+-- Community 2:
+
+Incoming weight: 0
+Internal weight: 0
+
+-- Community 3:
+
+Incoming weight: 27
+Internal weight: 24
+
+
+
+------------- END OF PRINTING COMMUNITY DEVELOPER -------------
+
+Output translation - Final modularity of input (reference formula): 0.392219
+
+Final phase modularity: 0.392219. Modularity gain: 0.045918
+-- End of Phase #1 - Initial modularity: 0.406250 - Final modularity: 0.392219 - Gain: -0.014031
+Execution time for full run of parallel algorithm executed by 4 threads: 0.000532 (wtime) - 0.002134 (clock)
+Re-computed modularity for parallel version (from vector): 0.000000
 

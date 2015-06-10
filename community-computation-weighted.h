@@ -25,6 +25,17 @@ inline void apply_transfer_weighted(dynamic_weighted_graph *dwg, community_devel
 int output_translator_weighted(dynamic_weighted_graph *dwg, community_developer *cd, dynamic_weighted_graph **community_graph, int **community_vector);
 
 // Executes a phase of the algorithm, returns modularity gain
-double phase_weighted(dynamic_weighted_graph *dwg, double minimum_improvement, dynamic_weighted_graph **community_graph, int **community_vector);
+double parallel_phase_weighted(dynamic_weighted_graph *dwg, double minimum_improvement, dynamic_weighted_graph **community_graph, int **community_vector);
+
+//Directional link from n1 to n2
+int dynamic_weighted_graph_insert_force_directed(dynamic_weighted_graph *da, int n1, int n2, int weight);
+
+double compute_modularity_weighted_reference_implementation_method(community_developer *cd);
+
+// Computes modularity as if each node was in an individual community
+double compute_modularity_init_weighted_reference_implementation_method(dynamic_weighted_graph *dwg);
+
+double parallel_find_communities_weighted(dynamic_weighted_graph *dwg, double minimum_phase_improvement, double minimum_iteration_improvement, char *output_communities_filename, char *output_graphs_filename, dynamic_weighted_graph **community_graph, int **community_vector);
+
 
 #endif

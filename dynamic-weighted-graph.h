@@ -25,6 +25,8 @@ weighted_edge dynamic_weighted_edge_array_retrieve(dynamic_weighted_edge_array d
 
 int dynamic_weighted_edge_array_resize(dynamic_weighted_edge_array *da, int size);
 
+void dynamic_weighted_edge_array_free(dynamic_weighted_edge_array *dwea);
+
 typedef struct dynamic_weighted_graph{
 		dynamic_weighted_edge_array *edges;       //List of adjacency lists of vertices in array form
         int size;
@@ -51,6 +53,8 @@ int dynamic_weighted_graph_parse_file(dynamic_weighted_graph *dg, char *filename
 
 int dynamic_weighted_graph_node_degree(dynamic_weighted_graph *dg, int index);
 
+void dynamic_weighted_graph_free(dynamic_weighted_graph *dwg);
 
+int dynamic_weighted_graph_self_loop(dynamic_weighted_graph *dwg, int node_index);
 
 #endif

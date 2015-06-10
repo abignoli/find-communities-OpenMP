@@ -4,7 +4,7 @@
 #include "shared-graph.h"
 #include "silent-switch.h"
 
-#ifdef SILENT_SWITCH_ON
+#ifdef SILENT_SWITCH_DYNAMIC_GRAPH_ON
 #define printf(...)
 #endif
 
@@ -181,6 +181,37 @@ int dynamic_weighted_graph_insert(dynamic_weighted_graph *da, int n1, int n2, in
     return 1;
 }
 
+//Directional link from n1 to n2
+int dynamic_weighted_graph_insert_force_directed(dynamic_weighted_graph *da, int n1, int n2, int weight)
+{
+    int *tmp,*addr;
+    int i;
+
+    int maxn;
+    int new_size;
+
+    // Check whether node 1 or 2 is not included in the graph yet
+    maxn = max(n1,n2);
+
+    if(maxn >= da->size) {
+    	new_size = increase_size_policy(da->size, maxn+1);
+
+    	if(!dynamic_weighted_graph_resize(da, new_size))
+    		return 0;
+    }
+
+    if (n1 == n2)
+    	(da->edges+n1)->self_loop = weight;
+    else if(dynamic_weighted_edge_array_insert(da->edges+n1, n2, weight)) {
+    	da->maxn = max(da->maxn, maxn);
+    } else {
+    	printf("Out of memory!\n");
+    	return 0;
+    }
+
+    return 1;
+}
+
 void dynamic_weighted_graph_print(dynamic_weighted_graph dg)
 {
      int i;
@@ -282,4 +313,26 @@ int dynamic_weighted_graph_double_m(dynamic_weighted_graph *dwg) {
 		result += dynamic_weighted_graph_node_degree(dwg, i);
 
 	return result;
+}
+
+void dynamic_weighted_graph_free(dynamic_weighted_graph *dwg) {
+	int i;
+
+	if(dwg->edges){
+		for(i = 0; i < dwg->size; i++)
+			dynamic_weighted_edge_array_free(dwg->edges + i);
+
+		free(dwg->edges);
+	}
+
+	dwg->maxn = dwg->size = 0;
+}
+
+void dynamic_weighted_edge_array_free(dynamic_weighted_edge_array *dwea) {
+	free(dwea->addr);
+	dwea->count = dwea->self_loop = dwea->size = 0;
+}
+
+int dynamic_weighted_graph_self_loop(dynamic_weighted_graph *dwg, int node_index) {
+	return (dwg->edges + node_index)->self_loop;
 }

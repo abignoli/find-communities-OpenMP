@@ -5,7 +5,7 @@
 #include "silent-switch.h"
 #include "dynamic-weighted-graph.h"
 
-#ifdef SILENT_SWITCH_ON
+#ifdef SILENT_SWITCH_DYNAMIC_GRAPH_ON
 #define printf(...)
 #endif
 
@@ -295,4 +295,22 @@ int convert_to_weighted(dynamic_graph *dg, dynamic_weighted_graph *dwg, int weig
 
 			return 0;
 		}
+}
+
+void dynamic_graph_free(dynamic_graph *dg) {
+	int i;
+
+	if(dg->edges){
+		for(i = 0; i < dg->size; i++)
+			dynamic_edge_array_free(dg->edges + i);
+
+		free(dg->edges);
+	}
+
+	dg->maxn = dg->size = 0;
+}
+
+void dynamic_edge_array_free(dynamic_edge_array *dea) {
+	free(dea->addr);
+	dea->count = dea->self_loop = dea->size = 0;
 }

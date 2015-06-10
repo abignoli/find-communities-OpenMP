@@ -26,6 +26,10 @@ int sequential_select_pairings(community_developer *cd, community_exchange *exch
 	int *used_node;
 	int current = 0;
 
+	int node_has_been_used;
+	int src_community_has_been_used;
+	int dest_community_has_been_used;
+
 	*stop_scanning_position = exchange_rankings_number;
 
 	if(*selected = (short*) malloc(exchange_rankings_number * sizeof(short))) {
@@ -37,9 +41,11 @@ int sequential_select_pairings(community_developer *cd, community_exchange *exch
 				memset(used_node, 0 , cd->n * sizeof(int));
 
 				while(used_communities < cd->n && current < exchange_rankings_number) {
-					if(!(*(used_node + (exchange_rankings_sorted+current)->node)) &&
-							!(*(used_community + *(cd->vertex_community + (exchange_rankings_sorted+current)->node))) &&
-							!(*(used_community + (exchange_rankings_sorted+current)->dest))) {
+					node_has_been_used = *(used_node + (exchange_rankings_sorted+current)->node);
+					src_community_has_been_used = *(used_community + *(cd->vertex_community + (exchange_rankings_sorted+current)->node));
+					dest_community_has_been_used = *(used_community + (exchange_rankings_sorted+current)->dest);
+
+					if(!node_has_been_used && !src_community_has_been_used && !dest_community_has_been_used) {
 						// Source and destination communities weren't used yet by any exchange
 
 						// Exchange selected
