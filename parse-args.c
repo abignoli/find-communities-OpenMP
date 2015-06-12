@@ -1,16 +1,18 @@
 #include <stdio.h>
 
 #include "parse-args.h"
+#include "execution-settings.h"
 #include "community-development.h"
+#include "utilities.h"
 
-void set_default(settings *s) {
+void set_default(execution_settings *s) {
 	s->input_file = NULL;
 	s->graph_type = NOT_WEIGHTED;
-	s->minimum_phase_improvement = 0;
-	s->minimum_iteration_improvement = 0;
+	s->minimum_phase_improvement = DEFAULT_MINIMUM_PHASE_IMPROVEMENT;
+	s->minimum_iteration_improvement = DEFAULT_MINIMUM_ITERATION_IMPROVEMENT;
 	s->output_communities_file = NULL;
 	s->output_graphs_file = NULL;
-	s->number_of_threads = 1;
+	s->number_of_threads = DEFAULT_NUMBER_OF_THREADS;
 }
 
 void print_help(char *prog_name) {
@@ -28,7 +30,7 @@ void print_help(char *prog_name) {
 			"Indexes must be non negative, and weights should be greater than zero. The output is undefined if these conditions are not met\n\n", prog_name);
 }
 
-int parse_args(int argc, char *argv[], settings *s){
+int parse_args(int argc, char *argv[], execution_settings *s){
 	int valid = 1;
 	int i;
 
@@ -129,4 +131,23 @@ int parse_args(int argc, char *argv[], settings *s){
 		print_help(argv[0]);
 
 	return valid;
+}
+
+void settings_print(execution_settings *settings) {
+	printf(PRINTING_UTILITY_STARS);
+
+	printf("Settings:\n\n");
+
+	printf("\tInput file: %s n", settings->input_file);
+	printf("\tGraph type: %s\n", (settings->graph_type == WEIGHTED ? "Weighted" : "Not Weighted"))
+	printf("\tMinimum phase improvement: %f\n", settings->minimum_phase_improvement);
+	printf("\tMinimum iteration improvement: %f\n", settings->minimum_iteration_improvement);
+	printf("\tNumber of threads: %d\n", settings->number_of_threads);
+
+	printf("\n");
+
+	if(settings->output_communities_file)
+		printf("\tSaving communities in %s\n", settings->output_communities_file);
+	if(settings->output_graphs_file)
+		printf("\tSaving community graphs in %s\n", settings->output_graphs_file);
 }

@@ -83,17 +83,3 @@ Re-computed modularity for parallel version (from vector): 0.814492
 
 Execution time for full run of sequential algorithm: 0.092235
 Re-computed modularity for sequential version (from vector): 0.813023
-
-
-************************************************
-
-Notes:
-
-Measured parallel scaling is over the linear ideal case. 
-This is probably due to the host OS interfehering with the execution.
-Test will be repeated in a different way, using averages and hopefully with a larger input graph.
-
-
-
-
-

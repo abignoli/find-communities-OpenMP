@@ -1,6 +1,8 @@
 #ifndef DYNAMIC_WEIGHTED_GRAPH_H
 #define DYNAMIC_WEIGHTED_GRAPH_H
 
+#define DEFAULT_WEIGHT_FOR_NOT_WEIGHTED_EDGES 1
+
 //DynamicGraph
 
 typedef struct weighted_edge {

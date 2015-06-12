@@ -1,0 +1,8 @@
+is reference implementation formula correct?
+
+Maybe Aij in modularity computation can be zero...
+This would explain both why:
+	- my computed modularity differed from reference
+	- it's necessary to use a formula like the reference implementation one for efficiency
+	
+

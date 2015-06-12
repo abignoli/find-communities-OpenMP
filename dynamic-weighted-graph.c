@@ -283,6 +283,37 @@ int dynamic_weighted_graph_parse_file(dynamic_weighted_graph *dg, char *filename
 	return 1;
 }
 
+// Assign given weight to each edge
+int dynamic_weighted_graph_parse_not_weighted_file(dynamic_weighted_graph *dwg, char *filename, int weight) {
+	FILE * graph_file;
+	int src, dest;
+
+	if(!dynamic_weighted_graph_init(dwg,DEFAULT_INIT_NODES_SIZE))
+		return 0;
+
+	// Read file - Insert edges
+	if(graph_file = fopen(filename,"r")) {
+		while(fscanf(graph_file, "%d %d", &src, &dest) == 2)
+			if(!dynamic_weighted_graph_insert(dwg,src,dest, weight)) {
+				printf("Could not insert edge %d - %d!\n", src, dest);
+				return 0;
+			}
+	} else {
+		printf("Could not open file: %s!\n", filename);
+
+		return 0;
+	}
+
+	// Reduce to optimal size
+	if(!dynamic_weighted_graph_reduce(dwg)) {
+		printf("Could not reduce graph size!\n");
+
+		return 0;
+	}
+
+	return 1;
+}
+
 // Includes selfloop
 int dynamic_weighted_graph_node_degree(dynamic_weighted_graph *dwg, int index) {
 	int result, i;

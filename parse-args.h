@@ -1,21 +1,25 @@
+#ifndef PARSE_ARGS_H
+#define PARSE_ARGS_H
+
+typedef struct execution_settings execution_settings;
+
 #define NOT_WEIGHTED 0
 #define WEIGHTED 1
+
+#define DEFAULT_MINIMUM_PHASE_IMPROVEMENT 0
+#define DEFAULT_MINIMUM_ITERATION_IMPROVEMENT 0
+
+#define DEFAULT_NUMBER_OF_THREADS 1
 
 // Modify only if modifying also input parameters format!
 #define MINIMUM_ARGUMENTS_NUMBER 3
 
-typedef struct settings {
-	char *input_file;
-	int graph_type;
-	double minimum_phase_improvement;
-	double minimum_iteration_improvement;
-	char *output_communities_file;
-	char *output_graphs_file;
-	int number_of_threads;
-} settings;
-
-void set_default(settings *s);
+void set_default(execution_settings *s);
 
 void print_help(char *prog_name);
 
-int parse_args(int argc, char *argv[], settings *s);
+int parse_args(int argc, char *argv[], execution_settings *s);
+
+void settings_print(execution_settings *settings);
+
+#endif
