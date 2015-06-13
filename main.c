@@ -6,12 +6,15 @@
 #include "execution-handler.h"
 #include "utilities.h"
 #include "community-development.h"
+#include "execution-briefing.h"
 #include <stdio.h>
+#include <stdlib.h>
 
 int main(int argc, char * argv[]) {
 	execution_settings settings;
 	dynamic_graph input_dg;
 	dynamic_weighted_graph input_dwg;
+	execution_briefing briefing;
 
 	dynamic_weighted_graph *output_dwg;
 	int *output_communities;
@@ -27,7 +30,7 @@ int main(int argc, char * argv[]) {
 	if(!parse_input(&input_dg, &input_dwg, &settings))
 		return -1;
 
-	if(execute_community_detection(&input_dg, &input_dwg, &settings, &output_dwg, &output_communities) == ILLEGAL_MODULARITY_VALUE)
+	if(!execute_community_detection(&input_dg, &input_dwg, &settings, &output_dwg, &output_communities, &briefing))
 		printf("Community detection exited with errors!\n");
 
 	free(output_communities);

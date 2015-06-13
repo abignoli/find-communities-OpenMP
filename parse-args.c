@@ -15,6 +15,7 @@ void set_default(execution_settings *s) {
 	s->output_graphs_file = NULL;
 	s->number_of_threads = DEFAULT_NUMBER_OF_THREADS;
 	s->sequential = DEFAULT_SEQUENTIAL;
+	s->benchmark_runs = DEFAULT_BENCHMARK_RUNS;
 }
 
 void print_help(char *prog_name) {
@@ -29,8 +30,9 @@ void print_help(char *prog_name) {
 			"\t-s\t\tExecute the sequential version of the algorithm instead of the parallel one. (Given number of threads is ignored)\n"
 			"\t-p number\tStop phase analysis when phase improvement is smaller than number. Number must be between 0.0 and 1.0\n"
 			"\t-i number\tStop iteration (over all nodes) analysis when iteration improvement is smaller than number. Number must be between 0.0 and 1.0\n"
-			"\t-o file\t\tSave graphs obtained in each phase in file\n\n"
-			"Input file must have the format:\n\n"
+			"\t-o file\t\tSave graphs obtained in each phase in file\n"
+			"\t-b number\t\tPerform the given number of benchmark runs and compute an averaged execution time for the given algorithm settings\n"
+			"\nInput file must have the format:\n\n"
 			"source-node destination-node [edge-weight]\n\n"
 			"Indexes must be non negative, and weights should be greater than zero. The output is undefined if these conditions are not met\n", prog_name);
 
@@ -49,105 +51,122 @@ int parse_args(int argc, char *argv[], execution_settings *s){
 		valid = 0;
 	}
 
-	if(strcmp(argv[1],"-h") == 0) {
+	if(valid && strcmp(argv[1],"-h") == 0) {
 		valid = 0;
-	} else {
-		if(argc < MINIMUM_ARGUMENTS_NUMBER) {
-			printf("Wrong number of arguments!\n");
+	}
 
-			valid = 0;
-		}
+	if(valid &&argc < MINIMUM_ARGUMENTS_NUMBER) {
+		printf("Wrong number of arguments!\n");
 
-		if(valid) {
+		valid = 0;
+	}
 
-			s->input_file = argv[1];
-			s->output_communities_file = argv[2];
+	if(valid) {
 
-			for(i=MINIMUM_ARGUMENTS_NUMBER; valid && i < argc; i++) {
-				if(argv[i][0] == '-') {
-					switch(argv[i][1]){
+		s->input_file = argv[1];
+		s->output_communities_file = argv[2];
 
-					case 'h':
-						valid = 0;
-						break;
+		for(i=MINIMUM_ARGUMENTS_NUMBER; valid && i < argc; i++) {
+			if(argv[i][0] == '-') {
+				switch(argv[i][1]){
 
-					case 'w':
-						s->graph_type = WEIGHTED;
-						break;
+				case 'h':
+					valid = 0;
+					break;
 
-					case 't':
-						if(i + 1 < argc) {
-							i++;
-							s->number_of_threads = atoi(argv[i]);
+				case 'w':
+					s->graph_type = WEIGHTED;
+					break;
 
-							if(s->number_of_threads <= 0) {
-								printf("Invalid number of threads: '%s'", argv[i]);
+				case 't':
+					if(i + 1 < argc) {
+						i++;
+						s->number_of_threads = atoi(argv[i]);
 
-								valid = 0;
-							}
-						} else {
-							printf("Expected number of threads after '%s'!\n", argv[i]);
+						if(s->number_of_threads <= 0) {
+							printf("Invalid number of threads: '%s'", argv[i]);
+
 							valid = 0;
 						}
-						break;
-
-					case 's':
-						s->sequential = 1;
-						break;
-
-					case 'p':
-						if(i + 1 < argc) {
-							i++;
-							s->minimum_phase_improvement = atof(argv[i]);
-
-							if(!valid_minimum_improvement(s->minimum_phase_improvement)) {
-								printf("Invalid minimum phase improvement: '%s'", argv[i]);
-
-								valid = 0;
-							}
-						} else {
-							printf("Expected minimum phase improvement after '%s'!\n", argv[i]);
-							valid = 0;
-						}
-						break;
-
-					case 'i':
-						if(i + 1 < argc) {
-							i++;
-							s->minimum_iteration_improvement = atof(argv[i]);
-
-							if(!valid_minimum_improvement(s->minimum_iteration_improvement)) {
-								printf("Invalid minimum iteration improvement: '%s'", argv[i]);
-
-								valid = 0;
-							}
-						} else {
-							printf("Expected minimum iteration improvement after '%s'!\n", argv[i]);
-							valid = 0;
-						}
-						break;
-
-					case 'o':
-						if(i + 1 < argc) {
-							i++;
-							s->output_graphs_file = argv[i];
-						} else {
-							printf("Expected output file name after '%s'!\n", argv[i]);
-							valid = 0;
-						}
-						break;
-					default:
-						printf("Invalid option '%s'!\n", argv[i]);
+					} else {
+						printf("Expected number of threads after '%s'!\n", argv[i]);
 						valid = 0;
 					}
-				} else {
-					printf("Invalid input: %s\n", argv[i]);
+					break;
 
+				case 's':
+					s->sequential = 1;
+					break;
+
+				case 'p':
+					if(i + 1 < argc) {
+						i++;
+						s->minimum_phase_improvement = atof(argv[i]);
+
+						if(!valid_minimum_improvement(s->minimum_phase_improvement)) {
+							printf("Invalid minimum phase improvement: '%s'", argv[i]);
+
+							valid = 0;
+						}
+					} else {
+						printf("Expected minimum phase improvement after '%s'!\n", argv[i]);
+						valid = 0;
+					}
+					break;
+
+				case 'i':
+					if(i + 1 < argc) {
+						i++;
+						s->minimum_iteration_improvement = atof(argv[i]);
+
+						if(!valid_minimum_improvement(s->minimum_iteration_improvement)) {
+							printf("Invalid minimum iteration improvement: '%s'", argv[i]);
+
+							valid = 0;
+						}
+					} else {
+						printf("Expected minimum iteration improvement after '%s'!\n", argv[i]);
+						valid = 0;
+					}
+					break;
+
+				case 'b':
+					if(i + 1 < argc) {
+						i++;
+						s->benchmark_runs = atoi(argv[i]);
+
+						if(s->benchmark_runs <= 0) {
+							printf("Invalid number of benchmark runs: '%s'", argv[i]);
+
+							valid = 0;
+						}
+					} else {
+						printf("Expected number of benchmark runs after '%s'!\n", argv[i]);
+						valid = 0;
+					}
+					break;
+
+				case 'o':
+					if(i + 1 < argc) {
+						i++;
+						s->output_graphs_file = argv[i];
+					} else {
+						printf("Expected output file name after '%s'!\n", argv[i]);
+						valid = 0;
+					}
+					break;
+				default:
+					printf("Invalid option '%s'!\n", argv[i]);
 					valid = 0;
 				}
+			} else {
+				printf("Invalid input: %s\n", argv[i]);
+
+				valid = 0;
 			}
 		}
 	}
+
 
 	if(!valid)
 		print_help(argv[0]);
@@ -168,6 +187,9 @@ void settings_print(execution_settings *settings) {
 	printf("\tAlgorithm version: %s\n", (settings->sequential ? "Sequential" : "Parallel"));
 	if(!settings->sequential)
 		printf("\tNumber of threads: %d\n", settings->number_of_threads);
+	printf("\tBenchmarking status: %s\n", (settings->benchmark_runs ? "Active" : "Inactive"));
+	if(settings->benchmark_runs)
+		printf("\tBenchmark runs: %d\n", settings->benchmark_runs);
 
 	printf("\n");
 

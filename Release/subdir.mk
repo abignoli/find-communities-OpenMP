@@ -11,6 +11,7 @@ C_SRCS += \
 ../community-exchange.c \
 ../dynamic-graph.c \
 ../dynamic-weighted-graph.c \
+../execution-briefing.c \
 ../execution-handler.c \
 ../input-handler.c \
 ../main.c \
@@ -29,6 +30,7 @@ OBJS += \
 ./community-exchange.o \
 ./dynamic-graph.o \
 ./dynamic-weighted-graph.o \
+./execution-briefing.o \
 ./execution-handler.o \
 ./input-handler.o \
 ./main.o \
@@ -47,6 +49,7 @@ C_DEPS += \
 ./community-exchange.d \
 ./dynamic-graph.d \
 ./dynamic-weighted-graph.d \
+./execution-briefing.d \
 ./execution-handler.d \
 ./input-handler.d \
 ./main.d \

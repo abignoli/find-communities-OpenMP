@@ -10,6 +10,8 @@ typedef struct execution_settings execution_settings;
 
 #define DEFAULT_SEQUENTIAL 0
 
+#define DEFAULT_BENCHMARK_RUNS 0
+
 // Modify only if modifying also input parameters format!
 #define MINIMUM_ARGUMENTS_NUMBER 3
 

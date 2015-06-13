@@ -6,6 +6,7 @@ typedef struct community_exchange community_exchange;
 typedef struct dynamic_weighted_graph dynamic_weighted_graph;
 typedef struct sorted_linked_list sorted_linked_list;
 typedef struct execution_settings execution_settings;
+typedef struct algorithm_execution_briefing algorithm_execution_briefing;
 
 // Designed to be called at the start of each phase
 int community_developer_init_weighted(community_developer *cd, dynamic_weighted_graph *dwg);
@@ -36,7 +37,7 @@ double compute_modularity_weighted_reference_implementation_method(community_dev
 // Computes modularity as if each node was in an individual community
 double compute_modularity_init_weighted_reference_implementation_method(dynamic_weighted_graph *dwg);
 
-double parallel_find_communities_weighted(dynamic_weighted_graph *dwg, execution_settings *settings, dynamic_weighted_graph **community_graph, int **community_vector);
+int parallel_find_communities_weighted(dynamic_weighted_graph *dwg, execution_settings *settings, dynamic_weighted_graph **community_graph, int **community_vector, algorithm_execution_briefing *briefing);
 
 
 #endif

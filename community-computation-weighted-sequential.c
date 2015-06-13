@@ -7,6 +7,7 @@
 #include "silent-switch.h"
 #include "execution-settings.h"
 #include "community-computation-commons.h"
+#include "execution-briefing.h"
 #include <time.h>
 
 #include <stdio.h>
@@ -247,7 +248,7 @@ double sequential_phase_weighted(dynamic_weighted_graph *dwg, execution_settings
 //	return final_phase_modularity;
 //}
 
-double sequential_find_communities_weighted(dynamic_weighted_graph *dwg, execution_settings *settings, dynamic_weighted_graph **community_graph, int **community_vector) {
+int sequential_find_communities_weighted(dynamic_weighted_graph *dwg, execution_settings *settings, dynamic_weighted_graph **community_graph, int **community_vector, algorithm_execution_briefing *briefing) {
 	int phase_counter;
 
 	dynamic_weighted_graph *phase_output_community_graph;
@@ -260,6 +261,8 @@ double sequential_find_communities_weighted(dynamic_weighted_graph *dwg, executi
 	// For timing
 	clock_t begin, end;
 	double clock_time;
+	clock_t global_begin, global_end;
+	double global_clock_time;
 
 	double minimum_phase_improvement = settings->minimum_phase_improvement;
 	double minimum_iteration_improvement = settings->minimum_iteration_improvement;
@@ -267,12 +270,15 @@ double sequential_find_communities_weighted(dynamic_weighted_graph *dwg, executi
 	char *output_communities_filename = settings->output_communities_file;
 	char *output_graphs_filename = settings->output_graphs_file;
 
+	global_begin = clock();
+
 	output_graphs_file = output_communities_file = NULL;
 
 	if(!dwg || !valid_minimum_improvement(minimum_phase_improvement) || !valid_minimum_improvement(minimum_iteration_improvement)) {
 		printf("Invalid algorithm parameters!");
+		briefing->execution_successful = 0;
 
-		return ILLEGAL_MODULARITY_VALUE;
+		return 0;
 	}
 
 	if(output_communities_filename) {
@@ -280,8 +286,9 @@ double sequential_find_communities_weighted(dynamic_weighted_graph *dwg, executi
 
 		if(!output_communities_file) {
 			printf("Could not open output communities file: %s", output_communities_filename);
+			briefing->execution_successful = 0;
 
-			return ILLEGAL_MODULARITY_VALUE;
+			return 0;
 		}
 	}
 
@@ -290,9 +297,10 @@ double sequential_find_communities_weighted(dynamic_weighted_graph *dwg, executi
 
 		if(!output_graphs_file) {
 			printf("Could not open output graphs file: %s", output_graphs_filename);
+			briefing->execution_successful = 0;
 
 			fclose(output_communities_file);
-			return ILLEGAL_MODULARITY_VALUE;
+			return 0;
 		}
 	}
 
@@ -322,8 +330,9 @@ double sequential_find_communities_weighted(dynamic_weighted_graph *dwg, executi
 
 		if(final_phase_modularity == ILLEGAL_MODULARITY_VALUE) {
 			printf("Bad phase #%d computation!\n",phase_counter);
+			briefing->execution_successful = 0;
 
-			return ILLEGAL_MODULARITY_VALUE;
+			return 0;
 		}
 
 		// Just for performance measurement
@@ -334,14 +343,16 @@ double sequential_find_communities_weighted(dynamic_weighted_graph *dwg, executi
 
 		if(output_communities_file && !output_save_communities(output_communities_file, *community_vector, dwg->size)) {
 			printf("Couldn't save communities output of phase #%d!\n",phase_counter);
+			briefing->execution_successful = 0;
 
-			return ILLEGAL_MODULARITY_VALUE;
+			return 0;
 		}
 
 		if(output_graphs_file && !output_save_community_graph(output_graphs_file, phase_output_community_graph, phase_counter)) {
 			printf("Couldn't save graph output of phase #%d!\n",phase_counter);
+			briefing->execution_successful = 0;
 
-			return ILLEGAL_MODULARITY_VALUE;
+			return 0;
 		}
 
 		printf("-- End of Phase #%d - Initial modularity: %f - Final modularity: %f - Gain: %f\n", phase_counter, initial_phase_modularity, final_phase_modularity, final_phase_modularity - initial_phase_modularity);
@@ -369,6 +380,16 @@ double sequential_find_communities_weighted(dynamic_weighted_graph *dwg, executi
 	if(output_graphs_file)
 		fclose(output_graphs_file);
 
-	return final_phase_modularity;
+	global_end = clock();
+
+	global_clock_time = (double)(global_end - global_begin) / CLOCKS_PER_SEC;
+
+	briefing->execution_successful = 1;
+	briefing->execution_time = global_clock_time;
+	briefing->clock_execution_time = global_clock_time;
+	briefing->output_modularity = final_phase_modularity;
+	briefing->global_execution_time = global_clock_time;
+
+	return 1;
 }
 

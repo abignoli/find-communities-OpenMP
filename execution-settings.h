@@ -14,6 +14,7 @@ typedef struct execution_settings {
 	int number_of_threads;
 	// Tells that the program should be executed using the sequential implementation
 	int sequential;
+	int benchmark_runs;
 } execution_settings;
 
 #endif
