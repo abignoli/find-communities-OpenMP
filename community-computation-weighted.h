@@ -17,7 +17,7 @@ int get_neighbor_communities_list_weighted(sorted_linked_list *sll, dynamic_weig
 
 inline double compute_modularity_edge_weighted(dynamic_weighted_graph *dwg, int edge_weight, int src_incoming_weight, int dest_incoming_weight, int double_m, int src_community, int dest_community);
 
-double compute_modularity_community_vector_weighted(dynamic_weighted_graph *dwg, int *community_vector);
+//double compute_modularity_community_vector_weighted(dynamic_weighted_graph *dwg, int *community_vector);
 
 double compute_modularity_weighted(dynamic_weighted_graph *dwg, community_developer *cd);
 

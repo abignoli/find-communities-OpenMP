@@ -4,6 +4,7 @@
 #include "shared-graph.h"
 #include "silent-switch.h"
 #include "dynamic-weighted-graph.h"
+#include "utilities.h"
 
 #ifdef SILENT_SWITCH_DYNAMIC_GRAPH_ON
 #define printf(...)
@@ -23,8 +24,7 @@ int dynamic_edge_array_init(dynamic_edge_array *da, int initSize)
 
 int dynamic_edge_array_insert(dynamic_edge_array *da, int dest)
 {
-	int *tmp,*addr;
-	int i;
+	int *tmp;
 	int new_size;
 
 	// If more space is needed
@@ -149,8 +149,7 @@ int dynamic_graph_resize(dynamic_graph *da, int size) {
 //Bi-directional link
 int dynamic_graph_insert(dynamic_graph *da, int n1, int n2)
 {
-    int *tmp,*addr;
-    int i;
+    int *tmp;
 
     int maxn;
     int new_size;
@@ -289,12 +288,14 @@ int convert_to_weighted(dynamic_graph *dg, dynamic_weighted_graph *dwg, int weig
 			}
 	}
 
-		// Reduce to optimal size
-		if(!dynamic_weighted_graph_reduce(dwg)) {
-			printf("Could not reduce graph size!\n");
+	// Reduce to optimal size
+	if(!dynamic_weighted_graph_reduce(dwg)) {
+		printf("Could not reduce graph size!\n");
 
-			return 0;
-		}
+		return 0;
+	}
+
+	return 1;
 }
 
 void dynamic_graph_free(dynamic_graph *dg) {

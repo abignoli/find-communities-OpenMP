@@ -13,6 +13,7 @@
 #include <time.h>
 #include <omp.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 #ifdef SILENT_SWITCH_COMMUNITY_COMPUTATION_ON
 #define printf(...)
@@ -148,59 +149,79 @@ double compute_modularity_edge_weighted(dynamic_weighted_graph *dwg, int edge_we
 //	return ((double) edge_weight - (double) src_incoming_weight * dest_incoming_weight / double_m) * same(src_community,dest_community);
 }
 
-double compute_modularity_community_vector_weighted(dynamic_weighted_graph *dwg, int *community_vector) {
-	// TODO parallelize
+// This function does not compute a correct modularity value!
 
-	int *incoming_weight;
-	int i,j;
-	int src, dest, src_incoming_weight, dest_incoming_weight, src_community, dest_community, src_self_loop, edge_weight;
-	int double_m;
-	double result;
+//Proof:
+//let's take node x and y belonging to same community
+//if theres no link between Aij the term Aij is zero
+//yet the modularity contribute is non zero
+//in fact the formula is
+//(1/2m) * sum(Aij - ki * kj / (2m)) same(ci, cj)
+//
+//so, basically when we compute the contribute for x, y....
+//
+//Aij = 0, Ki*kj / (2m) = not zero in most cases, same(ci, cj) = 1
+//
+//this accounts for a negative term over the final result
+//which my current implementation didnt consider
+//and this also might explain why the obtained result is higher than the expected one
+//and also why this doesn't occur at the start (when all communities are singlet and this behaviour can't manifest)
 
-	if(!dwg || !community_vector) {
-		printf("Invalid input for modularity computation!\n");
+//double compute_modularity_community_vector_weighted(dynamic_weighted_graph *dwg, int *community_vector) {
+//	// TODO parallelize
+//
+//	int *incoming_weight;
+//	int i,j;
+//	int src, dest, src_incoming_weight, dest_incoming_weight, src_community, dest_community, src_self_loop, edge_weight;
+//	int double_m;
+//	double result;
+//
+//	if(!dwg || !community_vector) {
+//		printf("Invalid input for modularity computation!\n");
+//
+//		return ILLEGAL_MODULARITY_VALUE;
+//	}
+//
+//	if(!(incoming_weight = (int*) malloc(dwg->size * sizeof(int)))) {
+//		printf("Couldn't allocate memory needed for modularity computation!\n");
+//
+//		return ILLEGAL_MODULARITY_VALUE;
+//	}
+//
+//	for(i = 0; i < dwg->size; i++)
+//		*(incoming_weight + i) = dynamic_weighted_graph_node_degree(dwg, i);
+//
+//	double_m = dynamic_weighted_graph_double_m(dwg);
+//
+//	result = 0;
+//
+//	for(src=0;src<dwg->size;src++) {
+//		src_incoming_weight = *(incoming_weight + src);
+//		src_community = *(community_vector + src);
+//		src_self_loop = (dwg->edges + src)->self_loop;
+//
+//		for(j=0;j<(dwg->edges+src)->count;j++) {
+//			dest = ((dwg->edges+src)->addr+j)->dest;
+//			edge_weight = ((dwg->edges+src)->addr+j)->weight;
+//			dest_incoming_weight = *(incoming_weight + dest);
+//			dest_community = *(community_vector + dest);
+//
+//			result += compute_modularity_edge_weighted(dwg, edge_weight, src_incoming_weight, dest_incoming_weight, double_m, src_community, dest_community);
+//		}
+//
+//		// TODO MODULARITY CORRECTNESS
+//		result += compute_modularity_edge_weighted(dwg, src_self_loop, src_incoming_weight, src_incoming_weight, double_m, src_community, src_community);
+////		result += 2 * compute_modularity_edge_weighted(dwg, src_self_loop, src_incoming_weight, src_incoming_weight, double_m, src_community, src_community);
+//	}
+//
+//	result /= double_m;
+//
+//	free(incoming_weight);
+//
+//	return result;
+//}
 
-		return ILLEGAL_MODULARITY_VALUE;
-	}
 
-	if(!(incoming_weight = (int*) malloc(dwg->size * sizeof(int)))) {
-		printf("Couldn't allocate memory needed for modularity computation!\n");
-
-		return ILLEGAL_MODULARITY_VALUE;
-	}
-
-	for(i = 0; i < dwg->size; i++)
-		*(incoming_weight + i) = dynamic_weighted_graph_node_degree(dwg, i);
-
-	double_m = dynamic_weighted_graph_double_m(dwg);
-
-	result = 0;
-
-	for(src=0;src<dwg->size;src++) {
-		src_incoming_weight = *(incoming_weight + src);
-		src_community = *(community_vector + src);
-		src_self_loop = (dwg->edges + src)->self_loop;
-
-		for(j=0;j<(dwg->edges+src)->count;j++) {
-			dest = ((dwg->edges+src)->addr+j)->dest;
-			edge_weight = ((dwg->edges+src)->addr+j)->weight;
-			dest_incoming_weight = *(incoming_weight + dest);
-			dest_community = *(community_vector + dest);
-
-			result += compute_modularity_edge_weighted(dwg, edge_weight, src_incoming_weight, dest_incoming_weight, double_m, src_community, dest_community);
-		}
-
-		// TODO MODULARITY CORRECTNESS
-		result += compute_modularity_edge_weighted(dwg, src_self_loop, src_incoming_weight, src_incoming_weight, double_m, src_community, src_community);
-//		result += 2 * compute_modularity_edge_weighted(dwg, src_self_loop, src_incoming_weight, src_incoming_weight, double_m, src_community, src_community);
-	}
-
-	result /= double_m;
-
-	free(incoming_weight);
-
-	return result;
-}
 
 //// Compute modularity by placing each node in a separate community and compute modularity
 //double compute_modularity_init_weighted(dynamic_weighted_graph *dwg) {
@@ -302,13 +323,24 @@ double compute_modularity_community_vector_weighted(dynamic_weighted_graph *dwg,
 
 double compute_modularity_weighted_reference_implementation_method(community_developer *cd) {
 	int i;
+	double internal_weight_community;
+	double incoming_weight_community;
+	double double_m = (double) cd->double_m;
 
 	double result = 0;
 
-	for(i = 0; i < cd->n; i++)
-		result += ((double)*(cd->internal_weight_community + i) - (  (((double) *(cd->incoming_weight_community + i)) * ((double) *(cd->incoming_weight_community + i))) /((double) cd->double_m) )      );
+	for(i = 0; i < cd->n; i++) {
+		internal_weight_community = (double)*(cd->internal_weight_community + i);
+		incoming_weight_community = (double) *(cd->incoming_weight_community + i);
 
-	result /= ((double) cd->double_m);
+		result += (internal_weight_community - incoming_weight_community * incoming_weight_community / double_m);
+
+//		result += ((double)*(cd->internal_weight_community + i) - (  (((double) *(cd->incoming_weight_community + i)) * ((double) *(cd->incoming_weight_community + i))) /((double) cd->double_m) )      );
+	}
+
+	result /= double_m;
+
+//	result /= ((double) cd->double_m);
 
 	return result;
 }
@@ -319,18 +351,18 @@ double compute_modularity_init_weighted_reference_implementation_method(dynamic_
 
 	double result = 0;
 
-	int internal_weight_community, incoming_weight_community, double_m;
+	double internal_weight_community, incoming_weight_community, double_m;
 
 	double_m = dynamic_weighted_graph_double_m(dwg);
 
 	for(i = 0; i < dwg->size; i++) {
-		internal_weight_community = dynamic_weighted_graph_self_loop(dwg, i);
-		incoming_weight_community = dynamic_weighted_graph_node_degree(dwg, i);
+		internal_weight_community = (double) dynamic_weighted_graph_self_loop(dwg, i);
+		incoming_weight_community = (double) dynamic_weighted_graph_node_degree(dwg, i);
 
-		result += ((double) internal_weight_community - (  (((double) incoming_weight_community) * ((double) incoming_weight_community)) /((double) double_m) ));
+		result += (internal_weight_community - incoming_weight_community * incoming_weight_community / double_m );
 	}
 
-	result /= ((double) double_m);
+	result /= double_m;
 
 	return result;
 }
@@ -705,14 +737,13 @@ double parallel_phase_weighted(dynamic_weighted_graph *dwg, execution_settings *
 
 //	printf("Final phase modularity: %f. Modularity gain: %f\n", final_phase_modularity, final_phase_modularity - initial_phase_modularity);
 
-	return final_phase_modularity - initial_phase_modularity;
+	return final_phase_modularity;
 }
 
 double parallel_find_communities_weighted(dynamic_weighted_graph *dwg, execution_settings *settings, dynamic_weighted_graph **community_graph, int **community_vector) {
 	int phase_counter;
 
 	dynamic_weighted_graph *phase_output_community_graph;
-	int *phase_output_community_vector;
 
 	double initial_phase_modularity, final_phase_modularity;
 
@@ -777,7 +808,7 @@ double parallel_find_communities_weighted(dynamic_weighted_graph *dwg, execution
 
 		initial_phase_modularity = final_phase_modularity;
 
-		printf("\n\nPHASE #%d:\n\nGraph size: %d\nInitial phase modularity: %f (Re-computed: %f)\n",phase_counter, dwg->size, final_phase_modularity, compute_modularity_init_weighted_reference_implementation_method(dwg));
+		printf("\n\nPHASE #%d:\n\nGraph size: %d\nInitial phase modularity: %f\n",phase_counter, dwg->size, final_phase_modularity);
 
 		dynamic_weighted_graph_print(*dwg);
 
@@ -785,7 +816,9 @@ double parallel_find_communities_weighted(dynamic_weighted_graph *dwg, execution
 		begin = clock();
 		begin_wtime = omp_get_wtime( );
 
-		if(parallel_phase_weighted(dwg,settings,&phase_output_community_graph, community_vector) == ILLEGAL_MODULARITY_VALUE) {
+		final_phase_modularity = parallel_phase_weighted(dwg,settings,&phase_output_community_graph, community_vector);
+
+		if(final_phase_modularity == ILLEGAL_MODULARITY_VALUE) {
 			printf("Bad phase #%d computation!\n",phase_counter);
 
 			return ILLEGAL_MODULARITY_VALUE;
@@ -811,9 +844,6 @@ double parallel_find_communities_weighted(dynamic_weighted_graph *dwg, execution
 			return ILLEGAL_MODULARITY_VALUE;
 		}
 
-
-		final_phase_modularity = compute_modularity_community_vector_weighted(dwg,*community_vector);
-
 		printf("-- End of Phase #%d - Initial modularity: %f - Final modularity: %f - Gain: %f\n", phase_counter, initial_phase_modularity, final_phase_modularity, final_phase_modularity - initial_phase_modularity);
 
 		// Clean memory
@@ -829,7 +859,7 @@ double parallel_find_communities_weighted(dynamic_weighted_graph *dwg, execution
 	*community_graph = phase_output_community_graph;
 
 	printf("\n\nExecution time for full run of parallel algorithm executed by a maximum of %d threads: %f (wtime) - %f (clock)\n",omp_get_max_threads(), wtime_omp ,clock_time);
-	printf("Re-computed modularity for parallel version (from vector): %f\n\n", compute_modularity_community_vector_weighted(*community_graph, *community_vector));
+	printf("Final modularity output of parallel version: %f\n\n", final_phase_modularity);
 
 	// Saving output to file
 

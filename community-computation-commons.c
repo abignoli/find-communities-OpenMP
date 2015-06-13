@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "dynamic-weighted-graph.h"
 
@@ -10,6 +11,8 @@ int community_vector_init(int **community_vector, int size) {
 
 	for(i = 0; i < size; i++)
 		**community_vector = i;
+
+	return 1;
 }
 
 int output_save_communities(FILE *output_communities_file,int *community_vector, int size) {

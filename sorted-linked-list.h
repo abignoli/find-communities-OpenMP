@@ -11,6 +11,7 @@ typedef struct sorted_linked_list {
 	sorted_linked_list_elem *head;
 } sorted_linked_list;
 
+void sorted_linked_list_init(sorted_linked_list *sll);
 
 int sorted_linked_list_insert(sorted_linked_list *sll, int community, int k_i_in);
 

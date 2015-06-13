@@ -61,4 +61,6 @@ void dynamic_weighted_graph_free(dynamic_weighted_graph *dwg);
 
 int dynamic_weighted_graph_self_loop(dynamic_weighted_graph *dwg, int node_index);
 
+int dynamic_weighted_graph_double_m(dynamic_weighted_graph *dwg);
+
 #endif

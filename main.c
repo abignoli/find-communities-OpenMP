@@ -15,14 +15,14 @@ int main(int argc, char * argv[]) {
 
 	dynamic_weighted_graph *output_dwg;
 	int *output_communities;
-	
-	printf("Parsing input graph...\n\n");
 
 	if(!parse_args(argc, argv, &settings))
 		// Invalid input settings
 		return -1;
 
 	settings_print(&settings);
+
+	printf("Parsing input graph...\n\n");
 
 	if(!parse_input(&input_dg, &input_dwg, &settings))
 		return -1;

@@ -43,97 +43,108 @@ int parse_args(int argc, char *argv[], execution_settings *s){
 
 	set_default(s);
 
-	if(argc < MINIMUM_ARGUMENTS_NUMBER) {
+	if(argc < 2) {
 		printf("Wrong number of arguments!\n");
 
 		valid = 0;
 	}
 
-	if(valid) {
-		s->input_file = argv[1];
-		s->output_communities_file = argv[2];
+	if(strcmp(argv[1],"-h") == 0) {
+		valid = 0;
+	} else {
+		if(argc < MINIMUM_ARGUMENTS_NUMBER) {
+			printf("Wrong number of arguments!\n");
 
-		for(i=MINIMUM_ARGUMENTS_NUMBER; valid && i < argc; i++) {
-			if(argv[i][0] == '-') {
-				switch(argv[i][1]){
+			valid = 0;
+		}
 
-				case 'h':
-					valid = 0;
-					break;
+		if(valid) {
 
-				case 'w':
-					s->graph_type = WEIGHTED;
-					break;
+			s->input_file = argv[1];
+			s->output_communities_file = argv[2];
 
-				case 't':
-					if(i + 1 < argc) {
-						i++;
-						s->number_of_threads = atoi(argv[i]);
+			for(i=MINIMUM_ARGUMENTS_NUMBER; valid && i < argc; i++) {
+				if(argv[i][0] == '-') {
+					switch(argv[i][1]){
 
-						if(s->number_of_threads <= 0) {
-							printf("Invalid number of threads: '%s'", argv[i]);
+					case 'h':
+						valid = 0;
+						break;
 
+					case 'w':
+						s->graph_type = WEIGHTED;
+						break;
+
+					case 't':
+						if(i + 1 < argc) {
+							i++;
+							s->number_of_threads = atoi(argv[i]);
+
+							if(s->number_of_threads <= 0) {
+								printf("Invalid number of threads: '%s'", argv[i]);
+
+								valid = 0;
+							}
+						} else {
+							printf("Expected number of threads after '%s'!\n", argv[i]);
 							valid = 0;
 						}
-					} else {
-						printf("Expected number of threads after '%s'!\n", argv[i]);
-						valid = 0;
-					}
-					break;
+						break;
 
-				case 's':
-					s->sequential = 1;
-					break;
+					case 's':
+						s->sequential = 1;
+						break;
 
-				case 'p':
-					if(i + 1 < argc) {
-						i++;
-						s->minimum_phase_improvement = atof(argv[i]);
+					case 'p':
+						if(i + 1 < argc) {
+							i++;
+							s->minimum_phase_improvement = atof(argv[i]);
 
-						if(!valid_minimum_improvement(s->minimum_phase_improvement)) {
-							printf("Invalid minimum phase improvement: '%s'", argv[i]);
+							if(!valid_minimum_improvement(s->minimum_phase_improvement)) {
+								printf("Invalid minimum phase improvement: '%s'", argv[i]);
 
+								valid = 0;
+							}
+						} else {
+							printf("Expected minimum phase improvement after '%s'!\n", argv[i]);
 							valid = 0;
 						}
-					} else {
-						printf("Expected minimum phase improvement after '%s'!\n", argv[i]);
-						valid = 0;
-					}
-					break;
+						break;
 
-				case 'i':
-					if(i + 1 < argc) {
-						i++;
-						s->minimum_iteration_improvement = atof(argv[i]);
+					case 'i':
+						if(i + 1 < argc) {
+							i++;
+							s->minimum_iteration_improvement = atof(argv[i]);
 
-						if(!valid_minimum_improvement(s->minimum_iteration_improvement)) {
-							printf("Invalid minimum iteration improvement: '%s'", argv[i]);
+							if(!valid_minimum_improvement(s->minimum_iteration_improvement)) {
+								printf("Invalid minimum iteration improvement: '%s'", argv[i]);
 
+								valid = 0;
+							}
+						} else {
+							printf("Expected minimum iteration improvement after '%s'!\n", argv[i]);
 							valid = 0;
 						}
-					} else {
-						printf("Expected minimum iteration improvement after '%s'!\n", argv[i]);
-						valid = 0;
-					}
-					break;
+						break;
 
-				case 'o':
-					if(i + 1 < argc) {
-						i++;
-						s->output_graphs_file = argv[i];
-					} else {
-						printf("Expected output file name after '%s'!\n", argv[i]);
+					case 'o':
+						if(i + 1 < argc) {
+							i++;
+							s->output_graphs_file = argv[i];
+						} else {
+							printf("Expected output file name after '%s'!\n", argv[i]);
+							valid = 0;
+						}
+						break;
+					default:
+						printf("Invalid option '%s'!\n", argv[i]);
 						valid = 0;
 					}
-					break;
-				default:
-					printf("Invalid option '%s'!\n", argv[i]);
+				} else {
+					printf("Invalid input: %s\n", argv[i]);
+
 					valid = 0;
 				}
-			} else {
-				printf("Invalid input: %s\n", argv[i]);
-
-				valid = 0;
 			}
 		}
 	}
