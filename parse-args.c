@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 #include "parse-args.h"
 #include "execution-settings.h"
@@ -13,21 +14,27 @@ void set_default(execution_settings *s) {
 	s->output_communities_file = NULL;
 	s->output_graphs_file = NULL;
 	s->number_of_threads = DEFAULT_NUMBER_OF_THREADS;
+	s->sequential = DEFAULT_SEQUENTIAL;
 }
 
 void print_help(char *prog_name) {
+	printf(PRINTING_UTILITY_STARS);
+
 	printf("\n--- Usage:\n\n"
 			"%s input-file output-communities-file [options]\n\n"
 			"Available options:\n\n"
-			"\t-h\t:\tShows help (Ignores the rest of the input while doing so)\n"
-			"\t-w\t:\tInput graph is weighted (Only available option as of now). Default is non-weighted\n"
-			"\t-t\t:\tNumber of threads to use during parallel execution (Must be greater than zero, default 1)\n"
-			"\t-p number\t:\tStop phase analysis when phase improvement is smaller than number. Number must be between 0.0 and 1.0\n"
-			"\t-i number\t:\tStop iteration (over all nodes) analysis when iteration improvement is smaller than number. Number must be between 0.0 and 1.0\n"
-			"\t-o file\t:\tISave graphs obtained in each phase in file\n\n"
+			"\t-h\t\tShows help (Ignores the rest of the input while doing so)\n"
+			"\t-w\t\tInput graph is weighted (Only available option as of now). Default is non-weighted\n"
+			"\t-t\t\tNumber of threads to use during parallel execution (Must be greater than zero, default 1)\n"
+			"\t-s\t\tExecute the sequential version of the algorithm instead of the parallel one. (Given number of threads is ignored)\n"
+			"\t-p number\tStop phase analysis when phase improvement is smaller than number. Number must be between 0.0 and 1.0\n"
+			"\t-i number\tStop iteration (over all nodes) analysis when iteration improvement is smaller than number. Number must be between 0.0 and 1.0\n"
+			"\t-o file\t\tSave graphs obtained in each phase in file\n\n"
 			"Input file must have the format:\n\n"
 			"source-node destination-node [edge-weight]\n\n"
-			"Indexes must be non negative, and weights should be greater than zero. The output is undefined if these conditions are not met\n\n", prog_name);
+			"Indexes must be non negative, and weights should be greater than zero. The output is undefined if these conditions are not met\n", prog_name);
+
+	printf(PRINTING_UTILITY_STARS);
 }
 
 int parse_args(int argc, char *argv[], execution_settings *s){
@@ -72,6 +79,10 @@ int parse_args(int argc, char *argv[], execution_settings *s){
 						printf("Expected number of threads after '%s'!\n", argv[i]);
 						valid = 0;
 					}
+					break;
+
+				case 's':
+					s->sequential = 1;
 					break;
 
 				case 'p':
@@ -138,16 +149,17 @@ void settings_print(execution_settings *settings) {
 
 	printf("Settings:\n\n");
 
-	printf("\tInput file: %s n", settings->input_file);
-	printf("\tGraph type: %s\n", (settings->graph_type == WEIGHTED ? "Weighted" : "Not Weighted"))
+	printf("\tInput file: %s\n", settings->input_file);
+	printf("\tOutput file (communities): %s\n", settings->output_communities_file);
+	printf("\tGraph type: %s\n", (settings->graph_type == WEIGHTED ? "Weighted" : "Not Weighted"));
 	printf("\tMinimum phase improvement: %f\n", settings->minimum_phase_improvement);
 	printf("\tMinimum iteration improvement: %f\n", settings->minimum_iteration_improvement);
-	printf("\tNumber of threads: %d\n", settings->number_of_threads);
+	printf("\tAlgorithm version: %s\n", (settings->sequential ? "Sequential" : "Parallel"));
+	if(!settings->sequential)
+		printf("\tNumber of threads: %d\n", settings->number_of_threads);
 
 	printf("\n");
 
-	if(settings->output_communities_file)
-		printf("\tSaving communities in %s\n", settings->output_communities_file);
 	if(settings->output_graphs_file)
-		printf("\tSaving community graphs in %s\n", settings->output_graphs_file);
+		printf("\tSaving community graphs in: %s\n", settings->output_graphs_file);
 }

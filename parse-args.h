@@ -3,13 +3,12 @@
 
 typedef struct execution_settings execution_settings;
 
-#define NOT_WEIGHTED 0
-#define WEIGHTED 1
-
 #define DEFAULT_MINIMUM_PHASE_IMPROVEMENT 0
 #define DEFAULT_MINIMUM_ITERATION_IMPROVEMENT 0
 
 #define DEFAULT_NUMBER_OF_THREADS 1
+
+#define DEFAULT_SEQUENTIAL 0
 
 // Modify only if modifying also input parameters format!
 #define MINIMUM_ARGUMENTS_NUMBER 3

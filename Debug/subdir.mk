@@ -4,7 +4,6 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../binary-search-tree.c \
 ../community-computation-commons.c \
 ../community-computation-weighted-sequential.c \
 ../community-computation-weighted.c \
@@ -12,7 +11,9 @@ C_SRCS += \
 ../community-exchange.c \
 ../dynamic-graph.c \
 ../dynamic-weighted-graph.c \
-../main.c \
+../execution-handler.c \
+../input-handler.c \
+../main-test.c \
 ../parse-args.c \
 ../shared-graph.c \
 ../sorted-linked-list.c \
@@ -21,7 +22,6 @@ C_SRCS += \
 ../utilities.c 
 
 OBJS += \
-./binary-search-tree.o \
 ./community-computation-commons.o \
 ./community-computation-weighted-sequential.o \
 ./community-computation-weighted.o \
@@ -29,7 +29,9 @@ OBJS += \
 ./community-exchange.o \
 ./dynamic-graph.o \
 ./dynamic-weighted-graph.o \
-./main.o \
+./execution-handler.o \
+./input-handler.o \
+./main-test.o \
 ./parse-args.o \
 ./shared-graph.o \
 ./sorted-linked-list.o \
@@ -38,7 +40,6 @@ OBJS += \
 ./utilities.o 
 
 C_DEPS += \
-./binary-search-tree.d \
 ./community-computation-commons.d \
 ./community-computation-weighted-sequential.d \
 ./community-computation-weighted.d \
@@ -46,7 +47,9 @@ C_DEPS += \
 ./community-exchange.d \
 ./dynamic-graph.d \
 ./dynamic-weighted-graph.d \
-./main.d \
+./execution-handler.d \
+./input-handler.d \
+./main-test.d \
 ./parse-args.d \
 ./shared-graph.d \
 ./sorted-linked-list.d \

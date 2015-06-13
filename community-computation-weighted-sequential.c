@@ -5,6 +5,7 @@
 #include "community-exchange.h"
 #include "dynamic-weighted-graph.h"
 #include "silent-switch.h"
+#include "execution-settings.h"
 #include <time.h>
 
 #include <stdio.h>
@@ -13,7 +14,7 @@
 #define printf(...)
 #endif
 
-double sequential_phase_weighted(dynamic_weighted_graph *dwg, double minimum_improvement, dynamic_weighted_graph **community_graph, int **community_vector) {
+double sequential_phase_weighted(dynamic_weighted_graph *dwg, execution_settings *settings, dynamic_weighted_graph **community_graph, int **community_vector) {
 	community_developer cd;
 
 	double initial_phase_modularity, final_phase_modularity;
@@ -27,6 +28,8 @@ double sequential_phase_weighted(dynamic_weighted_graph *dwg, double minimum_imp
 	double removal_loss;
 	double gain;
 	// Number of neighbor communities of a node worth considering for potential node transfer
+
+	double minimum_improvement = settings->minimum_iteration_improvement;
 
 	int i;
 
@@ -140,7 +143,7 @@ double sequential_phase_weighted(dynamic_weighted_graph *dwg, double minimum_imp
 	return final_phase_modularity;
 }
 
-double sequential_find_communities_weighted(dynamic_weighted_graph *dwg, double minimum_phase_improvement, double minimum_iteration_improvement, char *output_communities_filename, char *output_graphs_filename, dynamic_weighted_graph **community_graph, int **community_vector) {
+double sequential_find_communities_weighted(dynamic_weighted_graph *dwg, execution_settings *settings, dynamic_weighted_graph **community_graph, int **community_vector) {
 	int phase_counter;
 
 	dynamic_weighted_graph *phase_output_community_graph;
@@ -151,7 +154,11 @@ double sequential_find_communities_weighted(dynamic_weighted_graph *dwg, double 
 	FILE *output_communities_file;
 	FILE *output_graphs_file;
 
+	double minimum_phase_improvement = settings->minimum_phase_improvement;
+	double minimum_iteration_improvement = settings->minimum_iteration_improvement;
 
+	char *output_communities_filename = settings->output_communities_file;
+	char *output_graphs_filename = settings->output_graphs_file;
 
 	if(!dwg || !valid_minimum_improvement(minimum_phase_improvement) || !valid_minimum_improvement(minimum_iteration_improvement)) {
 		printf("Invalid algorithm parameters!");
@@ -196,7 +203,7 @@ double sequential_find_communities_weighted(dynamic_weighted_graph *dwg, double 
 
 		dynamic_weighted_graph_print(*dwg);
 
-		if(sequential_phase_weighted(dwg,minimum_iteration_improvement,&phase_output_community_graph, community_vector) == ILLEGAL_MODULARITY_VALUE) {
+		if(sequential_phase_weighted(dwg,settings,&phase_output_community_graph, community_vector) == ILLEGAL_MODULARITY_VALUE) {
 			printf("Bad phase #%d computation!\n",phase_counter);
 
 			return ILLEGAL_MODULARITY_VALUE;

@@ -24,3 +24,4 @@ int lower_power_of_2(int n) {
 
 	return result;
 }
+

@@ -8,6 +8,8 @@
 #include "silent-switch.h"
 #include "sorted-linked-list.h"
 
+#include "execution-settings.h"
+
 #include <time.h>
 #include <omp.h>
 #include <stdio.h>
@@ -495,7 +497,7 @@ int output_translator_weighted(dynamic_weighted_graph *dwg, community_developer 
 }
 
 // Executes a phase of the algorithm, returns modularity gain
-double parallel_phase_weighted(dynamic_weighted_graph *dwg, double minimum_improvement, dynamic_weighted_graph **community_graph, int **community_vector) {
+double parallel_phase_weighted(dynamic_weighted_graph *dwg, execution_settings *settings, dynamic_weighted_graph **community_graph, int **community_vector) {
 	community_developer cd;
 
 	double initial_phase_modularity, final_phase_modularity;
@@ -510,6 +512,8 @@ double parallel_phase_weighted(dynamic_weighted_graph *dwg, double minimum_impro
 	double gain;
 	// Number of neighbor communities of a node worth considering for potential node transfer
 	int number_of_neighbor_communities;
+
+	double minimum_improvement = settings->minimum_iteration_improvement;
 
 	community_exchange *node_exchanges_base_pointer;
 
@@ -704,7 +708,7 @@ double parallel_phase_weighted(dynamic_weighted_graph *dwg, double minimum_impro
 	return final_phase_modularity - initial_phase_modularity;
 }
 
-double parallel_find_communities_weighted(dynamic_weighted_graph *dwg, double minimum_phase_improvement, double minimum_iteration_improvement, char *output_communities_filename, char *output_graphs_filename, dynamic_weighted_graph **community_graph, int **community_vector) {
+double parallel_find_communities_weighted(dynamic_weighted_graph *dwg, execution_settings *settings, dynamic_weighted_graph **community_graph, int **community_vector) {
 	int phase_counter;
 
 	dynamic_weighted_graph *phase_output_community_graph;
@@ -719,6 +723,14 @@ double parallel_find_communities_weighted(dynamic_weighted_graph *dwg, double mi
 	clock_t begin, end;
 	double begin_wtime, end_wtime;
 	double clock_time, wtime_omp;
+
+	double minimum_phase_improvement = settings->minimum_phase_improvement;
+	double minimum_iteration_improvement = settings->minimum_iteration_improvement;
+
+	char *output_communities_filename = settings->output_communities_file;
+	char *output_graphs_filename = settings->output_graphs_file;
+
+	output_graphs_file = output_communities_file = NULL;
 
 	if(!dwg || !valid_minimum_improvement(minimum_phase_improvement) || !valid_minimum_improvement(minimum_iteration_improvement)) {
 		printf("Invalid algorithm parameters!");
@@ -773,7 +785,7 @@ double parallel_find_communities_weighted(dynamic_weighted_graph *dwg, double mi
 		begin = clock();
 		begin_wtime = omp_get_wtime( );
 
-		if(parallel_phase_weighted(dwg,minimum_iteration_improvement,&phase_output_community_graph, community_vector) == ILLEGAL_MODULARITY_VALUE) {
+		if(parallel_phase_weighted(dwg,settings,&phase_output_community_graph, community_vector) == ILLEGAL_MODULARITY_VALUE) {
 			printf("Bad phase #%d computation!\n",phase_counter);
 
 			return ILLEGAL_MODULARITY_VALUE;
@@ -785,18 +797,20 @@ double parallel_find_communities_weighted(dynamic_weighted_graph *dwg, double mi
 		clock_time += (double)(end - begin) / CLOCKS_PER_SEC;
 		wtime_omp += end_wtime - begin_wtime;
 
-		printf("Phase #%d required %fs (sum of execution time over all threads: %f)", phase_counter, end_wtime - begin_wtime, (double)(end - begin) / CLOCKS_PER_SEC);
+		printf("Phase #%d required %fs (sum of execution time over all threads: %f)\n", phase_counter, end_wtime - begin_wtime, (double)(end - begin) / CLOCKS_PER_SEC);
 
 		if(output_communities_file && !output_save_communities(output_communities_file, *community_vector, dwg->size)) {
 			printf("Couldn't save communities output of phase #%d!\n",phase_counter);
 
 			return ILLEGAL_MODULARITY_VALUE;
 		}
-		if(output_communities_file && !output_save_community_graph(output_graphs_file, phase_output_community_graph, phase_counter)) {
+
+		if(output_graphs_file && !output_save_community_graph(output_graphs_file, phase_output_community_graph, phase_counter)) {
 			printf("Couldn't save graph output of phase #%d!\n",phase_counter);
 
 			return ILLEGAL_MODULARITY_VALUE;
 		}
+
 
 		final_phase_modularity = compute_modularity_community_vector_weighted(dwg,*community_vector);
 

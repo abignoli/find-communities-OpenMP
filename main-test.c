@@ -163,11 +163,5 @@ int main(int argc, char * argv[]){
 	} else
 		printf("Could not read input graph!");
 
-#ifndef TEST_MAIN
-	printf("\n%s\n\nTesting main\n\n%s\n", PRINTING_UTILITY_STARS)
-#endif
-
-	printf("Yeah, I'm actually building.\n")
-
 	return 0;
 }

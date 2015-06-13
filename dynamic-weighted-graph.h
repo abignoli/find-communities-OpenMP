@@ -53,6 +53,8 @@ int dynamic_weighted_graph_reduce (dynamic_weighted_graph *dg);
 
 int dynamic_weighted_graph_parse_file(dynamic_weighted_graph *dg, char *filename);
 
+int dynamic_weighted_graph_parse_not_weighted_file(dynamic_weighted_graph *dwg, char *filename, int weight);
+
 int dynamic_weighted_graph_node_degree(dynamic_weighted_graph *dg, int index);
 
 void dynamic_weighted_graph_free(dynamic_weighted_graph *dwg);
