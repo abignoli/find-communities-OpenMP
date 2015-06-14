@@ -5,10 +5,13 @@
 #include "dynamic-graph.h"
 #include "community-development.h"
 #include "community-computation-weighted.h"
+#include "community-computation-commons.h"
 #include <stdio.h>
 #include <omp.h>
 #include <time.h>
 #include <stdlib.h>
+#include "version-parallel-naive-partitioning.h"
+#include "community-computation-weighted-sequential.h"
 
 int find_communities(dynamic_graph *dg ,dynamic_weighted_graph *dwg, execution_settings *settings, dynamic_weighted_graph **community_graph, int **community_vector, algorithm_execution_briefing *briefing) {
 	int phase_counter;
@@ -116,6 +119,15 @@ int find_communities(dynamic_graph *dg ,dynamic_weighted_graph *dwg, execution_s
 		if(settings->verbose) {
 			printf("\nInitial graph:\n");
 			dynamic_weighted_graph_print(*dwg);
+		}
+
+		if(settings->algorithm_version == ALGORITHM_VERSION_PARALLEL_2_NAIVE_PARTITION) {
+			if(phase_counter == 0)
+				// First phase, run partitioning
+				settings->phase_executor_weighted = phase_parallel_naive_partitioning_weighted;
+			else
+				// Next phases, run sequential
+				settings->phase_executor_weighted = sequential_phase_weighted;
 		}
 
 		// Just for performance measurement

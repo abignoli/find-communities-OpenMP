@@ -30,6 +30,9 @@ int select_phase_executors(execution_settings *settings) {
 		// TODO Set proper non weighted phase executor
 		settings->phase_executor_weighted = parallel_phase_weighted;
 		break;
+	case ALGORITHM_VERSION_PARALLEL_2_NAIVE_PARTITION:
+		// Handled internally to find communities
+		break;
 	default:
 		printf("select_phase_executors - Unknown algorithm version!\n");
 		return 0;

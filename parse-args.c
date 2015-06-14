@@ -66,13 +66,18 @@ void print_help(char *prog_name) {
 			"\t                 * Iterations over all nodes are done in parallel,\n"
 			"\t                   potential transfers are sorted and selected by\n"
 			"\t                   computed modularity increase\n"
+			"\t-a %d          %s\n"
+			"\t                 * Partition the input graph during first phase\n"
+			"\t                   and performed and optimized Louvain version\n"
+			"\t                   over all partitions. Next phases are performed\n"
+			"\t                   using sequential implementation\n"
 			"\nAvailable execution options:\n\n"
 			"\t-e %d          Use a number of partitions equal to the smallest\n"
 			"\t               power of two greater or equal to the number of threads\n"
 			"\t               during parallel sorting.\n"
 			"\t                 * By default a number of partitions equal to the biggest\n"
 			"\t                   power of two smaller or equal to the number of threads\n"
-			"\t               	  is used\n"
+			"\t               	   is used\n"
 			"\t                 * Applies only to parallel algorithm\n"
 			"\nAvailable file format options:\n\n"
 			"\t-f %d          Edge list, not weighted.\n"
@@ -90,6 +95,7 @@ void print_help(char *prog_name) {
 			DEFAULT_ALGORITHM_VERSION,
 			ALGORITHM_VERSION_SEQUENTIAL_0, ALGORITHM_VERSION_SEQUENTIAL_0_NAME,
 			ALGORITHM_VERSION_PARALLEL_1_TRANSFER_SORT_SELECT, ALGORITHM_VERSION_PARALLEL_1_TRANSFER_SORT_SELECT_NAME,
+			ALGORITHM_VERSION_PARALLEL_2_NAIVE_PARTITION, ALGORITHM_VERSION_PARALLEL_2_NAIVE_PARTITION_NAME,
 			EXECUTION_SETTINGS_PARALLEL_PARTITIONS_HIGHER_POWER_OF_2_IDENTIFIER,
 			FILE_FORMAT_EDGE_LIST_NOT_WEIGHTED, FILE_FORMAT_EDGE_LIST_WEIGHTED, FILE_FORMAT_METIS);
 
@@ -184,7 +190,9 @@ int parse_args(int argc, char *argv[], execution_settings *s){
 						case ALGORITHM_VERSION_PARALLEL_1_TRANSFER_SORT_SELECT:
 							s->algorithm_version = ALGORITHM_VERSION_PARALLEL_1_TRANSFER_SORT_SELECT;
 							break;
-
+						case ALGORITHM_VERSION_PARALLEL_2_NAIVE_PARTITION:
+							s->algorithm_version = ALGORITHM_VERSION_PARALLEL_2_NAIVE_PARTITION;
+							break;
 						default:
 							printf("Invalid algorithm version identifier '%s'!", argv[i]);
 							valid = 0;

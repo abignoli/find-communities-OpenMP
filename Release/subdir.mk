@@ -23,7 +23,7 @@ C_SRCS += \
 ../temporary-community-edge.c \
 ../tmp.c \
 ../utilities.c \
-../version-parallel-split-basic.c 
+../version-parallel-naive-partitioning.c 
 
 OBJS += \
 ./algorithm-executor.o \
@@ -45,7 +45,7 @@ OBJS += \
 ./temporary-community-edge.o \
 ./tmp.o \
 ./utilities.o \
-./version-parallel-split-basic.o 
+./version-parallel-naive-partitioning.o 
 
 C_DEPS += \
 ./algorithm-executor.d \
@@ -67,7 +67,7 @@ C_DEPS += \
 ./temporary-community-edge.d \
 ./tmp.d \
 ./utilities.d \
-./version-parallel-split-basic.d 
+./version-parallel-naive-partitioning.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
