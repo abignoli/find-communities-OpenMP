@@ -40,4 +40,6 @@ double compute_modularity_weighted_reference_implementation_method(community_dev
 // Computes modularity as if each node was in an individual community
 double compute_modularity_init_weighted_reference_implementation_method(dynamic_weighted_graph *dwg);
 
+double compute_modularity_weighted_reference_implementation_method_range(community_developer *cd, int start, int end);
+
 #endif

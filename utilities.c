@@ -29,3 +29,8 @@ int lower_power_of_2(int n) {
 float merge_average(float first_average, int first_number_of_averaged_elements, float second_average, int second_number_of_averaged_elements) {
 	return (first_average * first_number_of_averaged_elements + second_average * second_number_of_averaged_elements) / (first_number_of_averaged_elements + second_number_of_averaged_elements);
 }
+
+// Extremes included
+int in_range(int x, int start, int end) {
+	return x >= start && x <= end;
+}

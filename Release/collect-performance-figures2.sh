@@ -35,16 +35,16 @@ do
 	THREADS_TIME="$(echo $OUTPUT | awk '{print $14}')"
 	THREADS_TIME=${THREADS_TIME::-1}
 	echo "Average time: " $THREADS_TIME
-	COMPUTATION="scale=10; $SINGLE_THREAD_TIME_AVERAGE / $THREADS_TIME * 100 - 100"
+	COMPUTATION="scale=10; $SINGLE_THREAD_TIME_AVERAGE / $THREADS_TIME * 100"
 	SPEEDUP_AVERAGE="$(echo "$COMPUTATION" | bc)"
 	
 	THREADS_TIME="$(echo $OUTPUT | awk '{print $18}')"
 	THREADS_TIME=${THREADS_TIME::-1}
 	echo "Minimum time: " $THREADS_TIME
-	COMPUTATION="scale=10; $SINGLE_THREAD_TIME_MINIMUM / $THREADS_TIME * 100 - 100"
+	COMPUTATION="scale=10; $SINGLE_THREAD_TIME_MINIMUM / $THREADS_TIME * 100"
 	SPEEDUP_MINIMUM="$(echo "$COMPUTATION" | bc)"
 	
-	echo $i "threads --> Speedup = Average: " $SPEEDUP_AVERAGE "% Minimum = " $SPEEDUP_MINIMUM
-	echo $i "threads --> Speedup = Average: " $SPEEDUP_AVERAGE "% Minimum = " $SPEEDUP_MINIMUM >> $OUTPUT_FILE
+	echo $i "threads --> Speedup = Computed on average: " $SPEEDUP_AVERAGE "% - Computed on minimum = " $SPEEDUP_MINIMUM "%"
+	echo $i "threads --> Speedup = Computed on average: " $SPEEDUP_AVERAGE "% - Computed on minimum = " $SPEEDUP_MINIMUM "%" >> $OUTPUT_FILE
 	printf "\n\n"
 done

@@ -18,4 +18,7 @@ inline int same(int x, int y);
 
 float merge_average(float first_average, int first_number_of_averaged_elements, float second_average, int second_number_of_averaged_elements);
 
+// Extremes included
+int in_range(int x, int start, int end);
+
 #endif

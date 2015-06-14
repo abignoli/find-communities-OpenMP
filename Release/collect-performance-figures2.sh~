@@ -9,7 +9,7 @@ MAX_THREADS=$5
 echo "Collecting performance figures in $OUTPUT_FILE using $INPUT_FILE as input graph"
 
 echo "Running sequential version"
-OUTPUT="$(./find-communities-OpenMP $INPUT_FILE -f 2 -b $BENCHMARK_RUNS -a 0 | grep -E 'Algorithm version|Number of threads:                |Average execution time|Minimum execution time' )"
+OUTPUT="$(./find-communities-OpenMP $INPUT_FILE -f $INPUT_FORMAT -b $BENCHMARK_RUNS -a 0 | grep -E 'Algorithm version|Number of threads:                |Average execution time|Minimum execution time' )"
 echo $OUTPUT > $OUTPUT_FILE
 
 printf "\n\n"
@@ -30,7 +30,7 @@ printf "\n\n"
 for i in $(seq 2 $MAX_THREADS);
 do
 	echo "Running parallel version with $i threads"
-	OUTPUT="$(./find-communities-OpenMP $INPUT_FILE -f 2 -b $BENCHMARK_RUNS -a 1 -t $i | grep -E 'Algorithm version|Number of threads:                |Average execution time|Minimum execution time' )"
+	OUTPUT="$(./find-communities-OpenMP $INPUT_FILE -f $INPUT_FORMAT -b $BENCHMARK_RUNS -a 1 -t $i | grep -E 'Algorithm version|Number of threads:                |Average execution time|Minimum execution time' )"
 	echo $OUTPUT >> $OUTPUT_FILE
 	THREADS_TIME="$(echo $OUTPUT | awk '{print $14}')"
 	THREADS_TIME=${THREADS_TIME::-1}
@@ -44,7 +44,7 @@ do
 	COMPUTATION="scale=10; $SINGLE_THREAD_TIME_MINIMUM / $THREADS_TIME * 100 - 100"
 	SPEEDUP_MINIMUM="$(echo "$COMPUTATION" | bc)"
 	
-	echo $i "threads --> Speedup = Average: " $SPEEDUP_AVERAGE "% Minimum = " $SPEEDUP_MINIMUM
-	echo $i "threads --> Speedup = Average: " $SPEEDUP_AVERAGE "% Minimum = " $SPEEDUP_MINIMUM >> $OUTPUT_FILE
+	echo $i "threads --> Speedup = Computed on average: " $SPEEDUP_AVERAGE "% - Computed on minimum = " $SPEEDUP_MINIMUM "%"
+	echo $i "threads --> Speedup = Computed on average: " $SPEEDUP_AVERAGE "% - Computed on minimum = " $SPEEDUP_MINIMUM "%" >> $OUTPUT_FILE
 	printf "\n\n"
 done

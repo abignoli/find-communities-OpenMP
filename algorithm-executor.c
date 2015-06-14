@@ -44,6 +44,8 @@ int find_communities(dynamic_graph *dg ,dynamic_weighted_graph *dwg, execution_s
 
 	if(algorithm_version_parallel(settings->algorithm_version))
 		omp_set_num_threads(settings->number_of_threads);
+	else
+		omp_set_num_threads(1);
 
 	global_begin_wtime = omp_get_wtime();
 

@@ -22,7 +22,8 @@ C_SRCS += \
 ../sorted-linked-list.c \
 ../temporary-community-edge.c \
 ../tmp.c \
-../utilities.c 
+../utilities.c \
+../version-parallel-split-basic.c 
 
 OBJS += \
 ./algorithm-executor.o \
@@ -43,7 +44,8 @@ OBJS += \
 ./sorted-linked-list.o \
 ./temporary-community-edge.o \
 ./tmp.o \
-./utilities.o 
+./utilities.o \
+./version-parallel-split-basic.o 
 
 C_DEPS += \
 ./algorithm-executor.d \
@@ -64,7 +66,8 @@ C_DEPS += \
 ./sorted-linked-list.d \
 ./temporary-community-edge.d \
 ./tmp.d \
-./utilities.d 
+./utilities.d \
+./version-parallel-split-basic.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
