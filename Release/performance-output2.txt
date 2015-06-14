@@ -1,0 +1,4 @@
+Algorithm version: Sequential Average execution time: 0.165881s Minimum execution time: 0.159394s
+Algorithm version: Parallel (Sort & Select) Number of threads: 1 Average execution time: 2.673162s Minimum execution time: 2.663800s
+Algorithm version: Parallel (Sort & Select) Number of threads: 2 Average execution time: 1.639442s Minimum execution time: 1.631687s
+2 threads --> Speedup:  63.0531607700 %
