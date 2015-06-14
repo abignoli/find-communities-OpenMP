@@ -4,6 +4,7 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../algorithm-executor.c \
 ../community-computation-commons.c \
 ../community-computation-weighted-sequential.c \
 ../community-computation-weighted.c \
@@ -24,6 +25,7 @@ C_SRCS += \
 ../utilities.c 
 
 OBJS += \
+./algorithm-executor.o \
 ./community-computation-commons.o \
 ./community-computation-weighted-sequential.o \
 ./community-computation-weighted.o \
@@ -44,6 +46,7 @@ OBJS += \
 ./utilities.o 
 
 C_DEPS += \
+./algorithm-executor.d \
 ./community-computation-commons.d \
 ./community-computation-weighted-sequential.d \
 ./community-computation-weighted.d \

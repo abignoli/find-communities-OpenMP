@@ -5,9 +5,11 @@
 #include "community-computation-weighted-sequential.h"
 #include "community-computation-weighted.h"
 #include "execution-briefing.h"
+#include "algorithm-executor.h"
 #include <stdio.h>
 #include <omp.h>
 #include <time.h>
+#include <stdlib.h>
 
 void merge_briefings_average(execution_briefing *briefing, algorithm_execution_briefing *internal_briefing, int number_of_previous_runs) {
 	briefing->clock_execution_time = merge_average(briefing->clock_execution_time, number_of_previous_runs, internal_briefing->clock_execution_time, 1);
