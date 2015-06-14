@@ -1,7 +1,11 @@
 #ifndef UTILITIES_H
 #define UTILITIES_H
 
-#define PRINTING_UTILITY_STARS "\n\n************************************************************************\n\n"
+#define PRINTING_UTILITY_STARS "\n\n********************************************************************************\n\n"
+#define PRINTING_UTILITY_DASHES "\n\n--------------------------------------------------------------------------------\n\n"
+#define PRINTING_UTILITY_SPARSE_DASHES "\n\n -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -\n\n"
+#define PRINTING_UTILITY_INDENT_TITLE "                    "
+
 #define PRINTING_NOT_YET_IMPLEMENTED "Not yet implemented!\n"
 #define PRINTING_NOT_ALGORITHM_ERRORS "Execution of the algorithm terminated with errors!\n"
 

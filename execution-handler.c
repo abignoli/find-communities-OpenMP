@@ -9,7 +9,15 @@
 #include <omp.h>
 #include <time.h>
 
-int execute_internal(dynamic_graph *input_dg, dynamic_weighted_graph *input_dwg, execution_settings *settings, dynamic_weighted_graph **community_graph, int **community_vector, execution_briefing *briefing) {
+void merge_briefings_average(execution_briefing *briefing, algorithm_execution_briefing *internal_briefing, int number_of_previous_runs) {
+	briefing->clock_execution_time = merge_average(briefing->clock_execution_time, number_of_previous_runs, internal_briefing->clock_execution_time, 1);
+	briefing->execution_time = merge_average(briefing->execution_time, number_of_previous_runs, internal_briefing->execution_time, 1);
+
+	// Might be useful if some randomized heuristics are implemented later
+	briefing->output_modularity = merge_average(briefing->output_modularity, number_of_previous_runs, internal_briefing->output_modularity, 1);
+}
+
+int execute_internal(dynamic_graph *input_dg, dynamic_weighted_graph *input_dwg, execution_settings *settings, dynamic_weighted_graph **community_graph, int **community_vector, algorithm_execution_briefing *briefing) {
 	if(settings->graph_type == NOT_WEIGHTED) {
 		printf(PRINTING_NOT_YET_IMPLEMENTED);
 
@@ -37,10 +45,7 @@ int execute_internal(dynamic_graph *input_dg, dynamic_weighted_graph *input_dwg,
 }
 
 int execute_community_detection(dynamic_graph *input_dg, dynamic_weighted_graph *input_dwg, execution_settings *settings, dynamic_weighted_graph **community_graph, int **community_vector, execution_briefing *briefing) {
-	briefing->performed_runs = 0;
-
 	algorithm_execution_briefing internal_briefing;
-	double output_modularity;
 
 	clock_t global_begin, global_end;
 	double global_clock_time;
@@ -48,6 +53,10 @@ int execute_community_detection(dynamic_graph *input_dg, dynamic_weighted_graph 
 	double global_begin_wtime, global_end_wtime;
 	double global_wtime_omp;
 
+	briefing->performed_runs = 0;
+
+	printf(PRINTING_UTILITY_STARS);
+	printf("Starting execution...");
 
 	if(!settings->sequential)
 		omp_set_num_threads(settings->number_of_threads);
@@ -81,6 +90,10 @@ int execute_community_detection(dynamic_graph *input_dg, dynamic_weighted_graph 
 //		}
 //	}
 
+	printf(PRINTING_UTILITY_STARS);
+	printf(PRINTING_UTILITY_INDENT_TITLE);
+	printf("Run #%d of the algorithm", briefing->performed_runs + 1);
+
 	if(!execute_internal(input_dg, input_dwg, settings, community_graph, community_vector, &internal_briefing))
 		return 0;
 
@@ -96,7 +109,8 @@ int execute_community_detection(dynamic_graph *input_dg, dynamic_weighted_graph 
 		// Benchmarking is active, perform multiple runs and get average values
 
 		printf(PRINTING_UTILITY_STARS);
-		printf("\t Run #%d of the algorithm", briefing->performed_runs + 1);
+		printf(PRINTING_UTILITY_INDENT_TITLE);
+		printf("Run #%d of the algorithm", briefing->performed_runs + 1);
 
 		if(!execute_internal(input_dg, input_dwg, settings, community_graph, community_vector, &internal_briefing))
 			return 0;
@@ -131,12 +145,6 @@ int execute_community_detection(dynamic_graph *input_dg, dynamic_weighted_graph 
 	return 1;
 }
 
-void merge_briefings_average(execution_briefing *briefing, algorithm_execution_briefing *internal_briefing, int number_of_previous_runs) {
-	briefing->clock_execution_time = merge_average(briefing->clock_execution_time, number_of_previous_runs, internal_briefing->clock_execution_time, 1);
-	briefing->execution_time = merge_average(briefing->execution_time, number_of_previous_runs, internal_briefing->execution_time, 1);
 
-	// Might be useful if some randomized heuristics are implemented later
-	briefing->output_modularity = merge_average(briefing->output_modularity, number_of_previous_runs, internal_briefing->output_modularity, 1);
-}
 
 

@@ -12,8 +12,14 @@ typedef struct execution_settings execution_settings;
 
 #define DEFAULT_BENCHMARK_RUNS 0
 
+#define DEFAULT_VERBOSE 0
+
+#define DEFAULT_EXECUTION_SETTINGS_PARALLEL_PARTITIONS_HIGHER_POWER_OF_2 0
+
+#define DEFAULT_FILE_FORMAT 0
+
 // Modify only if modifying also input parameters format!
-#define MINIMUM_ARGUMENTS_NUMBER 3
+#define MINIMUM_ARGUMENTS_NUMBER 2
 
 void set_default(execution_settings *s);
 

@@ -45,9 +45,6 @@ dynamic_edge_array dynamic_graph_retrieve_neighbors(dynamic_graph da, int node);
 
 int dynamic_graph_reduce (dynamic_graph *dg);
 
-
-int dynamic_graph_parse_file(dynamic_graph *dg, char *filename);
-
 int dynamic_graph_node_degree(dynamic_graph *dg, int index);
 
 void dynamic_graph_free(dynamic_graph *dg);

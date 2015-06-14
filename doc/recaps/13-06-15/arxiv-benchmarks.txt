@@ -1,0 +1,56 @@
+Averaged over 100 runs
+
+1 thread
+
+Execution briefing:
+
+	Execution successful:								Yes
+	Number of algorithm runs:							100
+	Average modularity obtained:						0.814237
+	Averaged execution time:							0.585905s
+	Minimum execution time:								0.584341s
+	Minimum clock execution time:						0.583987s
+	Averaged sum of execution time over all threads:	0.585550s
+	Total execution time:								58.940085s
+	
+2 threads
+
+Execution briefing:
+
+	Execution successful:                                Yes
+	Number of algorithm runs:                            100
+	Average modularity obtained:                         0.815078
+	Averaged execution time:                             0.389320s
+	Minimum execution time:                              0.378930s
+	Minimum clock execution time:                        0.752979s
+	Averaged sum of execution time over all threads:     0.772960s
+	Total execution time:                                39.285757s
+
+3 threads
+
+Execution briefing:
+
+	Execution successful:                                Yes
+	Number of algorithm runs:                            100
+	Average modularity obtained:                         0.815078
+	Averaged execution time:                             0.284261s
+	Minimum execution time:                              0.277192s
+	Minimum clock execution time:                        0.808383s
+	Averaged sum of execution time over all threads:     0.818575s
+	Total execution time:                                28.874232s
+
+4 threads
+
+Execution briefing:
+
+	Execution successful:								Yes
+	Number of algorithm runs:							100
+	Average modularity obtained:						0.814491
+	Averaged execution time:							0.151716s
+	Minimum execution time:								0.142712s
+	Minimum clock execution time:						0.543203s
+	Averaged sum of execution time over all threads:	0.564944s
+	Total execution time:								15.574382s
+
+
+

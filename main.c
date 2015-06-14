@@ -25,8 +25,6 @@ int main(int argc, char * argv[]) {
 
 	settings_print(&settings);
 
-	printf("Parsing input graph...\n\n");
-
 	if(!parse_input(&input_dg, &input_dwg, &settings))
 		return -1;
 

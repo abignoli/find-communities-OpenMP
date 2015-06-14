@@ -6,9 +6,9 @@
 #include "dynamic-weighted-graph.h"
 #include "utilities.h"
 
-#ifdef SILENT_SWITCH_DYNAMIC_GRAPH_ON
-#define printf(...)
-#endif
+//#ifdef SILENT_SWITCH_DYNAMIC_GRAPH_ON
+//#define printf(...)
+//#endif
 
 int dynamic_edge_array_init(dynamic_edge_array *da, int initSize)
 {
@@ -217,37 +217,6 @@ int dynamic_graph_reduce (dynamic_graph *dg) {
 
 			return 0;
 		}
-
-	return 1;
-}
-
-// Assumption in file parsing: No duplicates, edge weights and numbers positive
-int dynamic_graph_parse_file(dynamic_graph *dg, char *filename) {
-	FILE * graph_file;
-	int src, dest, weight;
-
-	if(!dynamic_graph_init(dg,DEFAULT_INIT_NODES_SIZE))
-		return 0;
-
-	// Read file - Insert edges
-	if(graph_file = fopen(filename,"r")) {
-		while(fscanf(graph_file, "%d %d", &src, &dest) == 2)
-			if(!dynamic_graph_insert(dg,src,dest)) {
-				printf("Could not insert edge %d - %d!\n", src, dest);
-				return 0;
-			}
-	} else {
-		printf("Could not open file: %s!\n", filename);
-
-		return 0;
-	}
-
-	// Reduce to optimal size
-	if(!dynamic_graph_reduce(dg)) {
-		printf("Could not reduce graph size!\n");
-
-		return 0;
-	}
 
 	return 1;
 }

@@ -2,13 +2,14 @@
 
 #include "community-development.h"
 #include "silent-switch.h"
+#include "execution-settings.h"
 
 #include <stdio.h>
 #include <omp.h>
 
-#ifdef SILENT_SWITCH_SORT_ON
-#define printf(...)
-#endif
+//#ifdef SILENT_SWITCH_SORT_ON
+//#define printf(...)
+//#endif
 
 #define MINIMUM_PARTITION_SIZE 100
 
@@ -155,7 +156,7 @@ void community_exchange_parallel_quick_sort_merge(community_exchange *exchange_r
 	}
 }
 
-int community_exchange_parallel_quick_sort_main(community_exchange *exchange_rankings, int total_exchanges, community_exchange **output_sorted) {
+int community_exchange_parallel_quick_sort_main(community_exchange *exchange_rankings, int total_exchanges, execution_settings *settings, community_exchange **output_sorted) {
 	int i;
 	int partitions_number;
 	int partition_size;
@@ -178,19 +179,17 @@ int community_exchange_parallel_quick_sort_main(community_exchange *exchange_ran
 
 	*output_sorted = NULL;
 
-	// TODO Manage threads number properly
-
-	partitions_number = 1;
-
-#ifdef _OPENMP
 	number_of_threads = omp_get_max_threads();
+
 	partitions_number = lower_power_of_2(number_of_threads);
+
+	if(settings->execution_settings_parallel_partitions_higher_power_of_2 && partitions_number < number_of_threads)
+		partitions_number *= 2;
 
 	// Makes sure that base partition size isn't smaller than MINIMUM_PARTITION_SIZE
 	while(partitions_number > 1 && total_exchanges / partitions_number < MINIMUM_PARTITION_SIZE) {
 		partitions_number /= 2;
 	}
-#endif
 
 	if(partitions_number < 1) {
 		printf("Partitions number smaller than zero: can't sort.\n");
@@ -198,13 +197,21 @@ int community_exchange_parallel_quick_sort_main(community_exchange *exchange_ran
 		return 0;
 	}
 
-
 	base_partition_size = total_exchanges / partitions_number;
 
 	if(total_exchanges > base_partition_size * partitions_number)
 		base_partition_size++;
 
-	printf("\nSORTING EXCHANGES\n\nTotal exchanges: %d\nPartitions number: %d\nBase partition size: %d\nNumber of threads: %d\n\n", total_exchanges, partitions_number, base_partition_size, number_of_threads);
+	if(settings->verbose) {
+		printf("Starting sorting of %d node transfers using a maximum of %d threads.\n"
+				"Number of partitions: %d. Base partition size: %d.\n"
+				"Minimum allowed partition size: %d\n",
+				total_exchanges, number_of_threads,
+				partitions_number, base_partition_size,
+				MINIMUM_PARTITION_SIZE);
+	}
+
+//	printf("\nSORTING EXCHANGES\n\nTotal exchanges: %d\nPartitions number: %d\nBase partition size: %d\nNumber of threads: %d\n\n", total_exchanges, partitions_number, base_partition_size, number_of_threads);
 	// Divide the input array in partition and qsort them in parallel
 
 #pragma omp parallel for default(shared) private(i,partition_size) schedule(static, 1) num_threads(partitions_number)
@@ -215,9 +222,9 @@ int community_exchange_parallel_quick_sort_main(community_exchange *exchange_ran
 		else
 			partition_size = base_partition_size;
 
-#ifdef _OPENMP
-		printf("Thread #%d - sorting exchanges from index %d to %d.\n", omp_get_thread_num(), i * base_partition_size, i * base_partition_size + partition_size - 1);
-#endif
+//#ifdef _OPENMP
+//		printf("Thread #%d - sorting exchanges from index %d to %d.\n", omp_get_thread_num(), i * base_partition_size, i * base_partition_size + partition_size - 1);
+//#endif
 
 		qsort(exchange_rankings + i * base_partition_size, partition_size, sizeof(community_exchange), community_exchange_compare);
 	}
@@ -247,9 +254,9 @@ int community_exchange_parallel_quick_sort_main(community_exchange *exchange_ran
 				else
 					second_partition_end = (i + 2) * base_partition_size;
 
-#ifdef _OPENMP
-				printf("Thread #%d - merging sorted exchanges (%d - %d) and (%d - %d).\n", omp_get_thread_num(), first_partition_start, first_partition_end - 1, second_partition_start, second_partition_end - 1);
-#endif
+//#ifdef _OPENMP
+//				printf("Thread #%d - merging sorted exchanges (%d - %d) and (%d - %d).\n", omp_get_thread_num(), first_partition_start, first_partition_end - 1, second_partition_start, second_partition_end - 1);
+//#endif
 
 				// Choose the correct layer containing the correct subsections to sort
 				if(level % 2)

@@ -17,6 +17,7 @@ typedef struct execution_briefing {
 
 typedef struct algorithm_execution_briefing {
 	int execution_successful;
+	int number_of_phases;
 	double output_modularity;
 	double execution_time;
 	double clock_execution_time;
@@ -25,12 +26,11 @@ typedef struct algorithm_execution_briefing {
 	double global_execution_time;
 } algorithm_execution_briefing;
 
-//typedef struct phase_execution_briefing {
-//	int execution_successful;
-//	double output_modularity;
-//	double execution_time;
-//	double clock_execution_time;
-//} algorithm_execution_briefing;
+typedef struct phase_execution_briefing {
+	int execution_successful;
+	int number_of_iterations;
+	double output_modularity;
+} phase_execution_briefing;
 
 void execution_briefing_print(execution_briefing *briefing);
 

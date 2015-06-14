@@ -13,6 +13,7 @@ C_SRCS += \
 ../dynamic-weighted-graph.c \
 ../execution-briefing.c \
 ../execution-handler.c \
+../execution-settings.c \
 ../input-handler.c \
 ../main.c \
 ../parse-args.c \
@@ -32,6 +33,7 @@ OBJS += \
 ./dynamic-weighted-graph.o \
 ./execution-briefing.o \
 ./execution-handler.o \
+./execution-settings.o \
 ./input-handler.o \
 ./main.o \
 ./parse-args.o \
@@ -51,6 +53,7 @@ C_DEPS += \
 ./dynamic-weighted-graph.d \
 ./execution-briefing.d \
 ./execution-handler.d \
+./execution-settings.d \
 ./input-handler.d \
 ./main.d \
 ./parse-args.d \

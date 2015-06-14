@@ -50,11 +50,6 @@ dynamic_weighted_edge_array DynGraphRetrieveNeighbors(dynamic_weighted_graph da,
 
 int dynamic_weighted_graph_reduce (dynamic_weighted_graph *dg);
 
-
-int dynamic_weighted_graph_parse_file(dynamic_weighted_graph *dg, char *filename);
-
-int dynamic_weighted_graph_parse_not_weighted_file(dynamic_weighted_graph *dwg, char *filename, int weight);
-
 int dynamic_weighted_graph_node_degree(dynamic_weighted_graph *dg, int index);
 
 void dynamic_weighted_graph_free(dynamic_weighted_graph *dwg);
@@ -62,5 +57,7 @@ void dynamic_weighted_graph_free(dynamic_weighted_graph *dwg);
 int dynamic_weighted_graph_self_loop(dynamic_weighted_graph *dwg, int node_index);
 
 int dynamic_weighted_graph_double_m(dynamic_weighted_graph *dwg);
+
+int dynamic_weighted_graph_insert_force_directed(dynamic_weighted_graph *da, int n1, int n2, int weight);
 
 #endif

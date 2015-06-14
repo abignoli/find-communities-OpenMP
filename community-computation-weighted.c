@@ -7,6 +7,7 @@
 #include "community-exchange.h"
 #include "silent-switch.h"
 #include "sorted-linked-list.h"
+#include "utilities.h"
 
 #include "execution-settings.h"
 #include "execution-briefing.h"
@@ -412,7 +413,7 @@ int output_translator_weighted(dynamic_weighted_graph *dwg, community_developer 
 //
 //	printf("Input graph:\n\n");
 
-	dynamic_weighted_graph_print(*dwg);
+//	dynamic_weighted_graph_print(*dwg);
 
 //	printf("\n\nInput CD:\n\n");
 
@@ -530,7 +531,7 @@ int output_translator_weighted(dynamic_weighted_graph *dwg, community_developer 
 }
 
 // Executes a phase of the algorithm, returns modularity gain
-double parallel_phase_weighted(dynamic_weighted_graph *dwg, execution_settings *settings, dynamic_weighted_graph **community_graph, int **community_vector) {
+int parallel_phase_weighted(dynamic_weighted_graph *dwg, execution_settings *settings, dynamic_weighted_graph **community_graph, int **community_vector, phase_execution_briefing *briefing) {
 	community_developer cd;
 
 	double initial_phase_modularity, final_phase_modularity;
@@ -569,7 +570,7 @@ double parallel_phase_weighted(dynamic_weighted_graph *dwg, execution_settings *
 	if(!dwg || !valid_minimum_improvement(minimum_improvement)) {
 		printf("Invalid phase parameters!");
 
-		return ILLEGAL_MODULARITY_VALUE;
+		return 0;
 	}
 
 	community_developer_init_weighted(&cd, dwg);
@@ -579,19 +580,31 @@ double parallel_phase_weighted(dynamic_weighted_graph *dwg, execution_settings *
 	initial_phase_modularity = compute_modularity_weighted_reference_implementation_method(&cd);
 	final_iteration_modularity = initial_phase_modularity;
 
-//	printf("\n\n---------------- Phase start -----------------\n\n");
-//	printf("Initial phase modularity: %f (Reference method: %f)\n", initial_phase_modularity, compute_modularity_weighted_reference_implementation_method(&cd));
+	if(settings->verbose) {
+		printf(PRINTING_UTILITY_SPARSE_DASHES);
+
+		printf(PRINTING_UTILITY_INDENT_TITLE);
+		printf("Phase start\n\n");
+
+		printf("Initial phase modularity: %f\n", initial_phase_modularity);
+	}
 
 	do {
-//		printf("\n\n---------------- Iteration #%d -----------------\n\n", phase_iteration_counter);
-
 		sorted_output_multi_thread_needs_free = 0;
 
 		initial_iteration_modularity = final_iteration_modularity;
 
 		neighbor_communities_bad_computation = 0;
 
-//		printf("Initial iteration modularity: %f (Reference %f)\n\n", initial_iteration_modularity, compute_modularity_weighted_reference_implementation_method(&cd));
+		if(settings->verbose) {
+			printf(PRINTING_UTILITY_SPARSE_DASHES);
+
+			printf(PRINTING_UTILITY_INDENT_TITLE);
+			printf("Iteration #%d\n\n", phase_iteration_counter);
+
+			printf("Initial iteration modularity: %f\n\n", initial_iteration_modularity);
+			printf("Starting iteration over all nodes...\n");
+		}
 
 		// Do the parallel iterations over all nodes
 		// TODO put Parallel for - Everything else is good to go
@@ -647,7 +660,12 @@ double parallel_phase_weighted(dynamic_weighted_graph *dwg, execution_settings *
 		if(neighbor_communities_bad_computation) {
 			printf("Could not compute neighbor communities!\n");
 
-			return ILLEGAL_MODULARITY_VALUE;
+			return 0;
+		}
+
+		if(settings->verbose) {
+			printf("Iteration over all nodes complete.\n\n");
+			printf("Starting potential node transfers compression...\n");
 		}
 
 		// -------------------------------- SEQUENTIAL SECTION
@@ -671,14 +689,22 @@ double parallel_phase_weighted(dynamic_weighted_graph *dwg, execution_settings *
 
 		// -------------------------------- END OF SEQUENTIAL SECTION
 
+		if(settings->verbose) {
+			printf("Potential node transfers compression complete.\n\n");
+		}
+
 		if(total_exchanges > 0) {
+
+			if(settings->verbose) {
+				printf("Starting  potential node transfers sorting...\n");
+			}
 
 			// Do the parallel sorting of the community pairings array
 
-			if(!community_exchange_parallel_quick_sort_main(cd.exchange_ranking, total_exchanges,&sorted_output_multi_thread)){
+			if(!community_exchange_parallel_quick_sort_main(cd.exchange_ranking, total_exchanges, settings, &sorted_output_multi_thread)){
 				printf("Couldn't sort exchange pairings!");
 
-				return ILLEGAL_MODULARITY_VALUE;
+				return 0;
 			}
 
 			if(sorted_output_multi_thread)
@@ -688,12 +714,22 @@ double parallel_phase_weighted(dynamic_weighted_graph *dwg, execution_settings *
 
 			// -------------------------------- SEQUENTIAL SECTION
 
+			if(settings->verbose) {
+				printf("Potential node transfers sorting complete.\n\n");
+				printf("Starting  potential node transfers selection...\n");
+			}
+
 			// Do the sequential selection of the community pairings (iterate sequentially over the sorted ranking edges)
 
 			if(!sequential_select_pairings(&cd, sorted_output_multi_thread, total_exchanges, &selected, &stop_scanning_position)) {
 				printf("Couldn't select exchange pairings!");
 
-				return ILLEGAL_MODULARITY_VALUE;
+				return 0;
+			}
+
+			if(settings->verbose) {
+				printf("Potential node transfers selection complete.\n\n");
+				printf("Starting execution of node transfers...\n");
 			}
 
 			// -------------------------------- END OF SEQUENTIAL SECTION
@@ -705,6 +741,10 @@ double parallel_phase_weighted(dynamic_weighted_graph *dwg, execution_settings *
 			for(i = 0; i < stop_scanning_position; i++)
 				if(*(selected + i))
 					apply_transfer_weighted(dwg,&cd,sorted_output_multi_thread+i);
+
+			if(settings->verbose) {
+				printf("Execution of node transfers selection complete.\n\n");
+			}
 
 			// Free memory used in the last computations
 			free(selected);
@@ -718,12 +758,12 @@ double parallel_phase_weighted(dynamic_weighted_graph *dwg, execution_settings *
 		} else
 			final_iteration_modularity = initial_iteration_modularity;
 
-//		printf("\n\nEnd of Iteration #%d - Result:\n\n", phase_iteration_counter);
-		community_developer_print(&cd,0);
+		if(settings->verbose) {
+			printf("End of Iteration #%d.\n", phase_iteration_counter);
+			printf("Final iteration modularity: %f. Modularity gain: %f", final_iteration_modularity, final_iteration_modularity - initial_iteration_modularity);
+		}
 
 		phase_iteration_counter++;
-
-//		printf("Final iteration modularity: %f (Reference: %f). Modularity gain: %f\n", final_iteration_modularity, compute_modularity_weighted_reference_implementation_method(&cd), final_iteration_modularity - initial_iteration_modularity);
 
 	} while (final_iteration_modularity - initial_iteration_modularity > minimum_improvement);
 
@@ -736,15 +776,26 @@ double parallel_phase_weighted(dynamic_weighted_graph *dwg, execution_settings *
 	// New communities graph and results should be passed
 	// TODO
 
-//	printf("Final phase modularity: %f. Modularity gain: %f\n", final_phase_modularity, final_phase_modularity - initial_phase_modularity);
+	if(settings->verbose) {
+		printf(PRINTING_UTILITY_SPARSE_DASHES);
+		printf("End of phase\n\n");
+		printf("Number of iterations: %d\n", phase_iteration_counter);
+		printf("Final modularity: %f. Modularity gain: %f\n", final_phase_modularity, final_phase_modularity - initial_phase_modularity);
+	}
 
-	return final_phase_modularity;
+	briefing->execution_successful = 1;
+	briefing->number_of_iterations = phase_iteration_counter;
+	briefing->output_modularity = final_phase_modularity;
+
+	return 1;
 }
 
 int parallel_find_communities_weighted(dynamic_weighted_graph *dwg, execution_settings *settings, dynamic_weighted_graph **community_graph, int **community_vector, algorithm_execution_briefing *briefing) {
 	int phase_counter;
 
 	dynamic_weighted_graph *phase_output_community_graph;
+
+	phase_execution_briefing phase_briefing;
 
 	double initial_phase_modularity, final_phase_modularity;
 
@@ -775,26 +826,29 @@ int parallel_find_communities_weighted(dynamic_weighted_graph *dwg, execution_se
 		return 0;
 	}
 
-	if(output_communities_filename) {
-		output_communities_file = fopen (output_communities_filename, "w+");
+	if(!settings->benchmark_runs) {
+		// File IO is disabled during benchmark runs
+		if(output_communities_filename) {
+			output_communities_file = fopen (output_communities_filename, "w+");
 
-		if(!output_communities_file) {
-			printf("Could not open output communities file: %s", output_communities_filename);
-			briefing->execution_successful = 0;
+			if(!output_communities_file) {
+				printf("Could not open output communities file: %s", output_communities_filename);
+				briefing->execution_successful = 0;
 
-			return 0;
+				return 0;
+			}
 		}
-	}
 
-	if(output_graphs_filename) {
-		output_graphs_file = fopen (output_graphs_filename, "w+");
+		if(output_graphs_filename) {
+			output_graphs_file = fopen (output_graphs_filename, "w+");
 
-		if(!output_graphs_file) {
-			printf("Could not open output graphs file: %s", output_graphs_filename);
-			briefing->execution_successful = 0;
+			if(!output_graphs_file) {
+				printf("Could not open output graphs file: %s", output_graphs_filename);
+				briefing->execution_successful = 0;
 
-			fclose(output_communities_file);
-			return 0;
+				fclose(output_communities_file);
+				return 0;
+			}
 		}
 	}
 
@@ -805,7 +859,8 @@ int parallel_find_communities_weighted(dynamic_weighted_graph *dwg, execution_se
 	final_phase_modularity = compute_modularity_init_weighted_reference_implementation_method(dwg);
 
 	if(!settings->benchmark_runs) {
-		printf("\n\n-------- Starting parallel algorithm --------\n\n");
+		printf(PRINTING_UTILITY_DASHES);
+		printf("                   Starting parallel algorithm\n\n");
 
 		printf("Maximum available threads: %d\n\n", omp_get_max_threads());
 	}
@@ -818,32 +873,34 @@ int parallel_find_communities_weighted(dynamic_weighted_graph *dwg, execution_se
 
 		initial_phase_modularity = final_phase_modularity;
 
-		if(!settings->benchmark_runs)
+		if(!settings->benchmark_runs) {
+			printf(PRINTING_UTILITY_DASHES);
 			printf("\n\nPHASE #%d:\n\nGraph size: %d\nInitial phase modularity: %f\n",phase_counter, dwg->size, final_phase_modularity);
+		}
 
-		dynamic_weighted_graph_print(*dwg);
+		if(settings->verbose) {
+			printf("\nInitial graph:\n");
+			dynamic_weighted_graph_print(*dwg);
+		}
 
 		// Just for performance measurement
 		begin = clock();
 		begin_wtime = omp_get_wtime();
 
-		final_phase_modularity = parallel_phase_weighted(dwg,settings,&phase_output_community_graph, community_vector);
-
-		if(final_phase_modularity == ILLEGAL_MODULARITY_VALUE) {
+		if(!parallel_phase_weighted(dwg,settings,&phase_output_community_graph, community_vector, &phase_briefing)) {
 			printf("Bad phase #%d computation!\n",phase_counter);
 			briefing->execution_successful = 0;
 
-			return ILLEGAL_MODULARITY_VALUE;
+			return 0;
 		}
+
+		final_phase_modularity = phase_briefing.output_modularity;
 
 		// Just for performance measurement
 		end_wtime = omp_get_wtime( );
 		end = clock();
 		clock_time += (double)(end - begin) / CLOCKS_PER_SEC;
 		wtime_omp += end_wtime - begin_wtime;
-
-		if(!settings->benchmark_runs)
-			printf("Phase #%d required %fs (sum of execution time over all threads: %f)\n", phase_counter, end_wtime - begin_wtime, (double)(end - begin) / CLOCKS_PER_SEC);
 
 		if(output_communities_file && !output_save_communities(output_communities_file, *community_vector, dwg->size)) {
 			printf("Couldn't save communities output of phase #%d!\n",phase_counter);
@@ -859,8 +916,15 @@ int parallel_find_communities_weighted(dynamic_weighted_graph *dwg, execution_se
 			return 0;
 		}
 
-		if(!settings->benchmark_runs)
-			printf("-- End of Phase #%d - Initial modularity: %f - Final modularity: %f - Gain: %f\n", phase_counter, initial_phase_modularity, final_phase_modularity, final_phase_modularity - initial_phase_modularity);
+		if(!settings->benchmark_runs) {
+			printf("\nEnd of Phase #%d\n\n", phase_counter);
+			printf("\tInitial modularity:                 %f\n",initial_phase_modularity);
+			printf("\tFinal modularity:                   %f\n", final_phase_modularity);
+			printf("\tGain:                               %f\n", final_phase_modularity - initial_phase_modularity);
+			printf("\tExecution time:                     %fs\n", end_wtime - begin_wtime);
+			printf("\tExecution time over all threads:    %fs\n", (double)(end - begin) / CLOCKS_PER_SEC);
+			printf("\tNumber of iterations:               %d\n", phase_briefing.number_of_iterations);
+		}
 
 		// Clean memory
 		// Avoids freeing initial input graph
@@ -875,8 +939,14 @@ int parallel_find_communities_weighted(dynamic_weighted_graph *dwg, execution_se
 	*community_graph = phase_output_community_graph;
 
 	if(!settings->benchmark_runs) {
-		printf("\n\nExecution time for full run of parallel algorithm executed by a maximum of %d threads: %f (wtime) - %f (clock)\n",omp_get_max_threads(), wtime_omp ,clock_time);
-		printf("Final modularity output of parallel version: %f\n\n", final_phase_modularity);
+		printf(PRINTING_UTILITY_DASHES);
+		printf("\n\nEnd of computation\n\n");
+		printf("\tAlgorithm version:                   Parallel\n");
+		printf("\tMaximum number of threads:           %d\n", omp_get_max_threads());
+		printf("\tExecution time:                      %fs\n",wtime_omp);
+		printf("\tExecution time over all threads:     %fs\n", clock_time);
+		printf("\tFinal modularity:                    %f\n", final_phase_modularity);
+		printf("\tNumber of phases:                    %d\n", phase_counter);
 	}
 
 	// Saving output to file
@@ -893,6 +963,7 @@ int parallel_find_communities_weighted(dynamic_weighted_graph *dwg, execution_se
 
 	briefing->execution_successful = 1;
 	briefing->execution_time = wtime_omp;
+	briefing->number_of_phases = phase_counter;
 	briefing->clock_execution_time = clock_time;
 	briefing->output_modularity = final_phase_modularity;
 	briefing->global_execution_time = global_wtime_omp;
