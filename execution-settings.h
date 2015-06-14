@@ -1,6 +1,11 @@
 #ifndef EXECUTION_SETTINGS_H
 #define EXECUTION_SETTINGS_H
 
+typedef struct dynamic_graph dynamic_graph;
+typedef struct dynamic_weighted_graph dynamic_weighted_graph;
+typedef struct execution_settings execution_settings;
+typedef struct phase_execution_briefing phase_execution_briefing;
+
 #define NOT_WEIGHTED 0
 #define WEIGHTED 1
 
@@ -15,6 +20,13 @@
 #define FILE_FORMAT_METIS_NAME "Metis"
 #define FILE_FORMAT_INVALID_NAME "Invalid file format!"
 
+#define ALGORITHM_VERSION_SEQUENTIAL_0 0
+#define ALGORITHM_VERSION_PARALLEL_1_TRANSFER_SORT_SELECT 1
+
+#define ALGORITHM_VERSION_SEQUENTIAL_0_NAME "Sequential"
+#define ALGORITHM_VERSION_PARALLEL_1_TRANSFER_SORT_SELECT_NAME "Parallel (Sort & Select)"
+#define ALGORITHM_VERSION_INVALID_NAME "Invalid algorithm version!"
+
 typedef struct execution_settings {
 	char *input_file;
 	int input_file_format;
@@ -26,12 +38,22 @@ typedef struct execution_settings {
 	int number_of_threads;
 	int verbose;
 	// Tells that the program should be executed using the sequential implementation
-	int sequential;
+//	int sequential;
 	int benchmark_runs;
 
 	int execution_settings_parallel_partitions_higher_power_of_2;
+
+	int algorithm_version;
+	// Phase executors, set by execution handler depending on chosen algorithm version. Could potentially be controlled at runtime
+	int (*phase_executor_weighted)(dynamic_weighted_graph *, execution_settings *, dynamic_weighted_graph **, int **, phase_execution_briefing *);
+	int (*phase_executor_not_weighted)(dynamic_graph *, execution_settings *, dynamic_weighted_graph **, int **, phase_execution_briefing *);
+
 } execution_settings;
 
 char * file_format_name(int id);
+
+int algorithm_version_parallel(int id);
+
+char * algorithm_version_name(int id);
 
 #endif

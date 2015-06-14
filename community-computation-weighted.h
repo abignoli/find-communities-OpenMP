@@ -9,6 +9,8 @@ typedef struct execution_settings execution_settings;
 typedef struct algorithm_execution_briefing algorithm_execution_briefing;
 typedef struct phase_execution_briefing phase_execution_briefing;
 
+typedef struct dynamic_graph dynamic_graph;
+
 // Designed to be called at the start of each phase
 int community_developer_init_weighted(community_developer *cd, dynamic_weighted_graph *dwg);
 
@@ -40,5 +42,6 @@ double compute_modularity_init_weighted_reference_implementation_method(dynamic_
 
 int parallel_find_communities_weighted(dynamic_weighted_graph *dwg, execution_settings *settings, dynamic_weighted_graph **community_graph, int **community_vector, algorithm_execution_briefing *briefing);
 
+int find_communities(dynamic_graph *dg ,dynamic_weighted_graph *dwg, execution_settings *settings, dynamic_weighted_graph **community_graph, int **community_vector, algorithm_execution_briefing *briefing);
 
 #endif

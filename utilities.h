@@ -2,6 +2,7 @@
 #define UTILITIES_H
 
 #define PRINTING_UTILITY_STARS "\n\n********************************************************************************\n\n"
+#define PRINTING_UTILITY_EQUALS "\n\n================================================================================\n\n"
 #define PRINTING_UTILITY_DASHES "\n\n--------------------------------------------------------------------------------\n\n"
 #define PRINTING_UTILITY_SPARSE_DASHES "\n\n -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -  -\n\n"
 #define PRINTING_UTILITY_INDENT_TITLE "                    "

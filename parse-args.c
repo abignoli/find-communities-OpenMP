@@ -16,10 +16,10 @@ void set_default(execution_settings *s) {
 	s->output_communities_file = NULL;
 	s->output_graphs_file = NULL;
 	s->number_of_threads = DEFAULT_NUMBER_OF_THREADS;
-	s->sequential = DEFAULT_SEQUENTIAL;
 	s->benchmark_runs = DEFAULT_BENCHMARK_RUNS;
 	s->verbose = DEFAULT_VERBOSE;
 	s->input_file_format = DEFAULT_FILE_FORMAT;
+	s->algorithm_version = DEFAULT_ALGORITHM_VERSION;
 
 	s->execution_settings_parallel_partitions_higher_power_of_2 = DEFAULT_EXECUTION_SETTINGS_PARALLEL_PARTITIONS_HIGHER_POWER_OF_2;
 }
@@ -33,14 +33,16 @@ void print_help(char *prog_name) {
 			"\t-h             Shows help\n"
 			"\t                 * Ignores the rest of the input while doing so.\n"
 			"\t-f number      Use file format identified by number.\n"
-			"\t                 * Default is zero\n"
+			"\t                 * Default is %d\n"
 			"\t                 * Complete list of available file format options\n"
 			"\t                   can be found below\n"
 			"\t-t             Number of threads to use during parallel execution.\n"
-			"\t                 * Must be greater than zero, default 1\n"
-			"\t-s             Execute the sequential version of the algorithm\n"
-			"\t               instead of the parallel one.\n"
-			"\t                 * Given number of threads is ignored\n"
+			"\t                 * Must be greater than zero\n"
+			"\t                 * Default is %d\n"
+			"\t-a number      Execute the version of the algorithm identified by number.\n"
+			"\t                 * Complete list of available algorithm versions can\n"
+			"\t                   be found below\n"
+			"\t                 * Default is %d\n"
 			"\t-v             Enable verbose logging.\n"
 			"\t-p number      Stop phase analysis when phase improvement is smaller\n"
 			"\t               than number.\n"
@@ -57,25 +59,37 @@ void print_help(char *prog_name) {
 			"\t                 * Perform the given number of benchmark runs\n"
 			"\t                 * Disable file outputs and screen logging\n"
 			"\t                 * Disable verbose logging\n"
+			"\nAvailable algorithm versions:\n\n"
+			"\t-a %d          %s\n"
+			"\t                 * Original Louvain method implementation optimized\n"
+			"\t-a %d          %s\n"
+			"\t                 * Iterations over all nodes are done in parallel,\n"
+			"\t                   potential transfers are sorted and selected by\n"
+			"\t                   computed modularity increase\n"
 			"\nAvailable execution options:\n\n"
-			"\t-e %d           Use a number of partitions equal to the smallest\n"
-			"\t                power of two greater or equal to the number of threads\n"
-			"\t                during parallel sorting.\n"
+			"\t-e %d          Use a number of partitions equal to the smallest\n"
+			"\t               power of two greater or equal to the number of threads\n"
+			"\t               during parallel sorting.\n"
 			"\t                 * By default a number of partitions equal to the biggest\n"
 			"\t                   power of two smaller or equal to the number of threads\n"
 			"\t               	  is used\n"
 			"\t                 * Applies only to parallel algorithm\n"
 			"\nAvailable file format options:\n\n"
-			"\t%d               Edge list, not weighted.\n"
+			"\t-f %d          Edge list, not weighted.\n"
 			"\t                 * i.e. each line is of the form:\n"
 			"\t                   source-node destination-node\n"
-			"\t%d               Edge list, weighted.\n"
+			"\t-f %d          Edge list, weighted.\n"
 			"\t                 * i.e. each line is of the form:\n"
 			"\t                   source-node destination-node edge-weight\n"
-			"\t%d               Metis format.\n"
+			"\t-f %d          Metis format.\n"
 			"\nIndexes must be non negative, and weights should be greater than zero.\n"
 			"\nOutput is undefined if any of the above conditions is not met.\n",
 			prog_name,
+			DEFAULT_FILE_FORMAT,
+			DEFAULT_NUMBER_OF_THREADS,
+			DEFAULT_ALGORITHM_VERSION,
+			ALGORITHM_VERSION_SEQUENTIAL_0, ALGORITHM_VERSION_SEQUENTIAL_0_NAME,
+			ALGORITHM_VERSION_PARALLEL_1_TRANSFER_SORT_SELECT, ALGORITHM_VERSION_PARALLEL_1_TRANSFER_SORT_SELECT_NAME,
 			EXECUTION_SETTINGS_PARALLEL_PARTITIONS_HIGHER_POWER_OF_2_IDENTIFIER,
 			FILE_FORMAT_EDGE_LIST_NOT_WEIGHTED, FILE_FORMAT_EDGE_LIST_WEIGHTED, FILE_FORMAT_METIS);
 
@@ -84,7 +98,7 @@ void print_help(char *prog_name) {
 
 int parse_args(int argc, char *argv[], execution_settings *s){
 	int valid = 1;
-	int i, execution_option, file_format;
+	int i, execution_option, file_format, algorithm_version;
 
 	set_default(s);
 
@@ -158,8 +172,27 @@ int parse_args(int argc, char *argv[], execution_settings *s){
 					}
 					break;
 
-				case 's':
-					s->sequential = 1;
+				case 'a':
+					if(i + 1 < argc) {
+						i++;
+						algorithm_version = atoi(argv[i]);
+
+						switch(algorithm_version) {
+						case ALGORITHM_VERSION_SEQUENTIAL_0:
+							s->algorithm_version = ALGORITHM_VERSION_SEQUENTIAL_0;
+							break;
+						case ALGORITHM_VERSION_PARALLEL_1_TRANSFER_SORT_SELECT:
+							s->algorithm_version = ALGORITHM_VERSION_PARALLEL_1_TRANSFER_SORT_SELECT;
+							break;
+
+						default:
+							printf("Invalid algorithm version identifier '%s'!", argv[i]);
+							valid = 0;
+						}
+					} else {
+						printf("Expected algorithm version identifier identifier after '%s'!\n", argv[i]);
+						valid = 0;
+					}
 					break;
 
 				case 'v':
@@ -270,7 +303,6 @@ int parse_args(int argc, char *argv[], execution_settings *s){
 		s->verbose = 0;
 	}
 
-
 	if(!valid)
 		print_help(argv[0]);
 
@@ -288,8 +320,8 @@ void settings_print(execution_settings *settings) {
 	printf("\tFile format:                      %s\n", file_format_name(settings->input_file_format));
 	printf("\tMinimum phase improvement:        %f\n", settings->minimum_phase_improvement);
 	printf("\tMinimum iteration improvement:    %f\n", settings->minimum_iteration_improvement);
-	printf("\tAlgorithm version:                %s\n", (settings->sequential ? "Sequential" : "Parallel"));
-	if(!settings->sequential)
+	printf("\tAlgorithm version:                %s\n", algorithm_version_name(settings->algorithm_version));
+	if(algorithm_version_parallel(settings->algorithm_version))
 		printf("\tNumber of threads:                %d\n", settings->number_of_threads);
 	printf("\tVerbose logger:                   %s\n", (settings->verbose ? "Active" : "Inactive"));
 	printf("\tBenchmarking:                     %s\n", (settings->benchmark_runs ? "Active" : "Inactive"));
