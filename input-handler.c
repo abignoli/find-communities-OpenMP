@@ -208,6 +208,9 @@ int read_metis_format(dynamic_graph *dg, dynamic_weighted_graph *dwg, execution_
 	int number_of_nodes, number_of_edges;
 	char graph_descriptor[METIS_MAXIMUM_GRAPH_DESCRIPTOR_LENGTH + 1];
 	int valid = 1;
+	char c;
+
+	int graph_descriptor_index;
 
 	// Open file
 	if(!(graph_file = fopen(settings->input_file,"r"))) {
@@ -216,14 +219,46 @@ int read_metis_format(dynamic_graph *dg, dynamic_weighted_graph *dwg, execution_
 		return 0;
 	}
 
-	if(!(fscanf(graph_file, "%d %d %s", &number_of_nodes, &number_of_edges, graph_descriptor) == 3)) {
+	if(!(fscanf(graph_file, "%d %d", &number_of_nodes, &number_of_edges) == 2)) {
 		printf("Invalid graph header!");
 
 		valid = 0;
 	}
 
-	// Takes the first newline character away
-	getc(graph_file);
+
+	graph_descriptor_index = 0;
+	c = getc(graph_file);
+	while(c == ' ')
+		c = getc(graph_file);
+
+	if(c != '\n') {
+		// There is a graph descriptor to be read
+		while(c != '\n' && c != ' ') {
+			if(graph_descriptor_index == METIS_MAXIMUM_GRAPH_DESCRIPTOR_LENGTH - 1) {
+				graph_descriptor[METIS_MAXIMUM_GRAPH_DESCRIPTOR_LENGTH - 1] = '\0';
+				printf("Could not parse all graph header! So far '%s'\n", graph_descriptor);
+
+				valid = 0;
+			}
+
+			graph_descriptor[graph_descriptor_index] = c;
+			graph_descriptor_index++;
+
+			c = getc(graph_file);
+		}
+	}
+
+	graph_descriptor[graph_descriptor_index] = '\0';
+
+	while(c == ' ')
+		c = getc(graph_file);
+
+	if(c != '\n') {
+		printf("Graph headers composed by four elements are not supported yet!\n");
+
+		return 0;
+	}
+
 
 	if(valid) {
 		if(strcmp("0",graph_descriptor) == 0) {
@@ -247,10 +282,12 @@ int read_metis_format(dynamic_graph *dg, dynamic_weighted_graph *dwg, execution_
 		fclose(graph_file);
 	}
 
-	if(settings->graph_type == NOT_WEIGHTED)
-		dynamic_graph_reduce(dg);
-	else
-		dynamic_weighted_graph_reduce(dwg);
+	if(valid) {
+		if(settings->graph_type == NOT_WEIGHTED)
+			dynamic_graph_reduce(dg);
+		else
+			dynamic_weighted_graph_reduce(dwg);
+	}
 
 	return valid;
 }
