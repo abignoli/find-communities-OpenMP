@@ -13,6 +13,15 @@
 #include <stdlib.h>
 #include "version-parallel-naive-partitioning.h"
 
+// Global = Local + Offset
+inline int naive_partitioning_convert_to_global_index(int local, int offset){
+	return local + offset;
+}
+
+// Local = Global - Offset
+inline int naive_partitioning_convert_to_local_index(int global, int offset){
+	return global - offset;
+}
 
 void free_partitions(dynamic_weighted_graph **partitions,int number_of_partitions) {
 	int i;
@@ -84,13 +93,13 @@ int generate_equal_node_partitions(dynamic_weighted_graph *input_dwg,int number_
 	for(k = 0; k<number_of_partitions; k++) {
 		for(i=k*base_partition_size;i<min((k+1)*base_partition_size, input_dwg->size);i++) {
 			local_offset = k*base_partition_size;
-			local_index = i - local_offset;
+			local_index = naive_partitioning_convert_to_local_index(i, local_offset);
 			neighbors = input_dwg->edges+i;
 
-			((*(*partitions + k))->edges)->self_loop = neighbors->self_loop;
+			((*(*partitions + k))->edges + local_index)->self_loop = neighbors->self_loop;
 
 			for(j=0;j<neighbors->count;j++) {
-				dest = (neighbors->addr+j)->dest - local_offset;
+				dest = naive_partitioning_convert_to_local_index((neighbors->addr+j)->dest, local_offset);
 				weight = (neighbors->addr+j)->weight;
 
 				if(dest >= 0 && dest < base_partition_size) {
@@ -105,6 +114,54 @@ int generate_equal_node_partitions(dynamic_weighted_graph *input_dwg,int number_
 					}
 				}
 			}
+		}
+	}
+
+	return 1;
+}
+
+// Note: Current community not included in sll. Internal links are considered and their sum is put into current_community_k_i_in. Self loops are ignored
+int naive_partitioning_get_neighbor_communities_list_weighted(sorted_linked_list *sll, dynamic_weighted_graph *partition_graph, int local_offset, community_developer *cd, int local_node_index, int *current_community_k_i_in) {
+	dynamic_weighted_edge_array *neighbor_nodes;
+	int i;
+
+	int global_dest_node, global_dest_community, weight;
+
+	int current_community;
+	*current_community_k_i_in = 0;
+
+	if(!partition_graph || !sll) {
+		printf("Invalid input in computation of neighbor communities!");
+		return 0;
+	}
+
+	if(local_node_index < 0 || local_node_index >= partition_graph->size) {
+		printf("Invalid input in computation of neighbor communities: node out of range!");
+		return 0;
+	}
+
+	current_community = *(cd->vertex_community + naive_partitioning_convert_to_global_index(local_node_index, local_offset));
+
+	sorted_linked_list_free(sll);
+
+	neighbor_nodes = partition_graph->edges + local_node_index;
+
+	for(i = 0; i < neighbor_nodes->count; i++) {
+
+		global_dest_node =  naive_partitioning_convert_to_global_index((neighbor_nodes->addr + i)->dest, local_offset);
+		global_dest_community = *(cd->vertex_community + global_dest_node);
+		weight = (neighbor_nodes->addr + i)->weight;
+
+		if(global_dest_community == current_community)
+			// Link internal to current node community
+			*current_community_k_i_in += weight;
+		else if(!(sorted_linked_list_insert(sll, global_dest_community, weight))) {
+			printf("Cannot insert node in sorted linked list!");
+
+			sorted_linked_list_free(sll);
+			free(sll);
+
+			return 0;
 		}
 	}
 
@@ -127,6 +184,8 @@ int phase_parallel_naive_partitioning_weighted(dynamic_weighted_graph *dwg, exec
 	int current_community_k_i_in;
 
 	int maximum_partitions_allowed;
+
+	int local_offset, global_index;
 
 	int computation_failed;
 
@@ -206,7 +265,7 @@ int phase_parallel_naive_partitioning_weighted(dynamic_weighted_graph *dwg, exec
 
 	computation_failed = 0;
 
-#pragma omp parallel for schedule(dynamic,1) default(shared) private(initial_iteration_modularity, final_iteration_modularity, i, partition_graph, partition_index, partition_start, partition_end, neighbors, current_community, maximum_found_gain, best_neighbor_community, current_community_k_i_in, removal_loss, neighbor, mcp, to_neighbor_modularity_delta, gain, best_neighbor_community_k_i_in, exchange)
+#pragma omp parallel for schedule(dynamic,1) default(shared) private(local_offset, initial_iteration_modularity, final_iteration_modularity, i, partition_graph, partition_index, partition_start, partition_end, neighbors, current_community, maximum_found_gain, best_neighbor_community, current_community_k_i_in, removal_loss, neighbor, mcp, to_neighbor_modularity_delta, gain, best_neighbor_community_k_i_in, exchange)
 	for(partition_index = 0; partition_index < number_of_partitions; partition_index++)
 	{
 		partition_graph = *(dwg_partitions+partition_index);
@@ -216,6 +275,9 @@ int phase_parallel_naive_partitioning_weighted(dynamic_weighted_graph *dwg, exec
 		else
 			partition_start = *(partitions_end + partition_index - 1);
 		partition_end = *(partitions_end + partition_index);
+
+		local_offset = partition_start;
+
 
 		final_iteration_modularity = compute_modularity_weighted_reference_implementation_method_range(&cd, partition_start, partition_end);
 
@@ -234,12 +296,13 @@ int phase_parallel_naive_partitioning_weighted(dynamic_weighted_graph *dwg, exec
 
 			// Do the sequential iterations over all nodes
 			for(i = 0; i < partition_graph->size; i++) {
+				global_index = naive_partitioning_convert_to_global_index(i, local_offset);
 
 				// Node i, current edges: partition_graph->edges + i
 
 				sorted_linked_list_init(&neighbors);
 
-				current_community = *(cd.vertex_community + i);
+				current_community = *(cd.vertex_community + global_index);
 
 				maximum_found_gain = 0;
 
@@ -247,20 +310,22 @@ int phase_parallel_naive_partitioning_weighted(dynamic_weighted_graph *dwg, exec
 				best_neighbor_community = current_community;
 
 				// Compute neighbor communities and k_i_in
-				if(!get_neighbor_communities_list_weighted(&neighbors,partition_graph,&cd,i,&current_community_k_i_in)) {
+				// Please note that we still need to get the neighbor communities by looking for them by global indexes and not local
+				// This modified function does the job
+				if(!naive_partitioning_get_neighbor_communities_list_weighted(&neighbors,partition_graph, local_offset,&cd,i,&current_community_k_i_in)) {
 					printf("Could not compute neighbor communities!\n");
 
 #pragma omp atomic
 					computation_failed++;
 				} else {
-					removal_loss = removal_modularity_loss_weighted(partition_graph, &cd, i, current_community_k_i_in);
+					removal_loss = removal_modularity_loss_weighted(dwg, &cd, global_index, current_community_k_i_in);
 
 					neighbor = neighbors.head;
 					while(neighbor){
 						// Note that by the definition of get_neighbor_communities_list_weighted current community isn't in the list
 
 						// Compute modularity variation that would be achieved my moving node i from its current community to the neighbor community considered (neighbor->community)
-						get_modularity_computing_package(&mcp,&cd,i,neighbor->community,neighbor->k_i_in);
+						get_modularity_computing_package(&mcp,&cd,global_index,neighbor->community,neighbor->k_i_in);
 						to_neighbor_modularity_delta = modularity_delta(&mcp);
 
 						// Check if the gain is worth to be considered
@@ -282,9 +347,9 @@ int phase_parallel_naive_partitioning_weighted(dynamic_weighted_graph *dwg, exec
 						exchange.k_i_in_dest = best_neighbor_community_k_i_in;
 						exchange.k_i_in_src = current_community_k_i_in;
 						exchange.modularity_delta = maximum_found_gain;
-						exchange.node = i;
+						exchange.node = global_index;
 
-						apply_transfer_weighted(partition_graph, &cd, &exchange);
+						apply_transfer_weighted(dwg, &cd, &exchange);
 					}
 				}
 			}

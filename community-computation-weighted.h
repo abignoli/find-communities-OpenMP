@@ -42,4 +42,6 @@ double compute_modularity_init_weighted_reference_implementation_method(dynamic_
 
 double compute_modularity_weighted_reference_implementation_method_range(community_developer *cd, int start, int end);
 
+double compute_modularity_weighted_reference_implementation_method_parallel(community_developer *cd);
+
 #endif
