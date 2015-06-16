@@ -1,0 +1,45 @@
+Algorithm version: Sequential Average execution time: 0.359473s Minimum execution time: 0.352518s
+Running parallel (Sort & Merge) version with 1 thread
+Algorithm version: Parallel (Sort & Select) Number of threads: 1 Average execution time: 1.465190s Minimum execution time: 1.452094s
+threads --> Speedup compared to sequential = Computed on average:  24.5342242300 % - Computed on minimum =  24.7552844300 %
+Running parallel (Sort & Merge) version with 2 threads
+Algorithm version: Parallel (Sort & Select) Number of threads: 2 Average execution time: 0.973378s Minimum execution time: 0.971053s
+2 threads --> Speedup compared to one thread = Computed on average:  150.5263114600 % - Computed on minimum =  149.5380787600 %
+2 threads --> Speedup compared to sequential = Computed on average:  36.9304627800 % - Computed on minimum =  37.0185767400 %
+Running parallel (Sort & Merge) version with 3 threads
+Algorithm version: Parallel (Sort & Select) Number of threads: 3 Average execution time: 0.710558s Minimum execution time: 0.709249s
+3 threads --> Speedup compared to one thread = Computed on average:  206.2027308100 % - Computed on minimum =  204.7368413600 %
+3 threads --> Speedup compared to sequential = Computed on average:  50.5902403400 % - Computed on minimum =  50.6831874200 %
+Running parallel (Sort & Merge) version with 4 threads
+Algorithm version: Parallel (Sort & Select) Number of threads: 4 Average execution time: 0.532781s Minimum execution time: 0.530805s
+4 threads --> Speedup compared to one thread = Computed on average:  275.0079300800 % - Computed on minimum =  273.5644916600 %
+4 threads --> Speedup compared to sequential = Computed on average:  67.4710622100 % - Computed on minimum =  67.7216680300 %
+Running parallel (Sort & Merge) version with 1 thread (-e 0)
+Algorithm version: Parallel (Sort & Select) Number of threads: 1 Average execution time: 1.468598s Minimum execution time: 1.452424s
+4 threads --> Speedup compared to sequential = Computed on average:  24.4772905800 % - Computed on minimum =  24.7496598700 %
+Running parallel (Sort & Merge) version with 2 threads (-e 0)
+Algorithm version: Parallel (Sort & Select) Number of threads: 2 Average execution time: 0.955884s Minimum execution time: 0.954028s
+2 threads --> Speedup compared to one thread = Computed on average:  153.6376798800 % - Computed on minimum =  152.2412340000 %
+2 threads --> Speedup compared to sequential = Computed on average:  37.6063413500 % - Computed on minimum =  37.6791876100 %
+Running parallel (Sort & Merge) version with 3 threads (-e 0)
+Algorithm version: Parallel (Sort & Select) Number of threads: 3 Average execution time: 0.706849s Minimum execution time: 0.705951s
+3 threads --> Speedup compared to one thread = Computed on average:  207.7668639200 % - Computed on minimum =  205.7400584400 %
+3 threads --> Speedup compared to sequential = Computed on average:  50.8556990200 % - Computed on minimum =  50.9199647000 %
+Running parallel (Sort & Merge) version with 4 threads (-e 0)
+Algorithm version: Parallel (Sort & Select) Number of threads: 4 Average execution time: 0.538404s Minimum execution time: 0.536510s
+4 threads --> Speedup compared to one thread = Computed on average:  272.7687758600 % - Computed on minimum =  270.7170416200 %
+4 threads --> Speedup compared to sequential = Computed on average:  66.7664058900 % - Computed on minimum =  67.0015470300 %
+Running parallel (Naive Partitioning) version with 1 thread
+Algorithm version: Parallel (Naive partitioning on first phase) Number of threads: 1 Average execution time: 0.127639s Minimum execution time: 0.126035s
+Running parallel (Naive Partitioning) version with 2 threads
+Algorithm version: Parallel (Naive partitioning on first phase) Number of threads: 2 Average execution time: 0.245864s Minimum execution time: 0.235083s
+2 threads --> Speedup = Computed on average:  51.9144730400 % - Computed on minimum =  53.6129792400 %
+2 threads --> Speedup compared to sequential = Computed on average:  146.2080662400 % - Computed on minimum =  152.9119502400 %
+Running parallel (Naive Partitioning) version with 3 threads
+Algorithm version: Parallel (Naive partitioning on first phase) Number of threads: 3 Average execution time: 0.311806s Minimum execution time: 0.281714s
+3 threads --> Speedup = Computed on average:  40.9353893100 % - Computed on minimum =  44.7386356300 %
+3 threads --> Speedup compared to sequential = Computed on average:  115.2873902300 % - Computed on minimum =  127.6010421900 %
+Running parallel (Naive Partitioning) version with 4 threads
+Algorithm version: Parallel (Naive partitioning on first phase) Number of threads: 4 Average execution time: 0.364844s Minimum execution time: 0.345980s
+4 threads --> Speedup = Computed on average:  34.9845413300 % - Computed on minimum =  36.4284062600 %
+4 threads --> Speedup compared to sequential = Computed on average:  98.5278639600 % - Computed on minimum =  103.8990693100 %

@@ -1,0 +1,35 @@
+Collecting performance figures in performance/160615-2332.txt using ../test-graphs/cond-mat-2005.graph as input graph
+Running: ./find-communities-OpenMP ../test-graphs/cond-mat-2005.graph -f 2 -b 10 -a 0 -i 0.001
+Algorithm version: Sequential Average modularity obtained: 0.723023 Average execution time: 0.320983s Minimum execution time: 0.317717s
+Running: ./find-communities-OpenMP ../test-graphs/cond-mat-2005.graph -f 2 -b 10 -a 1 -t 1 -i 0.001
+Algorithm version: Parallel (Sort & Select) Number of threads: 1 Average modularity obtained: 0.719794 Average execution time: 0.688685s Minimum execution time: 0.685501s
+threads --> Speedup compared to sequential = Computed on average:  46.6081009400 % - Computed on minimum =  46.3481453700 %
+Running: ./find-communities-OpenMP ../test-graphs/cond-mat-2005.graph -f 2 -b 10 -a 1 -t 2 -i 0.001
+Algorithm version: Parallel (Sort & Select) Number of threads: 2 Average modularity obtained: 0.717933 Average execution time: 0.417128s Minimum execution time: 0.413606s
+Algorithm version: Parallel (Sort & Select) Number of threads: 2 Average modularity obtained: 0.717933 Average execution time: 0.417128s Minimum execution time: 0.413606s
+2 threads --> Speedup compared to one thread = Computed on average:  165.1015995000 % - Computed on minimum =  165.7376827200 %
+2 threads --> Speedup compared to sequential = Computed on average:  76.9507201600 % - Computed on minimum =  76.8163421200 %
+Running: ./find-communities-OpenMP ../test-graphs/cond-mat-2005.graph -f 2 -b 10 -a 1 -t 3 -i 0.001
+Algorithm version: Parallel (Sort & Select) Number of threads: 3 Average modularity obtained: 0.717933 Average execution time: 0.331023s Minimum execution time: 0.329503s
+Algorithm version: Parallel (Sort & Select) Number of threads: 3 Average modularity obtained: 0.717933 Average execution time: 0.331023s Minimum execution time: 0.329503s
+3 threads --> Speedup compared to one thread = Computed on average:  208.0474770600 % - Computed on minimum =  208.0408979500 %
+3 threads --> Speedup compared to sequential = Computed on average:  96.9669781200 % - Computed on minimum =  96.4230978100 %
+Running: ./find-communities-OpenMP ../test-graphs/cond-mat-2005.graph -f 2 -b 10 -a 1 -t 4 -i 0.001
+Algorithm version: Parallel (Sort & Select) Number of threads: 4 Average modularity obtained: 0.719180 Average execution time: 0.265236s Minimum execution time: 0.263514s
+Algorithm version: Parallel (Sort & Select) Number of threads: 4 Average modularity obtained: 0.719180 Average execution time: 0.265236s Minimum execution time: 0.263514s
+4 threads --> Speedup compared to one thread = Computed on average:  259.6498966900 % - Computed on minimum =  260.1383607700 %
+4 threads --> Speedup compared to sequential = Computed on average:  121.0178859500 % - Computed on minimum =  120.5693056100 %
+Running: ./find-communities-OpenMP ../test-graphs/cond-mat-2005.graph -f 2 -b 10 -a 2 -t 1 -i 0.001
+Algorithm version: Parallel (Naive partitioning on first phase) Number of threads: 1 Average modularity obtained: 0.696031 Average execution time: 0.132915s Minimum execution time: 0.130408s
+Running: ./find-communities-OpenMP ../test-graphs/cond-mat-2005.graph -f 2 -b 10 -a 2 -t 2 -i 0.001 
+Algorithm version: Parallel (Naive partitioning on first phase) Number of threads: 2 Average modularity obtained: 0.688883 Average execution time: 0.238188s Minimum execution time: 0.215231s
+2 threads --> Speedup = Computed on average:  55.8025593200 % - Computed on minimum =  60.5897849200 %
+2 threads --> Speedup compared to sequential = Computed on average:  134.7603573600 % - Computed on minimum =  147.6167466500 %
+Running: ./find-communities-OpenMP ../test-graphs/cond-mat-2005.graph -f 2 -b 10 -a 2 -t 3 -i 0.001 
+Algorithm version: Parallel (Naive partitioning on first phase) Number of threads: 3 Average modularity obtained: 0.683088 Average execution time: 0.288626s Minimum execution time: 0.284215s
+3 threads --> Speedup = Computed on average:  46.0509448200 % - Computed on minimum =  45.8835740500 %
+3 threads --> Speedup compared to sequential = Computed on average:  111.2107017300 % - Computed on minimum =  111.7875551900 %
+Running: ./find-communities-OpenMP ../test-graphs/cond-mat-2005.graph -f 2 -b 10 -a 2 -t 4 -i 0.001 
+Algorithm version: Parallel (Naive partitioning on first phase) Number of threads: 4 Average modularity obtained: 0.676693 Average execution time: 0.322012s Minimum execution time: 0.313625s
+4 threads --> Speedup = Computed on average:  41.2764120500 % - Computed on minimum =  41.5808688700 %
+4 threads --> Speedup compared to sequential = Computed on average:  99.6804466900 % - Computed on minimum =  101.3047429200 %
