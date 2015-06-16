@@ -31,6 +31,7 @@ typedef struct algorithm_execution_briefing {
 typedef struct phase_execution_briefing {
 	int execution_successful;
 	int number_of_iterations;
+	double average_iteration_duration;
 	double output_modularity;
 } phase_execution_briefing;
 

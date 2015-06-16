@@ -1,3 +1,6 @@
+#include "utilities.h"
+#include <time.h>
+
 int min(int a, int b) {
 	return a < b ? a : b;
 }
@@ -33,4 +36,8 @@ float merge_average(float first_average, int first_number_of_averaged_elements, 
 // Extremes included
 int in_range(int x, int start, int end) {
 	return x >= start && x <= end;
+}
+
+double delta_seconds(clock_t begin, clock_t end) {
+	return (double)(end - begin) / CLOCKS_PER_SEC;
 }

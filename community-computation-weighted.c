@@ -12,6 +12,8 @@
 #include "execution-settings.h"
 #include "execution-briefing.h"
 
+#include "printing_controller.h"
+
 #include <time.h>
 #include <omp.h>
 #include <stdio.h>
@@ -436,6 +438,7 @@ int parallel_phase_weighted(dynamic_weighted_graph *dwg, execution_settings *set
 	community_exchange *node_exchanges_base_pointer;
 
 	int base,total_exchanges;
+	int exchange_index;
 
 	community_exchange *sorted_output_multi_thread;
 	// True if it is actually used (multi-threading)
@@ -446,9 +449,20 @@ int parallel_phase_weighted(dynamic_weighted_graph *dwg, execution_settings *set
 
 	int i,j;
 
+
+
 	int phase_iteration_counter = 0;
 
 	int neighbor_communities_bad_computation;
+
+	// Time measurements
+	double wtime_phase_begin, wtime_phase_init_cd_begin, wtime_phase_init_cd_end, wtime_phase_output_translation_begin, wtime_phase_output_translation_end, wtime_phase_end;
+	double wtime_iteration_begin, wtime_iteration_node_scan_begin, wtime_iteration_node_scan_end, wtime_iteration_edge_compression_begin, wtime_iteration_edge_compression_end, wtime_iteration_edge_sorting_begin, wtime_iteration_edge_sorting_end, wtime_iteration_edge_selection_begin, wtime_iteration_edge_selection_end, wtime_iteration_edge_apply_begin, wtime_iteration_edge_apply_end, wtime_iteration_end;
+	int full_iteration;
+	double wtime_iteration, wtime_iteration_node_scan, wtime_iteration_edge_compression, wtime_iteration_edge_sorting, wtime_iteration_edge_selection, wtime_iteration_edge_apply;
+	double wtime_iteration_duration_avg;
+
+	wtime_phase_begin = omp_get_wtime();
 
 	// Minimum improvement refers to iteration improvement
 	if(!dwg || !valid_minimum_improvement(minimum_improvement)) {
@@ -457,12 +471,17 @@ int parallel_phase_weighted(dynamic_weighted_graph *dwg, execution_settings *set
 		return 0;
 	}
 
+	wtime_phase_init_cd_begin = omp_get_wtime();
+
 	community_developer_init_weighted(&cd, dwg);
+
+	wtime_phase_init_cd_end = omp_get_wtime();
 
 //	community_developer_print(&cd,0);
 
 	initial_phase_modularity = compute_modularity_weighted_reference_implementation_method_parallel(&cd);
 	final_iteration_modularity = initial_phase_modularity;
+
 
 	if(settings->verbose) {
 		printf(PRINTING_UTILITY_SPARSE_DASHES);
@@ -473,12 +492,27 @@ int parallel_phase_weighted(dynamic_weighted_graph *dwg, execution_settings *set
 		printf("Initial phase modularity: %f\n", initial_phase_modularity);
 	}
 
+#ifdef VERBOSE_TABLE
+	if(settings->verbose) {
+		printf(PRINTING_SORT_SELECT_TIME_TABLE_HEADER);
+	}
+#endif
+
+	wtime_iteration_duration_avg = 0;
+
 	do {
+
+		full_iteration = 0;
+
+		wtime_iteration_begin = omp_get_wtime();
+
 		sorted_output_multi_thread_needs_free = 0;
 
 		initial_iteration_modularity = final_iteration_modularity;
 
 		neighbor_communities_bad_computation = 0;
+
+#ifndef VERBOSE_TABLE
 
 		if(settings->verbose) {
 			printf(PRINTING_UTILITY_SPARSE_DASHES);
@@ -490,9 +524,17 @@ int parallel_phase_weighted(dynamic_weighted_graph *dwg, execution_settings *set
 			printf("Starting iteration over all nodes...\n");
 		}
 
+#endif
+
+		total_exchanges = 0;
+
+		wtime_iteration_node_scan_begin = omp_get_wtime();
+
 		// Do the parallel iterations over all nodes
 		// TODO put Parallel for - Everything else is good to go
-#pragma omp parallel for default(shared) schedule(dynamic,NODE_ITERATION_CHUNK_SIZE) private(i, node_exchanges_base_pointer, number_of_neighbor_communities,neighbors, current_community_k_i_in, removal_loss, neighbor, mcp, to_neighbor_modularity_delta, gain)
+#pragma omp parallel for default(shared) schedule(dynamic,NODE_ITERATION_CHUNK_SIZE) \
+	private(i, node_exchanges_base_pointer, number_of_neighbor_communities,neighbors, current_community_k_i_in, removal_loss, neighbor, mcp, to_neighbor_modularity_delta, gain) \
+	reduction(+:total_exchanges)
 		for(i = 0; i < dwg->size; i++) {
 
 //			printf("NODE ITERATION - Thread #%d on node %d\n", omp_get_thread_num(), i);
@@ -529,6 +571,7 @@ int parallel_phase_weighted(dynamic_weighted_graph *dwg, execution_settings *set
 						set_exchange_ranking(node_exchanges_base_pointer + number_of_neighbor_communities,i,neighbor->community,current_community_k_i_in, neighbor->k_i_in,gain);
 
 						number_of_neighbor_communities += 1;
+
 					}
 
 					neighbor = neighbor->next;
@@ -537,54 +580,71 @@ int parallel_phase_weighted(dynamic_weighted_graph *dwg, execution_settings *set
 				sorted_linked_list_free(&neighbors);
 
 				*(cd.vertex_neighbor_communities + i) = number_of_neighbor_communities;
+				total_exchanges+=number_of_neighbor_communities;
 			} else
 #pragma omp atomic
 				neighbor_communities_bad_computation++;
 		}
 
+#ifndef VERBOSE_TABLE
 		if(neighbor_communities_bad_computation) {
 			printf("Could not compute neighbor communities!\n");
 
 			return 0;
 		}
+#endif
 
+		wtime_iteration_node_scan_end = omp_get_wtime();
+
+#ifndef VERBOSE_TABLE
 		if(settings->verbose) {
 			printf("Iteration over all nodes complete.\n\n");
 			printf("Starting potential node transfers compression...\n");
 		}
-
-		// -------------------------------- SEQUENTIAL SECTION
-
-		// Start copying in the first free position
-		base = 0;
-		total_exchanges = 0;
-		do {
-			total_exchanges += *(cd.vertex_neighbor_communities+base);
-			base++;
-		}while(base < dwg->size && *(cd.cumulative_edge_number+base-1) == total_exchanges);
-
-		for(i = base; i < dwg->size; i++)
-			for(j = 0; j < *(cd.vertex_neighbor_communities + i); j++) {
-				*(cd.exchange_ranking + total_exchanges) = *(cd.exchange_ranking + *(cd.cumulative_edge_number + i - 1) + j);
-
-				total_exchanges++;
-			}
-
-		// total_exchanges now represents the total number of active exchanges to be sorted
-
-		// -------------------------------- END OF SEQUENTIAL SECTION
-
-		if(settings->verbose) {
-			printf("Potential node transfers compression complete.\n\n");
-		}
+#endif
 
 		if(total_exchanges > 0) {
 
+			full_iteration = 1;
+
+		// -------------------------------- SEQUENTIAL SECTION
+
+			wtime_iteration_edge_compression_begin = omp_get_wtime();
+
+			// Start copying in the first free position
+			base = 0;
+
+			exchange_index = 0;
+
+			do {
+				exchange_index += *(cd.vertex_neighbor_communities+base);
+				base++;
+			}while(base < dwg->size && *(cd.cumulative_edge_number+base-1) == total_exchanges);
+
+			for(i = base; i < dwg->size; i++)
+				for(j = 0; j < *(cd.vertex_neighbor_communities + i); j++) {
+					*(cd.exchange_ranking + exchange_index) = *(cd.exchange_ranking + *(cd.cumulative_edge_number + i - 1) + j);
+
+					exchange_index++;
+
+				}
+
+			// total_exchanges represents the total number of active exchanges to be sorted
+
+			wtime_iteration_edge_compression_end = omp_get_wtime();
+
+			// -------------------------------- END OF SEQUENTIAL SECTION
+
+#ifndef VERBOSE_TABLE
 			if(settings->verbose) {
+				printf("Potential node transfers compression complete.\n\n");
 				printf("Starting  potential node transfers sorting...\n");
 			}
+#endif
 
 			// Do the parallel sorting of the community pairings array
+
+			wtime_iteration_edge_sorting_begin = omp_get_wtime();
 
 			if(!community_exchange_parallel_quick_sort_main(cd.exchange_ranking, total_exchanges, settings, &sorted_output_multi_thread)){
 				printf("Couldn't sort exchange pairings!");
@@ -597,14 +657,20 @@ int parallel_phase_weighted(dynamic_weighted_graph *dwg, execution_settings *set
 			else
 				sorted_output_multi_thread = cd.exchange_ranking;
 
+			wtime_iteration_edge_sorting_end = omp_get_wtime();
+
 			// -------------------------------- SEQUENTIAL SECTION
 
+#ifndef VERBOSE_TABLE
 			if(settings->verbose) {
 				printf("Potential node transfers sorting complete.\n\n");
 				printf("Starting  potential node transfers selection...\n");
 			}
+#endif
 
 			// Do the sequential selection of the community pairings (iterate sequentially over the sorted ranking edges)
+
+			wtime_iteration_edge_selection_begin = omp_get_wtime();
 
 			if(!sequential_select_pairings(&cd, sorted_output_multi_thread, total_exchanges, &selected, &stop_scanning_position)) {
 				printf("Couldn't select exchange pairings!");
@@ -612,14 +678,20 @@ int parallel_phase_weighted(dynamic_weighted_graph *dwg, execution_settings *set
 				return 0;
 			}
 
+			wtime_iteration_edge_selection_end = omp_get_wtime();
+
+#ifndef VERBOSE_TABLE
 			if(settings->verbose) {
 				printf("Potential node transfers selection complete.\n\n");
 				printf("Starting execution of node transfers...\n");
 			}
+#endif
 
 			// -------------------------------- END OF SEQUENTIAL SECTION
 
 			// Parallel updates for the communities
+
+			wtime_iteration_edge_apply_begin = omp_get_wtime();
 
 			// TODO Parallel for
 #pragma omp parallel for schedule(dynamic,EXCHANGE_CHUNK_SIZE) default(shared) private(i)
@@ -627,9 +699,13 @@ int parallel_phase_weighted(dynamic_weighted_graph *dwg, execution_settings *set
 				if(*(selected + i))
 					apply_transfer_weighted(dwg,&cd,sorted_output_multi_thread+i);
 
+			wtime_iteration_edge_apply_end = omp_get_wtime();
+
+#ifndef VERBOSE_TABLE
 			if(settings->verbose) {
 				printf("Execution of node transfers selection complete.\n\n");
 			}
+#endif
 
 			// Free memory used in the last computations
 			free(selected);
@@ -640,13 +716,63 @@ int parallel_phase_weighted(dynamic_weighted_graph *dwg, execution_settings *set
 
 			final_iteration_modularity = compute_modularity_weighted_reference_implementation_method_parallel(&cd);
 
-		} else
+		} else {
 			final_iteration_modularity = initial_iteration_modularity;
 
+			wtime_iteration_edge_compression_begin = 0;
+			wtime_iteration_edge_compression_end = 0;
+			wtime_iteration_edge_sorting_begin = 0;
+			wtime_iteration_edge_sorting_end = 0;
+			wtime_iteration_edge_selection_begin = 0;
+			wtime_iteration_edge_selection_end = 0;
+			wtime_iteration_edge_apply_begin = 0;
+			wtime_iteration_edge_apply_end = 0;
+		}
+
+		wtime_iteration_end =  omp_get_wtime();
+
+#ifndef VERBOSE_TABLE
 		if(settings->verbose) {
 			printf("End of Iteration #%d.\n", phase_iteration_counter);
 			printf("Final iteration modularity: %f. Modularity gain: %f", final_iteration_modularity, final_iteration_modularity - initial_iteration_modularity);
 		}
+#endif
+
+		wtime_iteration_node_scan = wtime_iteration_node_scan_end- wtime_iteration_node_scan_begin;
+		wtime_iteration_edge_compression = wtime_iteration_edge_compression_end - wtime_iteration_edge_compression_begin;
+		wtime_iteration_edge_sorting = wtime_iteration_edge_sorting_end - wtime_iteration_edge_sorting_begin;
+		wtime_iteration_edge_selection = wtime_iteration_edge_selection_end - wtime_iteration_edge_selection_begin;
+		wtime_iteration_edge_apply = wtime_iteration_edge_apply_end - wtime_iteration_edge_apply_begin;
+		wtime_iteration = wtime_iteration_end - wtime_iteration_begin;
+
+		if(full_iteration)
+			wtime_iteration_duration_avg = merge_average(wtime_iteration_duration_avg, phase_iteration_counter,wtime_iteration, 1);
+		else if(wtime_iteration_duration_avg == 0)
+			wtime_iteration_duration_avg = wtime_iteration;
+
+#ifdef VERBOSE_TABLE
+	if(settings->verbose) {
+
+		printf(PRINTING_SORT_SELECT_TIME_TABLE_VALUES_PERCENT,
+				phase_iteration_counter,
+				initial_iteration_modularity, final_iteration_modularity, final_iteration_modularity - initial_iteration_modularity,
+				100 * wtime_iteration_node_scan / wtime_iteration,
+				100 * wtime_iteration_edge_compression / wtime_iteration,
+				100 * wtime_iteration_edge_sorting / wtime_iteration,
+				100 * wtime_iteration_edge_selection / wtime_iteration,
+				100 * wtime_iteration_edge_apply / wtime_iteration,
+				wtime_iteration);
+
+		printf(PRINTING_SORT_SELECT_TIME_TABLE_VALUES,
+				wtime_iteration_node_scan,
+				wtime_iteration_edge_compression_end - wtime_iteration_edge_compression_begin,
+				wtime_iteration_edge_sorting_end - wtime_iteration_edge_sorting_begin,
+				wtime_iteration_edge_selection_end - wtime_iteration_edge_selection_begin,
+				wtime_iteration_edge_apply_end - wtime_iteration_edge_apply_begin,
+				wtime_iteration_end - wtime_iteration_begin);
+
+	}
+#endif
 
 		phase_iteration_counter++;
 
@@ -664,13 +790,16 @@ int parallel_phase_weighted(dynamic_weighted_graph *dwg, execution_settings *set
 	if(settings->verbose) {
 		printf(PRINTING_UTILITY_SPARSE_DASHES);
 		printf("End of phase\n\n");
-		printf("Number of iterations: %d\n", phase_iteration_counter);
-		printf("Final modularity: %f. Modularity gain: %f\n", final_phase_modularity, final_phase_modularity - initial_phase_modularity);
+		printf("\tNumber of iterations:           %d\n", phase_iteration_counter);
+		printf("\tAverage iteration duration:     %f\n", wtime_iteration_duration_avg);
+		printf("\tFinal modularity:               %f\n", final_phase_modularity);
+		printf("\tModularity gain:                %f\n", final_phase_modularity - initial_phase_modularity);
 	}
 
 	briefing->execution_successful = 1;
 	briefing->number_of_iterations = phase_iteration_counter;
 	briefing->output_modularity = final_phase_modularity;
+	briefing->average_iteration_duration = wtime_iteration_duration_avg;
 
 	return 1;
 }

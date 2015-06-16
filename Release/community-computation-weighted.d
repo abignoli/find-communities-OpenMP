@@ -3,7 +3,7 @@ community-computation-weighted.d: ../community-computation-weighted.c \
  ../sorted-linked-list.h ../community-computation-commons.h \
  ../community-development.h ../dynamic-weighted-graph.h \
  ../community-exchange.h ../silent-switch.h ../utilities.h \
- ../execution-settings.h ../execution-briefing.h
+ ../execution-settings.h ../execution-briefing.h ../printing_controller.h
 
 ../community-computation-weighted.h:
 
@@ -26,3 +26,5 @@ community-computation-weighted.d: ../community-computation-weighted.c \
 ../execution-settings.h:
 
 ../execution-briefing.h:
+
+../printing_controller.h:

@@ -10,6 +10,7 @@
 #include "execution-briefing.h"
 #include "utilities.h"
 #include <time.h>
+#include "printing_controller.h"
 
 #include <stdio.h>
 #include <stdlib.h>
@@ -45,14 +46,25 @@ int sequential_phase_weighted(dynamic_weighted_graph *dwg, execution_settings *s
 
 	community_exchange exchange;
 
+	// Time measurements
+	clock_t clock_phase_begin, clock_phase_end, clock_phase_init_begin, clock_phase_init_end, clock_phase_output_translation_begin, clock_phase_output_translation_end;
+	clock_t clock_iteration_begin, clock_iteration_end, clock_iteration_neighbors_scan_begin, clock_iteration_neighbors_scan_end, clock_iteration_neighbor_selection_begin, clock_iteration_neighbor_selection_end,clock_iteration_applying_changes_begin, clock_iteration_applying_changes_end;
+	double clock_iteration, clock_iteration_neighbors_scan, clock_iteration_neighbor_selection, clock_iteration_applying_changes;
+	double clock_iteration_duration_avg;
+
+	clock_phase_begin = clock();
+
 	if(!dwg || minimum_improvement < MINIMUM_LEGAL_IMPROVEMENT || minimum_improvement > MAXIMUM_LEGAL_IMPROVEMENT) {
 		printf("Invalid phase parameters!");
 
 		return 0;
 	}
 
+	clock_phase_init_begin = clock();
 
 	community_developer_init_weighted(&cd, dwg);
+
+	clock_phase_init_end = clock();
 
 	community_developer_print(&cd,0);
 
@@ -68,9 +80,22 @@ int sequential_phase_weighted(dynamic_weighted_graph *dwg, execution_settings *s
 		printf("Initial phase modularity: %f\n", initial_phase_modularity);
 	}
 
+#ifdef VERBOSE_TABLE
+		if(settings->verbose) {
+			printf(PRINTING_SEQUENTIAL_TIME_TABLE_HEADER);
+		}
+#endif
+
+	clock_iteration_duration_avg = 0;
+
 	do {
+		clock_iteration_begin = clock();
+
+		clock_iteration_neighbors_scan = clock_iteration_neighbor_selection = clock_iteration_applying_changes = 0;
+
 		initial_iteration_modularity = final_iteration_modularity;
 
+#ifndef VERBOSE_TABLE
 		if(settings->verbose) {
 			printf(PRINTING_UTILITY_SPARSE_DASHES);
 
@@ -80,6 +105,7 @@ int sequential_phase_weighted(dynamic_weighted_graph *dwg, execution_settings *s
 			printf("Initial iteration modularity: %f\n\n", initial_iteration_modularity);
 			printf("Starting iteration over all nodes...\n");
 		}
+#endif
 
 		// Do the sequential iterations over all nodes
 		for(i = 0; i < dwg->size; i++) {
@@ -95,12 +121,19 @@ int sequential_phase_weighted(dynamic_weighted_graph *dwg, execution_settings *s
 			// By default, the best community corresponds to staying in the current one
 			best_neighbor_community = current_community;
 
+			clock_iteration_neighbors_scan_begin = clock();
+
 			// Compute neighbor communities and k_i_in
 			if(!get_neighbor_communities_list_weighted(&neighbors,dwg,&cd,i,&current_community_k_i_in)) {
 				printf("Could not compute neighbor communities!\n");
 
 				return 0;
 			}
+
+			clock_iteration_neighbors_scan_end = clock();
+			clock_iteration_neighbors_scan += delta_seconds(clock_iteration_neighbors_scan_begin, clock_iteration_neighbors_scan_end);
+
+			clock_iteration_neighbor_selection_begin = clock();
 
 			removal_loss = removal_modularity_loss_weighted(dwg, &cd, i, current_community_k_i_in);
 
@@ -125,6 +158,12 @@ int sequential_phase_weighted(dynamic_weighted_graph *dwg, execution_settings *s
 
 			sorted_linked_list_free(&neighbors);
 
+			clock_iteration_neighbor_selection_end = clock();
+
+			clock_iteration_neighbor_selection += delta_seconds(clock_iteration_neighbor_selection_begin, clock_iteration_neighbor_selection_end);
+
+			clock_iteration_applying_changes_begin = clock();
+
 			if(best_neighbor_community != current_community) {
 				// Apply transfer
 				exchange.dest = best_neighbor_community;
@@ -135,18 +174,44 @@ int sequential_phase_weighted(dynamic_weighted_graph *dwg, execution_settings *s
 
 				apply_transfer_weighted(dwg, &cd, &exchange);
 			}
+
+			clock_iteration_applying_changes_end = clock();
+
+			clock_iteration_applying_changes += delta_seconds(clock_iteration_applying_changes_begin, clock_iteration_applying_changes_end);
 		}
 
+#ifndef VERBOSE_TABLE
 		if(settings->verbose) {
 			printf("Iteration over all nodes complete.\n\n");
 		}
+#endif
 
 		final_iteration_modularity = compute_modularity_weighted_reference_implementation_method(&cd);
 
+		clock_iteration_end = clock();
+
+		clock_iteration = delta_seconds(clock_iteration_begin, clock_iteration_end);
+
+		clock_iteration_duration_avg = merge_average(clock_iteration_duration_avg, phase_iteration_counter,clock_iteration, 1);
+
+#ifndef VERBOSE_TABLE
 		if(settings->verbose) {
 			printf("End of Iteration #%d.\n", phase_iteration_counter);
 			printf("Final iteration modularity: %f. Modularity gain: %f", final_iteration_modularity, final_iteration_modularity - initial_iteration_modularity);
 		}
+#endif
+
+#ifdef VERBOSE_TABLE
+		if(settings->verbose) {
+			printf(PRINTING_SEQUENTIAL_TIME_TABLE_VALUES_PERCENT,
+					phase_iteration_counter,
+					initial_iteration_modularity, final_iteration_modularity, final_iteration_modularity - initial_iteration_modularity,
+					100 *  clock_iteration_neighbors_scan / clock_iteration,
+					100 * clock_iteration_neighbor_selection / clock_iteration,
+					100 * clock_iteration_applying_changes / clock_iteration,
+					clock_iteration);
+		}
+#endif
 
 		phase_iteration_counter++;
 
@@ -161,8 +226,10 @@ int sequential_phase_weighted(dynamic_weighted_graph *dwg, execution_settings *s
 	if(settings->verbose) {
 		printf(PRINTING_UTILITY_SPARSE_DASHES);
 		printf("End of phase\n\n");
-		printf("Number of iterations: %d\n", phase_iteration_counter);
-		printf("Final modularity: %f. Modularity gain: %f\n", final_phase_modularity, final_phase_modularity - initial_phase_modularity);
+		printf("\tNumber of iterations:           %d\n", phase_iteration_counter);
+		printf("\tAverage iteration duration:     %f\n", clock_iteration_duration_avg);
+		printf("\tFinal modularity:               %f\n", final_phase_modularity);
+		printf("\tModularity gain:                %f\n", final_phase_modularity - initial_phase_modularity);
 	}
 
 	briefing->execution_successful = 1;
