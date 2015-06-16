@@ -5,7 +5,7 @@ INPUT_FORMAT=$2
 OUTPUT_FILE=$3
 BENCHMARK_RUNS=$4
 MAX_THREADS=$5
-OTHER_OPTIONS="-i 0.001 -p 0.005"
+OTHER_OPTIONS="-i 0.001"
 
 echo "Collecting performance figures in $OUTPUT_FILE using $INPUT_FILE as input graph"
 echo "Collecting performance figures in $OUTPUT_FILE using $INPUT_FILE as input graph" > $OUTPUT_FILE

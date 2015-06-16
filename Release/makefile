@@ -28,7 +28,7 @@ all: find-communities-OpenMP
 find-communities-OpenMP: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: GCC C Linker'
-	gcc -fopenmp -pg -o "find-communities-OpenMP" $(OBJS) $(USER_OBJS) $(LIBS)
+	gcc -fopenmp  -o "find-communities-OpenMP" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
