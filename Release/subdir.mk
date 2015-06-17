@@ -4,6 +4,7 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
+../Copy\ of\ version-parallel-naive-partitioning.c \
 ../algorithm-executor.c \
 ../community-computation-commons.c \
 ../community-computation-weighted-sequential.c \
@@ -28,6 +29,7 @@ C_SRCS += \
 ../version-parallel-sort-select-chunks.c 
 
 OBJS += \
+./Copy\ of\ version-parallel-naive-partitioning.o \
 ./algorithm-executor.o \
 ./community-computation-commons.o \
 ./community-computation-weighted-sequential.o \
@@ -52,6 +54,7 @@ OBJS += \
 ./version-parallel-sort-select-chunks.o 
 
 C_DEPS += \
+./Copy\ of\ version-parallel-naive-partitioning.d \
 ./algorithm-executor.d \
 ./community-computation-commons.d \
 ./community-computation-weighted-sequential.d \
@@ -77,10 +80,17 @@ C_DEPS += \
 
 
 # Each subdirectory must supply rules for building sources it contributes
+Copy\ of\ version-parallel-naive-partitioning.o: ../Copy\ of\ version-parallel-naive-partitioning.c
+	@echo 'Building file: $<'
+	@echo 'Invoking: GCC C Compiler'
+	gcc -fopenmp -O3 -g3 -pg -Wall -c -fmessage-length=0 -MMD -MP -MF"Copy of version-parallel-naive-partitioning.d" -MT"Copy\ of\ version-parallel-naive-partitioning.d" -o "$@" "$<"
+	@echo 'Finished building: $<'
+	@echo ' '
+
 %.o: ../%.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C Compiler'
-	gcc -fopenmp -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
+	gcc -fopenmp -O3 -g3 -pg -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 

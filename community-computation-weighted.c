@@ -23,7 +23,7 @@
 #define printf(...)
 #endif
 
-#define NODE_ITERATION_CHUNK_SIZE 50
+#define NODE_ITERATION_CHUNK_SIZE 500
 #define EXCHANGE_CHUNK_SIZE 60
 
 

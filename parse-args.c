@@ -6,6 +6,7 @@
 #include "execution-settings.h"
 #include "community-development.h"
 #include "utilities.h"
+#include "version-parallel-sort-select-chunks.h"
 
 
 void set_default(execution_settings *s) {
@@ -83,7 +84,10 @@ void print_help(char *prog_name) {
 			"\t                 * By default a number of partitions equal to the biggest\n"
 			"\t                   power of two smaller or equal to the number of threads\n"
 			"\t               	   is used\n"
-			"\t                 * Applies only to parallel algorithm\n"
+			"\t                 * Applies only to parallel algorithms that make use of sorting\n"
+			"\t-e %d number   Use the specified chunk size during the iterations of\n"
+			"\t              %s.\n"
+			"\t                 * Default is %d\n"
 			"\nAvailable file format options:\n\n"
 			"\t-f %d          Edge list, not weighted.\n"
 			"\t                 * i.e. each line is of the form:\n"
@@ -103,6 +107,7 @@ void print_help(char *prog_name) {
 			ALGORITHM_VERSION_PARALLEL_2_NAIVE_PARTITION, ALGORITHM_VERSION_PARALLEL_2_NAIVE_PARTITION_NAME,
 			ALGORITHM_VERSION_PARALLEL_1_SORT_SELECT_CHUNKS, ALGORITHM_VERSION_PARALLEL_1_SORT_SELECT_CHUNKS_NAME,
 			EXECUTION_SETTINGS_PARALLEL_PARTITIONS_HIGHER_POWER_OF_2_IDENTIFIER,
+			EXECUTION_SETTINGS_SORT_SELECT_CHUNKS_CHUNK_SIZE_IDENTIFIER, ALGORITHM_VERSION_PARALLEL_1_SORT_SELECT_CHUNKS_NAME, DEFAULT_SORT_SELECT_CHUNKS_CHUNK_SIZE,
 			FILE_FORMAT_EDGE_LIST_NOT_WEIGHTED, FILE_FORMAT_EDGE_LIST_WEIGHTED, FILE_FORMAT_METIS);
 
 	printf(PRINTING_UTILITY_STARS);
@@ -274,6 +279,22 @@ int parse_args(int argc, char *argv[], execution_settings *s){
 							s->execution_settings_parallel_partitions_higher_power_of_2 = 1;
 							break;
 
+						case EXECUTION_SETTINGS_SORT_SELECT_CHUNKS_CHUNK_SIZE_IDENTIFIER:
+							if(i + 1 < argc) {
+								i++;
+								s->execution_settings_sort_select_chunks_chunk_size = atoi(argv[i]);
+
+								if(s->execution_settings_sort_select_chunks_chunk_size <= 0) {
+									printf("Invalid chunk size: '%s'", argv[i]);
+
+									valid = 0;
+								}
+							} else {
+								printf("Expected chunk size after '-e %s'!\n", argv[i]);
+								valid = 0;
+							}
+							break;
+
 						default:
 							printf("Invalid execution option identifier '%s'!", argv[i]);
 							valid = 0;
@@ -358,6 +379,10 @@ void settings_print(execution_settings *settings) {
 	if(settings->execution_settings_parallel_partitions_higher_power_of_2) {
 		some_execution_option_is_enabled = 1;
 		printf("%d ", EXECUTION_SETTINGS_PARALLEL_PARTITIONS_HIGHER_POWER_OF_2_IDENTIFIER);
+	}
+	if(settings->execution_settings_sort_select_chunks_chunk_size > 0) {
+		some_execution_option_is_enabled = 1;
+		printf("%d (%d)", EXECUTION_SETTINGS_SORT_SELECT_CHUNKS_CHUNK_SIZE_IDENTIFIER, settings->execution_settings_sort_select_chunks_chunk_size);
 	}
 	if(!some_execution_option_is_enabled)
 		printf("None");

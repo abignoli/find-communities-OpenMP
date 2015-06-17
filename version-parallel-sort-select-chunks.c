@@ -1,6 +1,7 @@
 #include "community-computation-weighted.h"
 #include "temporary-community-edge.h"
 #include "community-computation-commons.h"
+#include "neighbor-computation-package.h"
 
 #include "community-development.h"
 #include "dynamic-weighted-graph.h"
@@ -20,6 +21,62 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+int init_neighbor_computation_package_threads(neighbor_computation_package **ncp_threads, int number_of_threads, int number_of_communities) {
+	int i;
+
+	if(!(*ncp_threads = (neighbor_computation_package *) malloc (number_of_threads * sizeof(neighbor_computation_package)))) {
+		printf("init_neighbor_computation_package_threads - Could not allocate ncp array!\n");
+		return 0;
+	}
+
+	// No parallel, internal ncp init is already parallel
+	for(i=0;i<number_of_threads;i++)
+		if(!neighbor_computation_package_init(*ncp_threads + i, number_of_communities)) {
+			printf("init_neighbor_computation_package_threads - Could not init ncps!\n");
+			return 0;
+		}
+
+	return 1;
+}
+
+int get_neighbor_computation_package_weighted(dynamic_weighted_graph *dwg, community_developer *cd, int node_index, neighbor_computation_package *ncp, int *current_community_k_i_in) {
+	dynamic_weighted_edge_array *neighbor_nodes;
+	int i;
+
+	int current_community;
+	int dest_community;
+	int weight;
+	*current_community_k_i_in = 0;
+
+	if(!dwg || !ncp) {
+		printf("Invalid input in computation of neighbor communities!");
+		return 0;
+	}
+
+	if(node_index < 0 || node_index >= dwg->size) {
+		printf("Invalid input in computation of neighbor communities: node out of range!");
+		return 0;
+	}
+
+	current_community = *(cd->vertex_community + node_index);
+
+	neighbor_nodes = dwg->edges + node_index;
+
+	for(i = 0; i < neighbor_nodes->count; i++) {
+		dest_community = *(cd->vertex_community + (neighbor_nodes->addr + i)->dest);
+		weight = (neighbor_nodes->addr + i)->weight;
+
+		if(dest_community == current_community)
+			// Link internal to current node community
+			*current_community_k_i_in += weight;
+		else if(!(neighbor_computation_package_insert(ncp, dest_community, weight))) {
+			printf("Cannot insert community in ncp!\n");
+			return 0;
+		}
+	}
+
+	return 1;
+}
 
 int phase_parallel_sort_select_chunks_weighted(dynamic_weighted_graph *dwg, execution_settings *settings, dynamic_weighted_graph **community_graph, int **community_vector, phase_execution_briefing *briefing) {
 	community_developer cd;
@@ -27,8 +84,6 @@ int phase_parallel_sort_select_chunks_weighted(dynamic_weighted_graph *dwg, exec
 	double initial_phase_modularity, final_phase_modularity;
 	double initial_iteration_modularity, final_iteration_modularity;
 
-	sorted_linked_list neighbors;
-	sorted_linked_list_elem *neighbor;
 	modularity_computing_package mcp;
 	double to_neighbor_modularity_delta;
 	int current_community_k_i_in;
@@ -53,7 +108,7 @@ int phase_parallel_sort_select_chunks_weighted(dynamic_weighted_graph *dwg, exec
 
 	int i,j;
 
-
+	int actual_number_of_threads;
 
 	int phase_iteration_counter = 0;
 
@@ -66,15 +121,19 @@ int phase_parallel_sort_select_chunks_weighted(dynamic_weighted_graph *dwg, exec
 	double wtime_iteration, wtime_iteration_node_scan, wtime_iteration_edge_compression, wtime_iteration_edge_sorting, wtime_iteration_edge_selection, wtime_iteration_edge_apply;
 	double wtime_iteration_duration_avg;
 
-	int chunk_size = DEFAULT_CHUNK_SIZE;
+	int chunk_size = DEFAULT_SORT_SELECT_CHUNKS_CHUNK_SIZE;
 	int number_of_chunks, chunk_index;
 	int chunk_start, chunk_end, chunk_edge_start;
+
+	neighbor_computation_package *ncp_threads;
+	neighbor_computation_package *ncp_thread;
+	int neighbor_community, neighbor_community_k_i_in;
 
 	wtime_phase_begin = omp_get_wtime();
 
 	// Minimum improvement refers to iteration improvement
 	if(!dwg || !valid_minimum_improvement(minimum_improvement)) {
-		printf("Invalid phase parameters!");
+		printf("Invalid phase parameters!\n");
 		briefing->execution_successful = 0;
 		return 0;
 	}
@@ -92,11 +151,22 @@ int phase_parallel_sort_select_chunks_weighted(dynamic_weighted_graph *dwg, exec
 
 	wtime_phase_init_cd_end = omp_get_wtime();
 
-//	community_developer_print(&cd,0);
+#pragma omp parallel
+	{
+#pragma omp single
+		{
+			actual_number_of_threads = omp_get_num_threads();
+		}
+	}
+
+	if(!init_neighbor_computation_package_threads(&ncp_threads,actual_number_of_threads,dwg->size)) {
+		printf("Could not init thread ncps!\n");
+		briefing->execution_successful = 0;
+		return 0;
+	}
 
 	initial_phase_modularity = compute_modularity_weighted_reference_implementation_method_parallel(&cd);
 	final_iteration_modularity = initial_phase_modularity;
-
 
 	if(settings->verbose) {
 		printf(PRINTING_UTILITY_SPARSE_DASHES);
@@ -158,61 +228,57 @@ int phase_parallel_sort_select_chunks_weighted(dynamic_weighted_graph *dwg, exec
 
 			wtime_iteration_node_scan_begin = omp_get_wtime();
 
-			// Do the parallel iterations over all nodes
-			// TODO put Parallel for - Everything else is good to go
-#pragma omp parallel for default(shared) schedule(dynamic,NODE_ITERATION_CHUNK_SIZE) \
-		private(i, node_exchanges_base_pointer, number_of_neighbor_communities,neighbors, \
-			current_community_k_i_in, removal_loss, neighbor, mcp, to_neighbor_modularity_delta, gain) \
-		reduction(+:total_exchanges)
-			for(i = chunk_start; i < chunk_end; i++) {
+#pragma omp parallel default(shared) private(ncp_thread)
+			{
+				ncp_thread = ncp_threads + omp_get_thread_num();
 
-				//			printf("NODE ITERATION - Thread #%d on node %d\n", omp_get_thread_num(), i);
+				// Do the parallel iterations over all nodes
+				// TODO put Parallel for - Everything else is good to go
+#pragma omp for  schedule(dynamic,NODE_ITERATION_CHUNK_SIZE) reduction(+:total_exchanges) private(i, node_exchanges_base_pointer, \
+				number_of_neighbor_communities, current_community_k_i_in, removal_loss, mcp, to_neighbor_modularity_delta, gain, neighbor_community, neighbor_community_k_i_in)
+				for(i = chunk_start; i < chunk_end; i++) {
 
-				if(i > 0)
-					node_exchanges_base_pointer = cd.exchange_ranking + *(cd.cumulative_edge_number + i - 1);
-				else
-					node_exchanges_base_pointer = cd.exchange_ranking;
+					//			printf("NODE ITERATION - Thread #%d on node %d\n", omp_get_thread_num(), i);
 
-				// Node i, current edges: dwg->edges + i
+					if(i > 0)
+						node_exchanges_base_pointer = cd.exchange_ranking + *(cd.cumulative_edge_number + i - 1);
+					else
+						node_exchanges_base_pointer = cd.exchange_ranking;
 
-				number_of_neighbor_communities = 0;
-				sorted_linked_list_init(&neighbors);
+					// Node i, current edges: dwg->edges + i
 
-				// Compute neighbor communities and k_i_in
-				if(get_neighbor_communities_list_weighted(&neighbors,dwg,&cd,i,&current_community_k_i_in)) {
+					number_of_neighbor_communities = 0;
 
+					// Compute neighbor communities and k_i_in
+					if(get_neighbor_computation_package_weighted(dwg,&cd,i,ncp_thread,&current_community_k_i_in)) {
 
-					removal_loss = removal_modularity_loss_weighted(dwg, &cd, i, current_community_k_i_in);
+						removal_loss = removal_modularity_loss_weighted(dwg, &cd, i, current_community_k_i_in);
 
-					neighbor = neighbors.head;
-					while(neighbor){
-						// Note that by the definition of get_neighbor_communities_list_weighted current community isn't in the list
+						while(neighbor_computation_package_pop_and_clean(ncp_thread, &neighbor_community, &neighbor_community_k_i_in)){
+							// Note that by the definition of get_neighbor_communities_list_weighted current community isn't in the list
 
-						// Compute modularity variation that would be achieved my moving node i from its current community to the neighbor community considered (neighbor->community)
-						get_modularity_computing_package(&mcp,&cd,i,neighbor->community,neighbor->k_i_in);
-						to_neighbor_modularity_delta = modularity_delta(&mcp);
+							// Compute modularity variation that would be achieved my moving node i from its current community to the neighbor community considered (neighbor->community)
+							get_modularity_computing_package(&mcp,&cd,i,neighbor_community,neighbor_community_k_i_in);
+							to_neighbor_modularity_delta = modularity_delta(&mcp);
 
-						// Check if the gain is worth to be considered
-						gain = to_neighbor_modularity_delta - removal_loss;
-						if(gain > MINIMUM_TRANSFER_GAIN) {
-							// Put computed potential transfer in its correct position for later community pairing selection
+							// Check if the gain is worth to be considered
+							gain = to_neighbor_modularity_delta - removal_loss;
+							if(gain > MINIMUM_TRANSFER_GAIN) {
+								// Put computed potential transfer in its correct position for later community pairing selection
 
-							set_exchange_ranking(node_exchanges_base_pointer + number_of_neighbor_communities,i,neighbor->community,current_community_k_i_in, neighbor->k_i_in,gain);
+								set_exchange_ranking(node_exchanges_base_pointer + number_of_neighbor_communities,i,neighbor_community,current_community_k_i_in, neighbor_community_k_i_in,gain);
 
-							number_of_neighbor_communities += 1;
+								number_of_neighbor_communities += 1;
 
+							}
 						}
 
-						neighbor = neighbor->next;
-					}
-
-					sorted_linked_list_free(&neighbors);
-
-					*(cd.vertex_neighbor_communities + i) = number_of_neighbor_communities;
-					total_exchanges+=number_of_neighbor_communities;
-				} else
+						*(cd.vertex_neighbor_communities + i) = number_of_neighbor_communities;
+						total_exchanges+=number_of_neighbor_communities;
+					} else
 #pragma omp atomic
-					neighbor_communities_bad_computation++;
+						neighbor_communities_bad_computation++;
+				}
 			}
 
 
