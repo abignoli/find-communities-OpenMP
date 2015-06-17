@@ -23,7 +23,8 @@ C_SRCS += \
 ../temporary-community-edge.c \
 ../tmp.c \
 ../utilities.c \
-../version-parallel-naive-partitioning.c 
+../version-parallel-naive-partitioning.c \
+../version-parallel-sort-select-chunks.c 
 
 OBJS += \
 ./algorithm-executor.o \
@@ -45,7 +46,8 @@ OBJS += \
 ./temporary-community-edge.o \
 ./tmp.o \
 ./utilities.o \
-./version-parallel-naive-partitioning.o 
+./version-parallel-naive-partitioning.o \
+./version-parallel-sort-select-chunks.o 
 
 C_DEPS += \
 ./algorithm-executor.d \
@@ -67,14 +69,15 @@ C_DEPS += \
 ./temporary-community-edge.d \
 ./tmp.d \
 ./utilities.d \
-./version-parallel-naive-partitioning.d 
+./version-parallel-naive-partitioning.d \
+./version-parallel-sort-select-chunks.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes
 %.o: ../%.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C Compiler'
-	gcc -fopenmp -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
+	gcc -fopenmp -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 

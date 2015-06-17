@@ -26,57 +26,6 @@
 #define NODE_ITERATION_CHUNK_SIZE 50
 #define EXCHANGE_CHUNK_SIZE 60
 
-// Designed to be called at the start of each phase
-int community_developer_init_weighted(community_developer *cd, dynamic_weighted_graph *dwg) {
-	int i;
-	int accumulated_edge_number;
-	int node_degree;
-
-	cd->n = dwg->size;
-	cd->double_m = 0;
-
-	// Number of vertex neighbor communities doesn't need to be initialized, since it is overwritten when a node is considered
-
-	if(!(cd->vertex_community = (int *) malloc(cd->n * sizeof(int))) ||
-			!(cd->internal_weight_community = (int *) malloc(cd->n * sizeof(int))) ||
-			!(cd->incoming_weight_community = (int *) malloc(cd->n * sizeof(int))) ||
-			!(cd->incoming_weight_node = (int *) malloc(cd->n * sizeof(int))) ||
-			!(cd->cumulative_edge_number = (int *) malloc(cd->n * sizeof(int))) ||
-			!(cd->vertex_neighbor_communities = (int *) malloc(cd->n * sizeof(int)))) {
-
-		printf("Out of memory!\n");
-		community_developer_free(cd);
-
-		return 0;
-	}
-
-	accumulated_edge_number = 0;
-
-	for(i = 0; i < cd->n; i++) {
-		// Put each node in an individual community
-		*(cd->vertex_community+i) = i;
-		*(cd->internal_weight_community+i) = (dwg->edges+i)->self_loop;
-//		don't cd->double_m += (dwg->edges+i)->self_loop; => double self loops!
-
-		node_degree = dynamic_weighted_graph_node_degree(dwg, i);
-		*(cd->incoming_weight_community+i) = *(cd->incoming_weight_node+i) = node_degree;
-
-		cd->double_m += node_degree;
-
-		accumulated_edge_number += (dwg->edges+i)->count;
-		*(cd->cumulative_edge_number+i) = accumulated_edge_number;
-	}
-
-	if(!(cd->exchange_ranking = (community_exchange *) malloc(accumulated_edge_number * sizeof(community_exchange)))){
-		printf("Out of memory!\n");
-		community_developer_free(cd);
-
-		return 0;
-	}
-
-
-	return 1;
-}
 
 double removal_modularity_loss_weighted(dynamic_weighted_graph *dwg, community_developer *cd, int node_index, int k_i_in) {
 	// I assume the removal loss is equal to the gain that we would get by
@@ -619,7 +568,7 @@ int parallel_phase_weighted(dynamic_weighted_graph *dwg, execution_settings *set
 			do {
 				exchange_index += *(cd.vertex_neighbor_communities+base);
 				base++;
-			}while(base < dwg->size && *(cd.cumulative_edge_number+base-1) == total_exchanges);
+			}while(base < dwg->size && *(cd.cumulative_edge_number+base-1) == exchange_index);
 
 			for(i = base; i < dwg->size; i++)
 				for(j = 0; j < *(cd.vertex_neighbor_communities + i); j++) {

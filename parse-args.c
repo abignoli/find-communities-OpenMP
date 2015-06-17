@@ -20,6 +20,7 @@ void set_default(execution_settings *s) {
 	s->verbose = DEFAULT_VERBOSE;
 	s->input_file_format = DEFAULT_FILE_FORMAT;
 	s->algorithm_version = DEFAULT_ALGORITHM_VERSION;
+	s->execution_settings_sort_select_chunks_chunk_size = DEFINE_EXECUTION_SETTINGS_SORT_SELECT_CHUNKS_CHUNK_SIZE;
 
 	s->execution_settings_parallel_partitions_higher_power_of_2 = DEFAULT_EXECUTION_SETTINGS_PARALLEL_PARTITIONS_HIGHER_POWER_OF_2;
 }
@@ -71,6 +72,10 @@ void print_help(char *prog_name) {
 			"\t                   and performed and optimized Louvain version\n"
 			"\t                   over all partitions. Next phases are performed\n"
 			"\t                   using sequential implementation\n"
+			"\t-a %d          %s\n"
+			"\t                 * Iterations are divided in chunks in which iterations\n"
+			"\t                   over all nodes are done in parallel, potential transfers\n"
+			"\t                   are sorted and selected by computed modularity increase\n"
 			"\nAvailable execution options:\n\n"
 			"\t-e %d          Use a number of partitions equal to the smallest\n"
 			"\t               power of two greater or equal to the number of threads\n"
@@ -94,8 +99,9 @@ void print_help(char *prog_name) {
 			DEFAULT_NUMBER_OF_THREADS,
 			DEFAULT_ALGORITHM_VERSION,
 			ALGORITHM_VERSION_SEQUENTIAL_0, ALGORITHM_VERSION_SEQUENTIAL_0_NAME,
-			ALGORITHM_VERSION_PARALLEL_1_TRANSFER_SORT_SELECT, ALGORITHM_VERSION_PARALLEL_1_TRANSFER_SORT_SELECT_NAME,
+			ALGORITHM_VERSION_PARALLEL_1_SORT_SELECT, ALGORITHM_VERSION_PARALLEL_1_SORT_SELECT_NAME,
 			ALGORITHM_VERSION_PARALLEL_2_NAIVE_PARTITION, ALGORITHM_VERSION_PARALLEL_2_NAIVE_PARTITION_NAME,
+			ALGORITHM_VERSION_PARALLEL_1_SORT_SELECT_CHUNKS, ALGORITHM_VERSION_PARALLEL_1_SORT_SELECT_CHUNKS_NAME,
 			EXECUTION_SETTINGS_PARALLEL_PARTITIONS_HIGHER_POWER_OF_2_IDENTIFIER,
 			FILE_FORMAT_EDGE_LIST_NOT_WEIGHTED, FILE_FORMAT_EDGE_LIST_WEIGHTED, FILE_FORMAT_METIS);
 
@@ -187,11 +193,14 @@ int parse_args(int argc, char *argv[], execution_settings *s){
 						case ALGORITHM_VERSION_SEQUENTIAL_0:
 							s->algorithm_version = ALGORITHM_VERSION_SEQUENTIAL_0;
 							break;
-						case ALGORITHM_VERSION_PARALLEL_1_TRANSFER_SORT_SELECT:
-							s->algorithm_version = ALGORITHM_VERSION_PARALLEL_1_TRANSFER_SORT_SELECT;
+						case ALGORITHM_VERSION_PARALLEL_1_SORT_SELECT:
+							s->algorithm_version = ALGORITHM_VERSION_PARALLEL_1_SORT_SELECT;
 							break;
 						case ALGORITHM_VERSION_PARALLEL_2_NAIVE_PARTITION:
 							s->algorithm_version = ALGORITHM_VERSION_PARALLEL_2_NAIVE_PARTITION;
+							break;
+						case ALGORITHM_VERSION_PARALLEL_1_SORT_SELECT_CHUNKS:
+							s->algorithm_version = ALGORITHM_VERSION_PARALLEL_1_SORT_SELECT_CHUNKS;
 							break;
 						default:
 							printf("Invalid algorithm version identifier '%s'!", argv[i]);

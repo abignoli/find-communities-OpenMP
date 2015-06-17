@@ -6,6 +6,7 @@
 #include "community-computation-weighted.h"
 #include "execution-briefing.h"
 #include "algorithm-executor.h"
+#include "version-parallel-sort-select-chunks.h"
 #include <stdio.h>
 #include <omp.h>
 #include <time.h>
@@ -26,12 +27,15 @@ int select_phase_executors(execution_settings *settings) {
 		// TODO Set proper non weighted phase executor
 		settings->phase_executor_weighted = sequential_phase_weighted;
 		break;
-	case ALGORITHM_VERSION_PARALLEL_1_TRANSFER_SORT_SELECT:
+	case ALGORITHM_VERSION_PARALLEL_1_SORT_SELECT:
 		// TODO Set proper non weighted phase executor
 		settings->phase_executor_weighted = parallel_phase_weighted;
 		break;
 	case ALGORITHM_VERSION_PARALLEL_2_NAIVE_PARTITION:
 		// Handled internally to find communities
+		break;
+	case ALGORITHM_VERSION_PARALLEL_1_SORT_SELECT_CHUNKS:
+		settings->phase_executor_weighted = phase_parallel_sort_select_chunks_weighted;
 		break;
 	default:
 		printf("select_phase_executors - Unknown algorithm version!\n");

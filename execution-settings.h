@@ -21,12 +21,14 @@ typedef struct phase_execution_briefing phase_execution_briefing;
 #define FILE_FORMAT_INVALID_NAME "Invalid file format!"
 
 #define ALGORITHM_VERSION_SEQUENTIAL_0 0
-#define ALGORITHM_VERSION_PARALLEL_1_TRANSFER_SORT_SELECT 1
+#define ALGORITHM_VERSION_PARALLEL_1_SORT_SELECT 1
 #define ALGORITHM_VERSION_PARALLEL_2_NAIVE_PARTITION 2
+#define ALGORITHM_VERSION_PARALLEL_1_SORT_SELECT_CHUNKS 3
 
 #define ALGORITHM_VERSION_SEQUENTIAL_0_NAME "Sequential"
-#define ALGORITHM_VERSION_PARALLEL_1_TRANSFER_SORT_SELECT_NAME "Parallel (Sort & Select)"
+#define ALGORITHM_VERSION_PARALLEL_1_SORT_SELECT_NAME "Parallel (Sort & Select)"
 #define ALGORITHM_VERSION_PARALLEL_2_NAIVE_PARTITION_NAME "Parallel (Naive partitioning on first phase)"
+#define ALGORITHM_VERSION_PARALLEL_1_SORT_SELECT_CHUNKS_NAME "Parallel (Sort & Select Chunk)"
 #define ALGORITHM_VERSION_INVALID_NAME "Invalid algorithm version!"
 
 typedef struct execution_settings {
@@ -39,11 +41,14 @@ typedef struct execution_settings {
 	char *output_graphs_file;
 	int number_of_threads;
 	int verbose;
+
 	// Tells that the program should be executed using the sequential implementation
 //	int sequential;
 	int benchmark_runs;
 
 	int execution_settings_parallel_partitions_higher_power_of_2;
+
+	int execution_settings_sort_select_chunks_chunk_size;
 
 	int algorithm_version;
 	// Phase executors, set by execution handler depending on chosen algorithm version. Could potentially be controlled at runtime

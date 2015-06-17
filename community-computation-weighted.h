@@ -11,9 +11,6 @@ typedef struct phase_execution_briefing phase_execution_briefing;
 
 typedef struct dynamic_graph dynamic_graph;
 
-// Designed to be called at the start of each phase
-int community_developer_init_weighted(community_developer *cd, dynamic_weighted_graph *dwg);
-
 double removal_modularity_loss_weighted(dynamic_weighted_graph *dwg, community_developer *cd, int node_index, int k_i_in);
 
 // Note: Current community not included in sll. Internal links are considered and their sum is put into current_community_k_i_in. Self loops are ignored

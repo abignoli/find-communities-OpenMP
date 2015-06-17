@@ -41,13 +41,16 @@ typedef struct community_developer {
 	// Sum of the weights of the links incident to each node
 	int* incoming_weight_node;
 
-	// Summing cumulative degree of each node to partition pair ranking array among vertex (and threads)
+	// Summing cumulative degree of each node to partition pair ranking array among vertexes (and threads)
 	int* cumulative_edge_number;
 	// Number of neighbor communities of each vertex. This should be used when doing the sorting
 	int* vertex_neighbor_communities;
 	// To be used to store modularity increments relative to node movement and then rank best pairings
 	community_exchange* exchange_ranking;
 } community_developer;
+
+// Designed to be called at the start of each phase
+int community_developer_init_weighted(community_developer *cd, dynamic_weighted_graph *dwg);
 
 int valid_minimum_improvement(double mi);
 
