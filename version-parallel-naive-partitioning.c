@@ -243,7 +243,6 @@ int phase_parallel_naive_partitioning_weighted(dynamic_weighted_graph *dwg, exec
 	if(number_of_partitions > maximum_partitions_allowed)
 		number_of_partitions = maximum_partitions_allowed;
 
-
 	if(!generate_equal_node_partitions(dwg, number_of_partitions ,&dwg_partitions)) {
 		printf("Could not partition input graph!\n");
 		briefing->execution_successful = 0;
