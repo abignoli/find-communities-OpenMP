@@ -17,6 +17,7 @@ C_SRCS += \
 ../execution-settings.c \
 ../input-handler.c \
 ../main.c \
+../neighbor-computation-package.c \
 ../parse-args.c \
 ../shared-graph.c \
 ../sorted-linked-list.c \
@@ -40,6 +41,7 @@ OBJS += \
 ./execution-settings.o \
 ./input-handler.o \
 ./main.o \
+./neighbor-computation-package.o \
 ./parse-args.o \
 ./shared-graph.o \
 ./sorted-linked-list.o \
@@ -63,6 +65,7 @@ C_DEPS += \
 ./execution-settings.d \
 ./input-handler.d \
 ./main.d \
+./neighbor-computation-package.d \
 ./parse-args.d \
 ./shared-graph.d \
 ./sorted-linked-list.d \
