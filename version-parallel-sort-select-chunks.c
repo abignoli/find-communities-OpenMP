@@ -75,7 +75,7 @@ int phase_parallel_sort_select_chunks_weighted(dynamic_weighted_graph *dwg, exec
 	// Minimum improvement refers to iteration improvement
 	if(!dwg || !valid_minimum_improvement(minimum_improvement)) {
 		printf("Invalid phase parameters!");
-
+		briefing->execution_successful = 0;
 		return 0;
 	}
 
@@ -148,7 +148,7 @@ int phase_parallel_sort_select_chunks_weighted(dynamic_weighted_graph *dwg, exec
 			if(chunk_start == 0)
 				chunk_edge_start = 0;
 			else
-				chunk_edge_start = *(cd.cumulative_edge_number - 1);
+				chunk_edge_start = *(cd.cumulative_edge_number + chunk_index - 1);
 
 			neighbor_communities_bad_computation = 0;
 
@@ -214,13 +214,13 @@ int phase_parallel_sort_select_chunks_weighted(dynamic_weighted_graph *dwg, exec
 					neighbor_communities_bad_computation++;
 			}
 
-#ifndef VERBOSE_TABLE
+
 			if(neighbor_communities_bad_computation) {
 				printf("Could not compute neighbor communities!\n");
-
+				briefing->execution_successful = 0;
 				return 0;
 			}
-#endif
+
 
 			wtime_iteration_node_scan_end = omp_get_wtime();
 
@@ -275,7 +275,7 @@ int phase_parallel_sort_select_chunks_weighted(dynamic_weighted_graph *dwg, exec
 
 				if(!community_exchange_parallel_quick_sort_main(cd.exchange_ranking + chunk_edge_start, total_exchanges, settings, &sorted_output_multi_thread)){
 					printf("Couldn't sort exchange pairings!");
-
+					briefing->execution_successful = 0;
 					return 0;
 				}
 
@@ -301,7 +301,7 @@ int phase_parallel_sort_select_chunks_weighted(dynamic_weighted_graph *dwg, exec
 
 				if(!sequential_select_pairings(&cd, sorted_output_multi_thread, total_exchanges, &selected, &stop_scanning_position)) {
 					printf("Couldn't select exchange pairings!");
-
+					briefing->execution_successful = 0;
 					return 0;
 				}
 
@@ -361,13 +361,16 @@ int phase_parallel_sort_select_chunks_weighted(dynamic_weighted_graph *dwg, exec
 	// End of chunk
 
 
-
-
-
-
 		wtime_iteration_end =  omp_get_wtime();
 
 		final_iteration_modularity = compute_modularity_weighted_reference_implementation_method_parallel(&cd);
+
+		if(final_iteration_modularity > MAXIMUM_LEGAL_MODULARITY) {
+			printf("Iteration modularity (%f) exceeding maximum legal modularity value of %f ==> Something went wrong!\n", final_iteration_modularity, MAXIMUM_LEGAL_MODULARITY);
+			briefing->execution_successful = 0;
+			return 0;
+		}
+
 
 #ifndef VERBOSE_TABLE
 		if(settings->verbose) {

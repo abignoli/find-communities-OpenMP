@@ -1,0 +1,65 @@
+Collecting performance figures in performance/170615-1857-O0.txt using ../test-graphs/cond-mat-2003.graph as input graph
+Running: ./find-communities-OpenMP ../test-graphs/cond-mat-2003.graph -f 2 -b 10 -a 0 
+Average modularity:  0.758933
+Average time:  0.432776s
+Minimum time:  0.429163s
+Running: ./find-communities-OpenMP ../test-graphs/cond-mat-2003.graph -f 2 -b 10 -a 1 -t 1 
+Average modularity:  0.759751
+Average time:  2.643127s
+Minimum time:  2.632681s
+Speedup compared to sequential   Computed on average:  16.3736362200 %
+                                 Computed on minimum:  16.3013673100 %
+Running: ./find-communities-OpenMP ../test-graphs/cond-mat-2003.graph -f 2 -b 10 -a 1 -t 2 
+Average modularity:  0.762081
+Average time:  1.607758s
+Minimum time:  1.594521s
+Speedup compared to one thread   Computed on average:  164.3983111800 %
+                                 Computed on minimum:  165.1079540500 %
+Speedup compared to sequential   Computed on average:  26.9179814300 %
+                                 Computed on minimum:  26.9148540500 %
+Running: ./find-communities-OpenMP ../test-graphs/cond-mat-2003.graph -f 2 -b 10 -a 1 -t 3 
+Average modularity:  0.762081
+Average time:  1.146521s
+Minimum time:  1.135005s
+Speedup compared to one thread   Computed on average:  230.5345475500 %
+                                 Computed on minimum:  231.9532513000 %
+Speedup compared to sequential   Computed on average:  37.7468881900 %
+                                 Computed on minimum:  37.8115514900 %
+Running: ./find-communities-OpenMP ../test-graphs/cond-mat-2003.graph -f 2 -b 10 -a 1 -t 4 
+Average modularity:  0.759028
+Average time:  0.863750s
+Minimum time:  0.860625s
+Speedup compared to one thread   Computed on average:  306.0060202600 %
+                                 Computed on minimum:  305.9033841600 %
+Speedup compared to sequential   Computed on average:  50.1043125900 %
+                                 Computed on minimum:  49.8664342700 %
+Running: ./find-communities-OpenMP ../test-graphs/cond-mat-2003.graph -f 2 -b 10 -a 2 -t 1 
+Average modularity:  0.758933
+Average time:  0.250894s
+Minimum time:  0.248150s
+Speedup compared to sequential   Computed on average:  172.4935630100 %
+                                 Computed on minimum:  172.9449929400 %
+Running: ./find-communities-OpenMP ../test-graphs/cond-mat-2003.graph -f 2 -b 10 -a 2 -t 2 
+Average modularity:  0.750551
+Average time:  0.233259s
+Minimum time:  0.230450s
+Speedup compared to one thread   Computed on average:  107.5602656200 %
+                                 Computed on minimum:  107.6806248600 %
+Speedup compared to sequential   Computed on average:  185.5345345700 %
+                                 Computed on minimum:  186.2282490700 %
+Running: ./find-communities-OpenMP ../test-graphs/cond-mat-2003.graph -f 2 -b 10 -a 2 -t 3 
+Average modularity:  0.747916
+Average time:  0.222771s
+Minimum time:  0.221349s
+Speedup compared to one thread   Computed on average:  112.6241746000 %
+                                 Computed on minimum:  112.1080284900 %
+Speedup compared to sequential   Computed on average:  194.2694515800 %
+                                 Computed on minimum:  193.8852219700 %
+Running: ./find-communities-OpenMP ../test-graphs/cond-mat-2003.graph -f 2 -b 10 -a 2 -t 4 
+Average modularity:  0.740237
+Average time:  0.247641s
+Minimum time:  0.245383s
+Speedup compared to one thread   Computed on average:  101.3135950800 %
+                                 Computed on minimum:  101.1276249700 %
+Speedup compared to sequential   Computed on average:  174.7594299800 %
+                                 Computed on minimum:  174.8951638800 %

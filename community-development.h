@@ -9,6 +9,8 @@ typedef struct temporary_community_edge temporary_community_edge;
 // Needs to be >= 0 otherwise the algorithm can't converge!
 #define MINIMUM_TRANSFER_GAIN 0
 #define ILLEGAL_MODULARITY_VALUE -2
+#define MINIMUM_LEGAL_MODULARITY -0.5
+#define MAXIMUM_LEGAL_MODULARITY 1.0
 
 #define MINIMUM_LEGAL_IMPROVEMENT 0
 #define MAXIMUM_LEGAL_IMPROVEMENT 2

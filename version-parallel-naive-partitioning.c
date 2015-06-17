@@ -13,6 +13,8 @@
 #include <stdlib.h>
 #include "version-parallel-naive-partitioning.h"
 
+#define DEBUG_TRACKING
+
 // Global = Local + Offset
 inline int naive_partitioning_convert_to_global_index(int local, int offset){
 	return local + offset;
@@ -39,7 +41,7 @@ int generate_equal_node_partitions(dynamic_weighted_graph *input_dwg,int number_
 	int local_offset;
 	int dest, weight;
 	int last_partition_size;
-	int base_partition_size = input_dwg->size / number_of_partitions;
+	int base_partition_size;
 	int maximum_partitions_allowed;
 
 	dynamic_weighted_edge_array *neighbors;
@@ -60,6 +62,8 @@ int generate_equal_node_partitions(dynamic_weighted_graph *input_dwg,int number_
 
 		return 0;
 	}
+
+	base_partition_size = input_dwg->size / number_of_partitions;
 
 	if(base_partition_size * number_of_partitions < input_dwg->size)
 		base_partition_size++;
@@ -91,8 +95,8 @@ int generate_equal_node_partitions(dynamic_weighted_graph *input_dwg,int number_
 		}
 
 	for(k = 0; k<number_of_partitions; k++) {
+		local_offset = k*base_partition_size;
 		for(i=k*base_partition_size;i<min((k+1)*base_partition_size, input_dwg->size);i++) {
-			local_offset = k*base_partition_size;
 			local_index = naive_partitioning_convert_to_local_index(i, local_offset);
 			neighbors = input_dwg->edges+i;
 
@@ -257,14 +261,17 @@ int phase_parallel_naive_partitioning_weighted(dynamic_weighted_graph *dwg, exec
 		return 0;
 	}
 
-	// Just for clarity
-	*(partitions_end+0) = 0;
+
+	*(partitions_end) = (*(dwg_partitions))->size;
 	for(partition_index = 1; partition_index < number_of_partitions; partition_index++)
-		*(partitions_end+partition_index) = *(partitions_end+partition_index-1);
+		*(partitions_end+partition_index) = *(partitions_end+partition_index-1) + (*(dwg_partitions+partition_index))->size;
 
 	computation_failed = 0;
 
-#pragma omp parallel for schedule(dynamic,1) default(shared) private(local_offset, initial_iteration_modularity, final_iteration_modularity, i, partition_graph, partition_index, partition_start, partition_end, neighbors, current_community, maximum_found_gain, best_neighbor_community, current_community_k_i_in, removal_loss, neighbor, mcp, to_neighbor_modularity_delta, gain, best_neighbor_community_k_i_in, exchange)
+#pragma omp parallel for schedule(dynamic,1) default(shared) private(local_offset, partition_graph,partition_start, partition_end, \
+		final_iteration_modularity, initial_iteration_modularity, i, global_index, neighbors, partition_index, current_community, maximum_found_gain, \
+	best_neighbor_community, current_community_k_i_in, removal_loss, neighbor, mcp, to_neighbor_modularity_delta, gain, \
+	best_neighbor_community_k_i_in, exchange)
 	for(partition_index = 0; partition_index < number_of_partitions; partition_index++)
 	{
 		partition_graph = *(dwg_partitions+partition_index);
@@ -277,8 +284,11 @@ int phase_parallel_naive_partitioning_weighted(dynamic_weighted_graph *dwg, exec
 
 		local_offset = partition_start;
 
+#ifdef DEBUG_TRACKING
+		printf("Thread %d analyzing partition %d from %d to %d", omp_get_thread_num(), partition_index, partition_start, partition_end);
+#endif
 
-		final_iteration_modularity = compute_modularity_weighted_reference_implementation_method_range(&cd, partition_start, partition_end);
+		final_iteration_modularity = compute_modularity_weighted_reference_implementation_method_range(&cd, partition_start, partition_end - 1);
 
 		do {
 			initial_iteration_modularity = final_iteration_modularity;
@@ -357,7 +367,7 @@ int phase_parallel_naive_partitioning_weighted(dynamic_weighted_graph *dwg, exec
 //				printf("Iteration over all nodes complete.\n\n");
 //			}
 
-			final_iteration_modularity = compute_modularity_weighted_reference_implementation_method_range(&cd, partition_start, partition_end);
+			final_iteration_modularity = compute_modularity_weighted_reference_implementation_method_range(&cd, partition_start, partition_end - 1);
 
 //			if(settings->verbose) {
 //				printf("End of Iteration #%d.\n", phase_iteration_counter);

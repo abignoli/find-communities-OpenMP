@@ -31,9 +31,11 @@ int main(int argc, char * argv[]) {
 	if(!execute_community_detection(&input_dg, &input_dwg, &settings, &output_dwg, &output_communities, &briefing))
 		printf("Community detection exited with errors!\n");
 
-	free(output_communities);
-	dynamic_weighted_graph_free(output_dwg);
-	free(output_dwg);
+	if(briefing.execution_successful) {
+		free(output_communities);
+		dynamic_weighted_graph_free(output_dwg);
+		free(output_dwg);
+	}
 
 //	if(settings->graph_type == NOT_WEIGHTED) {
 //		printf(PRINTING_NOT_YET_IMPLEMENTED);

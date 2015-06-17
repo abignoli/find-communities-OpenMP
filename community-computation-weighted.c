@@ -27,6 +27,8 @@
 #define EXCHANGE_CHUNK_SIZE 60
 
 
+
+
 double removal_modularity_loss_weighted(dynamic_weighted_graph *dwg, community_developer *cd, int node_index, int k_i_in) {
 	// I assume the removal loss is equal to the gain that we would get by
 	// putting the node back in its former community.
@@ -535,13 +537,11 @@ int parallel_phase_weighted(dynamic_weighted_graph *dwg, execution_settings *set
 				neighbor_communities_bad_computation++;
 		}
 
-#ifndef VERBOSE_TABLE
 		if(neighbor_communities_bad_computation) {
 			printf("Could not compute neighbor communities!\n");
 
 			return 0;
 		}
-#endif
 
 		wtime_iteration_node_scan_end = omp_get_wtime();
 
