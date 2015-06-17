@@ -6,7 +6,7 @@ OUTPUT_FILE=$3
 BENCHMARK_RUNS=$4
 MAX_THREADS=$5
 OTHER_OPTIONS=""
-MAX_VERSION=2
+MAX_VERSION=3
 
 echo "Collecting performance figures in $OUTPUT_FILE using $INPUT_FILE as input graph"
 echo "Collecting performance figures in $OUTPUT_FILE using $INPUT_FILE as input graph" > $OUTPUT_FILE
@@ -14,7 +14,7 @@ echo "Collecting performance figures in $OUTPUT_FILE using $INPUT_FILE as input 
 echo "Running: ./find-communities-OpenMP $INPUT_FILE -f $INPUT_FORMAT -b $BENCHMARK_RUNS -a 0 $OTHER_OPTIONS"
 echo "Running: ./find-communities-OpenMP $INPUT_FILE -f $INPUT_FORMAT -b $BENCHMARK_RUNS -a 0 $OTHER_OPTIONS" >> $OUTPUT_FILE
 OUTPUT="$(./find-communities-OpenMP $INPUT_FILE -f $INPUT_FORMAT -b $BENCHMARK_RUNS -a 0 $OTHER_OPTIONS | grep -E 'Average modularity obtained|Average execution time|Minimum execution time')"
-
+printf "\n"
 SEQUENTIAL_MODULARITY_AVERAGE="$(echo $OUTPUT | awk '{print $4}')"
 echo "Average modularity: " $SEQUENTIAL_MODULARITY_AVERAGE
 echo "Average modularity: " $SEQUENTIAL_MODULARITY_AVERAGE >> $OUTPUT_FILE
@@ -35,7 +35,7 @@ do
 	echo "Running: ./find-communities-OpenMP $INPUT_FILE -f $INPUT_FORMAT -b $BENCHMARK_RUNS -a $j -t 1 $OTHER_OPTIONS"
 	echo "Running: ./find-communities-OpenMP $INPUT_FILE -f $INPUT_FORMAT -b $BENCHMARK_RUNS -a $j -t 1 $OTHER_OPTIONS" >> $OUTPUT_FILE
 	OUTPUT="$(./find-communities-OpenMP $INPUT_FILE -f $INPUT_FORMAT -b $BENCHMARK_RUNS -a $j -t 1 $OTHER_OPTIONS | grep -E 'Average modularity obtained|Average execution time|Minimum execution time')"
-
+	printf "\n"
 	MODULARITY="$(echo $OUTPUT | awk '{print $4}')"
 	echo "Average modularity: " $MODULARITY
 	echo "Average modularity: " $MODULARITY >> $OUTPUT_FILE
@@ -54,7 +54,7 @@ do
 	SPEEDUP_AVERAGE_SEQUENTIAL="$(echo "$COMPUTATION" | bc)"
 	COMPUTATION="scale=10; $SEQUENTIAL_TIME_MINIMUM / $SINGLE_THREAD_TIME_MINIMUM * 100"
 	SPEEDUP_MINIMUM_SEQUENTIAL="$(echo "$COMPUTATION" | bc)"
-
+	printf "\n"
 	echo "Speedup compared to sequential   Computed on average: " $SPEEDUP_AVERAGE_SEQUENTIAL "%"
 	echo "                                 Computed on minimum: " $SPEEDUP_MINIMUM_SEQUENTIAL "%" 
 	echo "Speedup compared to sequential   Computed on average: " $SPEEDUP_AVERAGE_SEQUENTIAL "%" >> $OUTPUT_FILE
@@ -94,17 +94,14 @@ do
 	
 		COMPUTATION="scale=10; $SEQUENTIAL_TIME_MINIMUM / $THREADS_TIME_MINIMUM * 100"
 		SPEEDUP_MINIMUM_SEQUENTIAL="$(echo "$COMPUTATION" | bc)"
-	
-		echo $i "threads --> Speedup compared to one thread = Computed on average: " $SPEEDUP_AVERAGE "% - Computed on minimum = " $SPEEDUP_MINIMUM "%"
-		echo $i "threads --> Speedup compared to one thread = Computed on average: " $SPEEDUP_AVERAGE "% - Computed on minimum = " $SPEEDUP_MINIMUM "%" >> $OUTPUT_FILE
-		
+		printf "\n"
 		echo "Speedup compared to one thread   Computed on average: " $SPEEDUP_AVERAGE "%"
 		echo "                                 Computed on minimum: " $SPEEDUP_MINIMUM "%" 
+		echo "Speedup compared to sequential   Computed on average: " $SPEEDUP_AVERAGE_SEQUENTIAL "%"
+		echo "                                 Computed on minimum: " $SPEEDUP_MINIMUM_SEQUENTIAL "%" 		
+		printf "\n"
 		echo "Speedup compared to one thread   Computed on average: " $SPEEDUP_AVERAGE "%" >> $OUTPUT_FILE
 		echo "                                 Computed on minimum: " $SPEEDUP_MINIMUM "%" >> $OUTPUT_FILE
-
-		echo "Speedup compared to sequential   Computed on average: " $SPEEDUP_AVERAGE_SEQUENTIAL "%"
-		echo "                                 Computed on minimum: " $SPEEDUP_MINIMUM_SEQUENTIAL "%" 
 		echo "Speedup compared to sequential   Computed on average: " $SPEEDUP_AVERAGE_SEQUENTIAL "%" >> $OUTPUT_FILE
 		echo "                                 Computed on minimum: " $SPEEDUP_MINIMUM_SEQUENTIAL "%" >> $OUTPUT_FILE
 	
