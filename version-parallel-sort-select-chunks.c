@@ -234,7 +234,7 @@ int phase_parallel_sort_select_chunks_weighted(dynamic_weighted_graph *dwg, exec
 
 				// Do the parallel iterations over all nodes
 				// TODO put Parallel for - Everything else is good to go
-#pragma omp for  schedule(dynamic,NODE_ITERATION_CHUNK_SIZE) reduction(+:total_exchanges) private(i, node_exchanges_base_pointer, \
+#pragma omp for  schedule(dynamic,PARALLEL_SORT_SELECT_CHUNKS_NODE_ITERATION_CHUNK_SIZE) reduction(+:total_exchanges) private(i, node_exchanges_base_pointer, \
 				number_of_neighbor_communities, current_community_k_i_in, removal_loss, mcp, to_neighbor_modularity_delta, gain, neighbor_community, neighbor_community_k_i_in)
 				for(i = chunk_start; i < chunk_end; i++) {
 
@@ -388,7 +388,7 @@ int phase_parallel_sort_select_chunks_weighted(dynamic_weighted_graph *dwg, exec
 				wtime_iteration_edge_apply_begin = omp_get_wtime();
 
 				// TODO Parallel for
-#pragma omp parallel for schedule(dynamic,EXCHANGE_CHUNK_SIZE) default(shared) private(i)
+#pragma omp parallel for schedule(dynamic,PARALLEL_SORT_SELECT_CHUNKS_EXCHANGE_CHUNK_SIZE) default(shared) private(i)
 				for(i = 0; i < stop_scanning_position; i++)
 					if(*(selected + i))
 						apply_transfer_weighted(dwg,&cd,sorted_output_multi_thread+i);

@@ -12,11 +12,13 @@
 #include <stdlib.h>
 #include "version-parallel-naive-partitioning.h"
 #include "community-computation-weighted-sequential.h"
+#include "vertex-following.h"
 
 int find_communities(dynamic_graph *dg ,dynamic_weighted_graph *dwg, execution_settings *settings, dynamic_weighted_graph **community_graph, int **community_vector, algorithm_execution_briefing *briefing) {
 	int phase_counter;
 
 	dynamic_weighted_graph *phase_output_community_graph;
+	dynamic_weighted_graph *input_graph = dwg;
 
 	phase_execution_briefing phase_briefing;
 
@@ -29,6 +31,7 @@ int find_communities(dynamic_graph *dg ,dynamic_weighted_graph *dwg, execution_s
 	clock_t begin, end;
 	double global_begin_wtime, global_end_wtime;
 	double begin_wtime, end_wtime;
+	double begin_pre_compute_wtime, end_pre_compute_wtime;
 	double clock_time, wtime_omp;
 	double global_wtime_omp;
 
@@ -100,6 +103,55 @@ int find_communities(dynamic_graph *dg ,dynamic_weighted_graph *dwg, execution_s
 
 	clock_time = 0;
 	wtime_omp = 0;
+	briefing->precompute_time = 0;
+
+	// Precomputations
+
+	if(settings->execution_settings_vertex_following) {
+		if(!settings->benchmark_runs) {
+			printf(PRINTING_UTILITY_DASHES);
+			printf("\nStarting Vertex Following heuristic\n\n");
+		}
+
+		begin_pre_compute_wtime = omp_get_wtime();
+
+		if(!pre_compute_vertex_following(dwg,settings,&phase_output_community_graph, community_vector, &phase_briefing)) {
+			printf("Could not perform vertex following heuristic!\n");
+
+			return 0;
+		}
+
+		end_pre_compute_wtime = omp_get_wtime();
+
+		briefing->precompute_time += end_pre_compute_wtime - begin_pre_compute_wtime;
+
+		if(output_communities_file && !output_save_communities(output_communities_file, *community_vector, dwg->size)) {
+			printf("Couldn't save communities output of phase #%d!\n",phase_counter);
+			briefing->execution_successful = 0;
+
+			return 0;
+		}
+
+		if(output_graphs_file && !output_save_community_graph(output_graphs_file, phase_output_community_graph, phase_counter)) {
+			printf("Couldn't save graph output of phase #%d!\n",phase_counter);
+			briefing->execution_successful = 0;
+
+			return 0;
+		}
+
+		if(!settings->benchmark_runs) {
+			printf("End of Vertex Following heuristic.\n Elapsed time: %f\n\n", end_pre_compute_wtime - begin_pre_compute_wtime);
+		}
+
+		dwg = phase_output_community_graph;
+	}
+
+
+
+
+
+
+
 
 	// TODO Insert optimized non weighted graph first phase here
 
@@ -175,7 +227,7 @@ int find_communities(dynamic_graph *dg ,dynamic_weighted_graph *dwg, execution_s
 
 		// Clean memory
 		// Avoids freeing initial input graph
-		if(phase_counter > 0)
+		if(dwg != input_graph)
 			dynamic_weighted_graph_free(dwg);
 
 		// Prepare for next phase
@@ -192,6 +244,7 @@ int find_communities(dynamic_graph *dg ,dynamic_weighted_graph *dwg, execution_s
 		printf("\tMaximum number of threads:           %d\n", omp_get_max_threads());
 		printf("\tExecution time:                      %fs\n",wtime_omp);
 		printf("\tExecution time over all threads:     %fs\n", clock_time);
+		printf("\tPrecomputation time:                 %fs\n", briefing->precompute_time);
 		printf("\tFinal modularity:                    %f\n", final_phase_modularity);
 		printf("\tNumber of phases:                    %d\n", phase_counter);
 

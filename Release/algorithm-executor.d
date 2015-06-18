@@ -4,7 +4,7 @@ algorithm-executor.d: ../algorithm-executor.c ../utilities.h \
  ../community-development.h ../community-computation-weighted.h \
  ../community-computation-commons.h \
  ../version-parallel-naive-partitioning.h \
- ../community-computation-weighted-sequential.h
+ ../community-computation-weighted-sequential.h ../vertex-following.h
 
 ../utilities.h:
 
@@ -25,3 +25,5 @@ algorithm-executor.d: ../algorithm-executor.c ../utilities.h \
 ../version-parallel-naive-partitioning.h:
 
 ../community-computation-weighted-sequential.h:
+
+../vertex-following.h:

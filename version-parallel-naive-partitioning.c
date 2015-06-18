@@ -13,7 +13,7 @@
 #include <stdlib.h>
 #include "version-parallel-naive-partitioning.h"
 
-#define DEBUG_TRACKING
+//#define DEBUG_TRACKING
 
 // Global = Local + Offset
 inline int naive_partitioning_convert_to_global_index(int local, int offset){

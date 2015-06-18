@@ -9,6 +9,8 @@ typedef struct execution_briefing {
 	double output_modularity;
 	double execution_time;
 	double clock_execution_time;
+	// Precompute time is NOT included in execution times
+	double precompute_time;
 
 	double minimum_execution_time;
 	double minimum_clock_execution_time;
@@ -23,6 +25,8 @@ typedef struct algorithm_execution_briefing {
 	double output_modularity;
 	double execution_time;
 	double clock_execution_time;
+	// Precompute time is NOT included in execution times
+	double precompute_time;
 
 	// Includes file IO, not relevant for scalability measures!
 	double global_execution_time;

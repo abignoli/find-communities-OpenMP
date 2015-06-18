@@ -12,6 +12,7 @@ void execution_briefing_print(execution_briefing *briefing) {
 	printf("\tAverage execution time:                              %fs\n", briefing->execution_time);
 	printf("\tMinimum execution time:                              %fs\n", briefing->minimum_execution_time);
 	printf("\tMinimum clock execution time:                        %fs\n", briefing->minimum_clock_execution_time);
+	printf("\tPrecomputations time:                                %fs\n", briefing->precompute_time);
 	printf("\tAverage sum of execution time over all threads:      %fs\n", briefing->clock_execution_time);
 	printf("\tTotal execution time:                                %fs\n", briefing->global_execution_time);
 }

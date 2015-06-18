@@ -11,6 +11,7 @@ typedef struct phase_execution_briefing phase_execution_briefing;
 
 #define EXECUTION_SETTINGS_PARALLEL_PARTITIONS_HIGHER_POWER_OF_2_IDENTIFIER 0
 #define EXECUTION_SETTINGS_SORT_SELECT_CHUNKS_CHUNK_SIZE_IDENTIFIER 1
+#define EXECUTION_SETTINGS_VERTEX_FOLLOWING_IDENTIFIER 2
 
 #define FILE_FORMAT_EDGE_LIST_NOT_WEIGHTED 0
 #define FILE_FORMAT_EDGE_LIST_WEIGHTED 1
@@ -50,6 +51,8 @@ typedef struct execution_settings {
 	int execution_settings_parallel_partitions_higher_power_of_2;
 
 	int execution_settings_sort_select_chunks_chunk_size;
+
+	int execution_settings_vertex_following;
 
 	int algorithm_version;
 	// Phase executors, set by execution handler depending on chosen algorithm version. Could potentially be controlled at runtime

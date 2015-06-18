@@ -22,6 +22,7 @@ void set_default(execution_settings *s) {
 	s->input_file_format = DEFAULT_FILE_FORMAT;
 	s->algorithm_version = DEFAULT_ALGORITHM_VERSION;
 	s->execution_settings_sort_select_chunks_chunk_size = DEFINE_EXECUTION_SETTINGS_SORT_SELECT_CHUNKS_CHUNK_SIZE;
+	s->execution_settings_vertex_following = DEFAULT_EXECUTION_SETTINGS_VERTEX_FOLLOWING;
 
 	s->execution_settings_parallel_partitions_higher_power_of_2 = DEFAULT_EXECUTION_SETTINGS_PARALLEL_PARTITIONS_HIGHER_POWER_OF_2;
 }
@@ -84,10 +85,13 @@ void print_help(char *prog_name) {
 			"\t                 * By default a number of partitions equal to the biggest\n"
 			"\t                   power of two smaller or equal to the number of threads\n"
 			"\t               	   is used\n"
-			"\t                 * Applies only to parallel algorithms that make use of sorting\n"
+			"\t                 * Applies only to parallel algorithms with sorting\n"
 			"\t-e %d number   Use the specified chunk size during the iterations of\n"
 			"\t              %s.\n"
 			"\t                 * Default is %d\n"
+			"\t-e %d          Applies the vertex following heuristic before the first phase.\n"
+			"\t                 * At the moment it is meant just for testing purposes,\n"
+			"\t                   since it is not implemented efficiently\n"
 			"\nAvailable file format options:\n\n"
 			"\t-f %d          Edge list, not weighted.\n"
 			"\t                 * i.e. each line is of the form:\n"
@@ -108,6 +112,7 @@ void print_help(char *prog_name) {
 			ALGORITHM_VERSION_PARALLEL_1_SORT_SELECT_CHUNKS, ALGORITHM_VERSION_PARALLEL_1_SORT_SELECT_CHUNKS_NAME,
 			EXECUTION_SETTINGS_PARALLEL_PARTITIONS_HIGHER_POWER_OF_2_IDENTIFIER,
 			EXECUTION_SETTINGS_SORT_SELECT_CHUNKS_CHUNK_SIZE_IDENTIFIER, ALGORITHM_VERSION_PARALLEL_1_SORT_SELECT_CHUNKS_NAME, DEFAULT_SORT_SELECT_CHUNKS_CHUNK_SIZE,
+			EXECUTION_SETTINGS_VERTEX_FOLLOWING_IDENTIFIER,
 			FILE_FORMAT_EDGE_LIST_NOT_WEIGHTED, FILE_FORMAT_EDGE_LIST_WEIGHTED, FILE_FORMAT_METIS);
 
 	printf(PRINTING_UTILITY_STARS);
@@ -295,6 +300,10 @@ int parse_args(int argc, char *argv[], execution_settings *s){
 							}
 							break;
 
+						case EXECUTION_SETTINGS_VERTEX_FOLLOWING_IDENTIFIER:
+							s->execution_settings_vertex_following = 1;
+							break;
+
 						default:
 							printf("Invalid execution option identifier '%s'!", argv[i]);
 							valid = 0;
@@ -383,6 +392,10 @@ void settings_print(execution_settings *settings) {
 	if(settings->execution_settings_sort_select_chunks_chunk_size > 0) {
 		some_execution_option_is_enabled = 1;
 		printf("%d (%d)", EXECUTION_SETTINGS_SORT_SELECT_CHUNKS_CHUNK_SIZE_IDENTIFIER, settings->execution_settings_sort_select_chunks_chunk_size);
+	}
+	if(settings->execution_settings_vertex_following > 0) {
+		some_execution_option_is_enabled = 1;
+		printf("%d", EXECUTION_SETTINGS_VERTEX_FOLLOWING_IDENTIFIER);
 	}
 	if(!some_execution_option_is_enabled)
 		printf("None");

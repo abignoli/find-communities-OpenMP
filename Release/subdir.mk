@@ -27,7 +27,8 @@ C_SRCS += \
 ../tmp.c \
 ../utilities.c \
 ../version-parallel-naive-partitioning.c \
-../version-parallel-sort-select-chunks.c 
+../version-parallel-sort-select-chunks.c \
+../vertex-following.c 
 
 OBJS += \
 ./Copy\ of\ neighbor-computation-package.o \
@@ -53,7 +54,8 @@ OBJS += \
 ./tmp.o \
 ./utilities.o \
 ./version-parallel-naive-partitioning.o \
-./version-parallel-sort-select-chunks.o 
+./version-parallel-sort-select-chunks.o \
+./vertex-following.o 
 
 C_DEPS += \
 ./Copy\ of\ neighbor-computation-package.d \
@@ -79,7 +81,8 @@ C_DEPS += \
 ./tmp.d \
 ./utilities.d \
 ./version-parallel-naive-partitioning.d \
-./version-parallel-sort-select-chunks.d 
+./version-parallel-sort-select-chunks.d \
+./vertex-following.d 
 
 
 # Each subdirectory must supply rules for building sources it contributes

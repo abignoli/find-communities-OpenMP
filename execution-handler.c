@@ -15,6 +15,7 @@
 void merge_briefings_average(execution_briefing *briefing, algorithm_execution_briefing *internal_briefing, int number_of_previous_runs) {
 	briefing->clock_execution_time = merge_average(briefing->clock_execution_time, number_of_previous_runs, internal_briefing->clock_execution_time, 1);
 	briefing->execution_time = merge_average(briefing->execution_time, number_of_previous_runs, internal_briefing->execution_time, 1);
+	briefing->precompute_time = merge_average(briefing->precompute_time, number_of_previous_runs, internal_briefing->precompute_time, 1);
 
 	// Might be useful if some randomized heuristics are implemented later
 	briefing->output_modularity = merge_average(briefing->output_modularity, number_of_previous_runs, internal_briefing->output_modularity, 1);
