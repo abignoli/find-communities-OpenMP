@@ -1,3 +1,5 @@
 #!/bin/bash
 
-./collect-performance-figures-custom-base.sh ../test-graphs/cnr-2000.graph 2 performance/figures-cnr-2000-190615-0354-O3.txt 2 4
+./collect-performance-figures-custom-base.sh ../test-graphs/cond-mat-2003.graph 2 performance-final/figures-condmat2003-190615-0414-O0.txt 2 4
+
+

@@ -1,0 +1,65 @@
+Collecting performance figures in performance-final/figures-cnr-2000-190615-0414-O3.txt using ../test-graphs/cnr-2000.graph as input graph
+Running: ./find-communities-OpenMP ../test-graphs/cnr-2000.graph -f 2 -b 2 -a 0 -i 0.001 -p 0.001
+Average modularity:  0.912782
+Average time:  11.711803s
+Minimum time:  11.240307s
+Running: ./find-communities-OpenMP ../test-graphs/cnr-2000.graph -f 2 -b 2 -a 2 -t 1 -i 0.001 -p 0.001
+Average modularity:  0.912782
+Average time:  15.555374s
+Minimum time:  15.365491s
+Speedup compared to sequential   Computed on average:  75.2910408900 %
+                                 Computed on minimum:  73.1529308100 %
+Running: ./find-communities-OpenMP ../test-graphs/cnr-2000.graph -f 2 -b 2 -a 2 -t 2 -i 0.001 -p 0.001
+Average modularity:  0.912640
+Average time:  7.216757s
+Minimum time:  6.428342s
+Speedup compared to one thread   Computed on average:  215.5452095700 %
+                                 Computed on minimum:  239.0272795000 %
+Speedup compared to sequential   Computed on average:  162.2862318900 %
+                                 Computed on minimum:  174.8554603900 %
+Running: ./find-communities-OpenMP ../test-graphs/cnr-2000.graph -f 2 -b 2 -a 2 -t 3 -i 0.001 -p 0.001
+Average modularity:  0.912551
+Average time:  7.278823s
+Minimum time:  6.382749s
+Speedup compared to one thread   Computed on average:  213.7072710700 %
+                                 Computed on minimum:  240.7346897000 %
+Speedup compared to sequential   Computed on average:  160.9024288600 %
+                                 Computed on minimum:  176.1044810000 %
+Running: ./find-communities-OpenMP ../test-graphs/cnr-2000.graph -f 2 -b 2 -a 2 -t 4 -i 0.001 -p 0.001
+Average modularity:  0.912626
+Average time:  4.918350s
+Minimum time:  4.650438s
+Speedup compared to one thread   Computed on average:  316.2722051000 %
+                                 Computed on minimum:  330.4095442100 %
+Speedup compared to sequential   Computed on average:  238.1246352900 %
+                                 Computed on minimum:  241.7042652700 %
+Running: ./find-communities-OpenMP ../test-graphs/cnr-2000.graph -f 2 -b 2 -a 3 -t 1 -i 0.001 -p 0.001
+Average modularity:  0.890335
+Average time:  12.141463s
+Minimum time:  12.120215s
+Speedup compared to sequential   Computed on average:  96.4612172300 %
+                                 Computed on minimum:  92.7401617800 %
+Running: ./find-communities-OpenMP ../test-graphs/cnr-2000.graph -f 2 -b 2 -a 3 -t 2 -i 0.001 -p 0.001
+Average modularity:  0.888713
+Average time:  10.003667s
+Minimum time:  9.134262s
+Speedup compared to one thread   Computed on average:  121.3701235700 %
+                                 Computed on minimum:  132.6895922100 %
+Speedup compared to sequential   Computed on average:  117.0750985600 %
+                                 Computed on minimum:  123.0565424900 %
+Running: ./find-communities-OpenMP ../test-graphs/cnr-2000.graph -f 2 -b 2 -a 3 -t 3 -i 0.001 -p 0.001
+Average modularity:  0.888713
+Average time:  10.585969s
+Minimum time:  10.503559s
+Speedup compared to one thread   Computed on average:  114.6939217300 %
+                                 Computed on minimum:  115.3915068200 %
+Speedup compared to sequential   Computed on average:  110.6351530000 %
+                                 Computed on minimum:  107.0142701100 %
+Running: ./find-communities-OpenMP ../test-graphs/cnr-2000.graph -f 2 -b 2 -a 3 -t 4 -i 0.001 -p 0.001
+Average modularity:  0.886846
+Average time:  9.457714s
+Minimum time:  9.299477s
+Speedup compared to one thread   Computed on average:  128.3762968500 %
+                                 Computed on minimum:  130.3322219000 %
+Speedup compared to sequential   Computed on average:  123.8333385800 %
+                                 Computed on minimum:  120.8703134500 %

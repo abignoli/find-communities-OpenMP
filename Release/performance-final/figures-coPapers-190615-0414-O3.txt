@@ -1,0 +1,65 @@
+Collecting performance figures in performance-final/figures-coPapers-190615-0414-O3.txt using ../test-graphs/coPapersDBLP.graph as input graph
+Running: ./find-communities-OpenMP ../test-graphs/coPapersDBLP.graph -f 2 -b 2 -a 0 -i 0.001 -p 0.001
+Average modularity:  0.848873
+Average time:  5.688932s
+Minimum time:  5.596435s
+Running: ./find-communities-OpenMP ../test-graphs/coPapersDBLP.graph -f 2 -b 2 -a 2 -t 1 -i 0.001 -p 0.001
+Average modularity:  0.848873
+Average time:  5.745767s
+Minimum time:  5.718193s
+Speedup compared to sequential   Computed on average:  99.0108370200 %
+                                 Computed on minimum:  97.8706909600 %
+Running: ./find-communities-OpenMP ../test-graphs/coPapersDBLP.graph -f 2 -b 2 -a 2 -t 2 -i 0.001 -p 0.001
+Average modularity:  0.838830
+Average time:  5.057973s
+Minimum time:  5.028208s
+Speedup compared to one thread   Computed on average:  113.5982141400 %
+                                 Computed on minimum:  113.7222843600 %
+Speedup compared to sequential   Computed on average:  112.4745426600 %
+                                 Computed on minimum:  111.3007854800 %
+Running: ./find-communities-OpenMP ../test-graphs/coPapersDBLP.graph -f 2 -b 2 -a 2 -t 3 -i 0.001 -p 0.001
+Average modularity:  0.832628
+Average time:  4.146651s
+Minimum time:  4.122437s
+Speedup compared to one thread   Computed on average:  138.5640363700 %
+                                 Computed on minimum:  138.7090451500 %
+Speedup compared to sequential   Computed on average:  137.1934122200 %
+                                 Computed on minimum:  135.7555009300 %
+Running: ./find-communities-OpenMP ../test-graphs/coPapersDBLP.graph -f 2 -b 2 -a 2 -t 4 -i 0.001 -p 0.001
+Average modularity:  0.827864
+Average time:  3.642295s
+Minimum time:  3.632606s
+Speedup compared to one thread   Computed on average:  157.7512804400 %
+                                 Computed on minimum:  157.4129701900 %
+Speedup compared to sequential   Computed on average:  156.1908631700 %
+                                 Computed on minimum:  154.0611616000 %
+Running: ./find-communities-OpenMP ../test-graphs/coPapersDBLP.graph -f 2 -b 2 -a 3 -t 1 -i 0.001 -p 0.001
+Average modularity:  0.853338
+Average time:  45.247387s
+Minimum time:  44.603703s
+Speedup compared to sequential   Computed on average:  12.5729514500 %
+                                 Computed on minimum:  12.5470187900 %
+Running: ./find-communities-OpenMP ../test-graphs/coPapersDBLP.graph -f 2 -b 2 -a 3 -t 2 -i 0.001 -p 0.001
+Average modularity:  0.852920
+Average time:  33.816170s
+Minimum time:  33.172167s
+Speedup compared to one thread   Computed on average:  133.8039967200 %
+                                 Computed on minimum:  134.4612276900 %
+Speedup compared to sequential   Computed on average:  16.8231115400 %
+                                 Computed on minimum:  16.8708755100 %
+Running: ./find-communities-OpenMP ../test-graphs/coPapersDBLP.graph -f 2 -b 2 -a 3 -t 3 -i 0.001 -p 0.001
+Average modularity:  0.852920
+Average time:  28.579105s
+Minimum time:  26.597582s
+Speedup compared to one thread   Computed on average:  158.3233169800 %
+                                 Computed on minimum:  167.6983381400 %
+Speedup compared to sequential   Computed on average:  19.9059137700 %
+                                 Computed on minimum:  21.0411420100 %
+Running: ./find-communities-OpenMP ../test-graphs/coPapersDBLP.graph -f 2 -b 2 -a 3 -t 4 -i 0.001 -p 0.001
+Average modularity:  0.853334
+Average time:  28.317430s
+Minimum time:  28.111106s
+Speedup compared to one thread   Computed on average:  159.7863471300 %
+                                 Computed on minimum:  158.6693280500 %
+Speedup compared to sequential   Computed on average:  20.0898598400 %
+                                 Computed on minimum:  19.9082704100 %

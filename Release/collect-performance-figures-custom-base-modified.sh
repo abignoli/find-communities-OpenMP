@@ -30,7 +30,7 @@ SEQUENTIAL_TIME_MINIMUM=${SEQUENTIAL_TIME_MINIMUM::-1}
 printf "\n\n"
 
 
-for j in 0 2 3
+for j in 2 3
 do
 	echo "Running: ./find-communities-OpenMP $INPUT_FILE -f $INPUT_FORMAT -b $BENCHMARK_RUNS -a $j -t 1 $OTHER_OPTIONS"
 	echo "Running: ./find-communities-OpenMP $INPUT_FILE -f $INPUT_FORMAT -b $BENCHMARK_RUNS -a $j -t 1 $OTHER_OPTIONS" >> $OUTPUT_FILE
