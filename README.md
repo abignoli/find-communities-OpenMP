@@ -24,8 +24,10 @@ The implementation also easily allow to control the flow execution to create hyb
 the existing solutions and adapt in the best way to the input graph properties. This is, 
 however, left to the programmer discretion and, as of now, no runtime tuning is implemented.
 
-*************************************************************************************************************************
-Usage:
+********************************************************************************
+
+
+--- Usage:
 
 ./find-communities-OpenMP input-file [options]
 
@@ -74,6 +76,10 @@ Available algorithm versions:
 	                   and performed and optimized Louvain version
 	                   over all partitions. Next phases are performed
 	                   using sequential implementation
+	-a 3          Parallel (Sort & Select Chunk)
+	                 * Iterations are divided in chunks in which iterations
+	                   over all nodes are done in parallel, potential transfers
+	                   are sorted and selected by computed modularity increase
 
 Available execution options:
 
@@ -83,7 +89,13 @@ Available execution options:
 	                 * By default a number of partitions equal to the biggest
 	                   power of two smaller or equal to the number of threads
 	               	   is used
-	                 * Applies only to parallel algorithm
+	                 * Applies only to parallel algorithms with sorting
+	-e 1 number   Use the specified chunk size during the iterations of
+	              Parallel (Sort & Select Chunk).
+	                 * Default is 2000
+	-e 2          Applies the vertex following heuristic before the first phase.
+	                 * At the moment it is meant just for testing purposes,
+	                   since it is not implemented efficiently
 
 Available file format options:
 
@@ -99,7 +111,8 @@ Indexes must be non negative, and weights should be greater than zero.
 
 Output is undefined if any of the above conditions is not met.
 
-*************************************************************************************************************************
+
+********************************************************************************
 
 For benchmarking purposes, I included also the bash script collect-performance-figures.sh
 

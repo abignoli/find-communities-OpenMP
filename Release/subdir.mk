@@ -89,21 +89,21 @@ C_DEPS += \
 Copy\ of\ neighbor-computation-package.o: ../Copy\ of\ neighbor-computation-package.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C Compiler'
-	gcc -fopenmp -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"Copy of neighbor-computation-package.d" -MT"Copy\ of\ neighbor-computation-package.d" -o "$@" "$<"
+	gcc -fopenmp -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"Copy of neighbor-computation-package.d" -MT"Copy\ of\ neighbor-computation-package.d" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
 Copy\ of\ version-parallel-naive-partitioning.o: ../Copy\ of\ version-parallel-naive-partitioning.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C Compiler'
-	gcc -fopenmp -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"Copy of version-parallel-naive-partitioning.d" -MT"Copy\ of\ version-parallel-naive-partitioning.d" -o "$@" "$<"
+	gcc -fopenmp -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"Copy of version-parallel-naive-partitioning.d" -MT"Copy\ of\ version-parallel-naive-partitioning.d" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
 %.o: ../%.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C Compiler'
-	gcc -fopenmp -O0 -g3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
+	gcc -fopenmp -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
