@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Run in the same folder as find-communities executable (or edit the script accordingly)
+
 INPUT_FILE=$1
 INPUT_FORMAT=$2
 OUTPUT_FILE=$3

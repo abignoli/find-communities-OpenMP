@@ -37,11 +37,6 @@ int main(int argc, char * argv[]) {
 		free(output_dwg);
 	}
 
-//	if(settings->graph_type == NOT_WEIGHTED) {
-//		printf(PRINTING_NOT_YET_IMPLEMENTED);
-//		return;
-//	}
-
 	printf(PRINTING_UTILITY_STARS);
 }
 

@@ -4,8 +4,6 @@
 
 # Add inputs and outputs from these tool invocations to the build variables 
 C_SRCS += \
-../Copy\ of\ neighbor-computation-package.c \
-../Copy\ of\ version-parallel-naive-partitioning.c \
 ../algorithm-executor.c \
 ../community-computation-commons.c \
 ../community-computation-weighted-sequential.c \
@@ -24,15 +22,12 @@ C_SRCS += \
 ../shared-graph.c \
 ../sorted-linked-list.c \
 ../temporary-community-edge.c \
-../tmp.c \
 ../utilities.c \
 ../version-parallel-naive-partitioning.c \
 ../version-parallel-sort-select-chunks.c \
 ../vertex-following.c 
 
 OBJS += \
-./Copy\ of\ neighbor-computation-package.o \
-./Copy\ of\ version-parallel-naive-partitioning.o \
 ./algorithm-executor.o \
 ./community-computation-commons.o \
 ./community-computation-weighted-sequential.o \
@@ -51,15 +46,12 @@ OBJS += \
 ./shared-graph.o \
 ./sorted-linked-list.o \
 ./temporary-community-edge.o \
-./tmp.o \
 ./utilities.o \
 ./version-parallel-naive-partitioning.o \
 ./version-parallel-sort-select-chunks.o \
 ./vertex-following.o 
 
 C_DEPS += \
-./Copy\ of\ neighbor-computation-package.d \
-./Copy\ of\ version-parallel-naive-partitioning.d \
 ./algorithm-executor.d \
 ./community-computation-commons.d \
 ./community-computation-weighted-sequential.d \
@@ -78,7 +70,6 @@ C_DEPS += \
 ./shared-graph.d \
 ./sorted-linked-list.d \
 ./temporary-community-edge.d \
-./tmp.d \
 ./utilities.d \
 ./version-parallel-naive-partitioning.d \
 ./version-parallel-sort-select-chunks.d \
@@ -86,24 +77,10 @@ C_DEPS += \
 
 
 # Each subdirectory must supply rules for building sources it contributes
-Copy\ of\ neighbor-computation-package.o: ../Copy\ of\ neighbor-computation-package.c
-	@echo 'Building file: $<'
-	@echo 'Invoking: GCC C Compiler'
-	gcc -fopenmp -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"Copy of neighbor-computation-package.d" -MT"Copy\ of\ neighbor-computation-package.d" -o "$@" "$<"
-	@echo 'Finished building: $<'
-	@echo ' '
-
-Copy\ of\ version-parallel-naive-partitioning.o: ../Copy\ of\ version-parallel-naive-partitioning.c
-	@echo 'Building file: $<'
-	@echo 'Invoking: GCC C Compiler'
-	gcc -fopenmp -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"Copy of version-parallel-naive-partitioning.d" -MT"Copy\ of\ version-parallel-naive-partitioning.d" -o "$@" "$<"
-	@echo 'Finished building: $<'
-	@echo ' '
-
 %.o: ../%.c
 	@echo 'Building file: $<'
 	@echo 'Invoking: GCC C Compiler'
-	gcc -fopenmp -O3 -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
+	gcc -fopenmp -O2 -g -Wall -c -fmessage-length=0 -MMD -MP -MF"$(@:%.o=%.d)" -MT"$(@:%.o=%.d)" -o "$@" "$<"
 	@echo 'Finished building: $<'
 	@echo ' '
 
