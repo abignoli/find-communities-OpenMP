@@ -13,8 +13,9 @@ on the Louvain method, but there is room for expansion.
 
 In this release, there are three different algorithms implemented. 
  - Sequential Louvain
- - Parallel (Merge & Sort)
- - Parallel (Naive Partitioning)
+ - Parallel Sort & Select 
+ - Parallel Naive Partitioning
+ - Parallel Sort & Select Chunk based
 
 There are several execution options that allow the user to achieve an high degree of control,
 besides the selection of the algorithm to run. 
