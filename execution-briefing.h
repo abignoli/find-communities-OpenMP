@@ -1,3 +1,8 @@
+/**
+ * Author: Andrea Bignoli
+ * E-mail: andrea.bignoli@gmail.com
+ */
+
 #ifndef EXECUTION_BRIEFING_H
 #define EXECUTION_BRIEFING_H
 

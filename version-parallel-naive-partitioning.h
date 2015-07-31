@@ -1,3 +1,8 @@
+/**
+ * Author: Andrea Bignoli
+ * E-mail: andrea.bignoli@gmail.com
+ */
+
 #ifndef VERSION_PARALLEL_NAIVE_PARTITIONING_H
 #define VERSION_PARALLEL_NAIVE_PARTITIONING_H
 

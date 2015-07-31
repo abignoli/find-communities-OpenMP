@@ -1,3 +1,8 @@
+/**
+ * Author: Andrea Bignoli
+ * E-mail: andrea.bignoli@gmail.com
+ */
+
 #ifndef PARALLEL_SORT_SELECT_CHUNKS_H
 #define PARALLEL_SORT_SELECT_CHUNKS_H
 

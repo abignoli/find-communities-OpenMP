@@ -1,3 +1,8 @@
+/**
+ * Author: Andrea Bignoli
+ * E-mail: andrea.bignoli@gmail.com
+ */
+
 #ifndef COMMUNITY_COMPUTATIONS_COMMONS_H
 #define COMMUNITY_COMPUTATIONS_COMMONS_H
 

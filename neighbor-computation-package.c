@@ -1,3 +1,8 @@
+/**
+ * Author: Andrea Bignoli
+ * E-mail: andrea.bignoli@gmail.com
+ */
+
 #include <stdio.h>
 #include <omp.h>
 #include <stdlib.h>

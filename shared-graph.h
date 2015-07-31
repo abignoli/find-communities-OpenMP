@@ -1,3 +1,8 @@
+/**
+ * Author: Andrea Bignoli
+ * E-mail: andrea.bignoli@gmail.com
+ */
+
 #ifndef SHARED_GRAPH_H
 #define SHARED_GRAPH_H
 

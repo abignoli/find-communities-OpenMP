@@ -1,3 +1,8 @@
+/**
+ * Author: Andrea Bignoli
+ * E-mail: andrea.bignoli@gmail.com
+ */
+
 #include "temporary-community-edge.h"
 
 void temporary_community_edge_init(temporary_community_edge *tce){

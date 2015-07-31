@@ -1,3 +1,8 @@
+/**
+ * Author: Andrea Bignoli
+ * E-mail: andrea.bignoli@gmail.com
+ */
+
 #include "community-development.h"
 #include "sorted-linked-list.h"
 #include <stdio.h>

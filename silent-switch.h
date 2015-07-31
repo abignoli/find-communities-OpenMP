@@ -1,3 +1,8 @@
+/**
+ * Author: Andrea Bignoli
+ * E-mail: andrea.bignoli@gmail.com
+ */
+
 #ifndef SILENT_SWITCH_H
 #define SILENT_SWITCH_H
 

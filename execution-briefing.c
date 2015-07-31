@@ -1,3 +1,8 @@
+/**
+ * Author: Andrea Bignoli
+ * E-mail: andrea.bignoli@gmail.com
+ */
+
 #include "execution-briefing.h"
 #include <stdio.h>
 #include "utilities.h"

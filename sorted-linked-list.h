@@ -1,3 +1,8 @@
+/**
+ * Author: Andrea Bignoli
+ * E-mail: andrea.bignoli@gmail.com
+ */
+
 #ifndef SORTED_LINKED_LIST_H
 #define SORTED_LINKED_LIST_H
 

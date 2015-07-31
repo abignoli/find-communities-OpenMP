@@ -1,3 +1,8 @@
+/**
+ * Author: Andrea Bignoli
+ * E-mail: andrea.bignoli@gmail.com
+ */
+
 #include "community-computation-weighted.h"
 #include "community-development.h"
 #include "sorted-linked-list.h"

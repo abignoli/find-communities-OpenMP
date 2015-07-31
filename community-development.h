@@ -1,3 +1,8 @@
+/**
+ * Author: Andrea Bignoli
+ * E-mail: andrea.bignoli@gmail.com
+ */
+
 #ifndef COMMUNITY_DEVELOPMENT_H
 #define COMMUNITY_DEVELOPMENT_H
 

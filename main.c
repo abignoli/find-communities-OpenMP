@@ -1,3 +1,8 @@
+/**
+ * Author: Andrea Bignoli
+ * E-mail: andrea.bignoli@gmail.com
+ */
+
 #include "parse-args.h"
 #include "execution-settings.h"
 #include "dynamic-graph.h"

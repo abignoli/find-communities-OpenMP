@@ -1,3 +1,8 @@
+/**
+ * Author: Andrea Bignoli
+ * E-mail: andrea.bignoli@gmail.com
+ */
+
 #ifndef VERTEX_FOLLOWING_H
 #define VERTEX_FOLLOWING_H
 

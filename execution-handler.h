@@ -1,3 +1,8 @@
+/**
+ * Author: Andrea Bignoli
+ * E-mail: andrea.bignoli@gmail.com
+ */
+
 #ifndef EXECUTION_HANDLER_H
 #define EXECUTION_HANDLER_H
 

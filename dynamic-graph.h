@@ -1,3 +1,8 @@
+/**
+ * Author: Andrea Bignoli
+ * E-mail: andrea.bignoli@gmail.com
+ */
+
 #ifndef DYNAMIC_GRAPH_H
 #define DYNAMIC_GRAPH_H
 

@@ -1,5 +1,8 @@
 # find-communities-OpenMP
 
+Author: Andrea Bignoli
+E-mail: andrea.bignoli@gmail.com
+
 *************************************************************************************************************************
 
 Release notes:
@@ -23,6 +26,7 @@ besides the selection of the algorithm to run.
 The implementation also easily allows to control the execution flow to create hybrids from 
 the existing algorithms and adapt in the best way to the input graph properties. This is, 
 however, left to the user's discretion and, as of now, no runtime tuning is implemented.
+
 
 ********************************************************************************
 
