@@ -5,24 +5,23 @@
 Release notes:
 
 This release includes the definition of a framework for the development of solutions to 
-the problem of finding communities in large graphs. Currently the only implemented methods 
-focus on the Louvain method, but there is room for expansion. 
+the problem of finding communities in large graphs. 
 
 This framework is intended to be a tool to study the problem, develop, implement and 
-analyze new solutions, both sequential and parallel. 
+analyze new solutions, both sequential and parallel. The solutions currently implemented are based
+on the Louvain method, but there is room for expansion. 
 
-In this release there are three different algorithms implemented. 
+In this release, there are three different algorithms implemented. 
  - Sequential Louvain
  - Parallel (Merge & Sort)
  - Parallel (Naive Partitioning)
-The user is able to choose the preferred one at program start with the -a option. 
-More information is contained in the help (that is shown using the -h option). 
 
-There are also options to control the number of threads, and several execution options.
+There are several execution options that allow the user to achieve an high degree of control,
+besides the selection of the algorithm to run. 
 
-The implementation also easily allow to control the flow execution to create hybrids from 
-the existing solutions and adapt in the best way to the input graph properties. This is, 
-however, left to the programmer discretion and, as of now, no runtime tuning is implemented.
+The implementation also easily allows to control the execution flow to create hybrids from 
+the existing algorithms and adapt in the best way to the input graph properties. This is, 
+however, left to the user's discretion and, as of now, no runtime tuning is implemented.
 
 ********************************************************************************
 
