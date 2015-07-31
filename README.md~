@@ -14,7 +14,7 @@ This framework is intended to be a tool to study the problem, develop, implement
 analyze new solutions, both sequential and parallel. The solutions currently implemented are based
 on the Louvain method, but there is room for expansion. 
 
-In this release, these algorithms are implemented:
+In this release, there are three different algorithms implemented. 
  - Sequential Louvain
  - Parallel Sort & Select 
  - Parallel Naive Partitioning
